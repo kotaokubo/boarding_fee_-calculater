@@ -48,6 +48,25 @@ const planTimesEl = document.getElementById('planTimes');
   updateDateWeekdayDisplay();
 })();
 
+// (person-count inputs are handled by direct event listeners later in the file)
+
+// Populate 0..100 options for person-count selects
+function populateCountSelects() {
+  const max = 100;
+  const opts = [];
+  for (let i = 0; i <= max; i++) {
+    opts.push(`<option value="${i}">${i}</option>`);
+  }
+  const html = opts.join('\n');
+  if (menEl) menEl.innerHTML = html;
+  if (womenEl) womenEl.innerHTML = html;
+  if (studentEl) studentEl.innerHTML = html;
+  // ensure state reflects initial selection
+  state.men = Number(menEl && menEl.value) || 0;
+  state.women = Number(womenEl && womenEl.value) || 0;
+  state.student = Number(studentEl && studentEl.value) || 0;
+}
+
 // Populate plan select based on tripType
 function updatePlanOptions() {
   const type = state.tripType;
@@ -221,8 +240,8 @@ function renderRentalOptions() {
 
 function addRentalRow(name, priceInfo) {
   const wrap = document.createElement('div');
-  wrap.className = 'rental-item card';
-  wrap.style.padding = '8px';
+  // render rentals as simple list items (not cards)
+  wrap.className = 'rental-item';
   // Simplified UI: no checkbox — show name, price and always-enabled qty input.
   const label = document.createElement('div');
   label.style.flex = '1';
@@ -238,17 +257,23 @@ function addRentalRow(name, priceInfo) {
     label.appendChild(refundLabel);
   }
 
-  const qty = document.createElement('input');
-  qty.type = 'number';
-  qty.min = 0;
-  qty.value = 0;
-  qty.style.width = '70px';
+  // create a select 0..100 for qty so users can pick up to 100
+  const qty = document.createElement('select');
+  qty.className = 'count-select';
+  // build options
+  for (let i = 0; i <= 100; i++) {
+    const o = document.createElement('option');
+    o.value = String(i);
+    o.textContent = String(i);
+    qty.appendChild(o);
+  }
   // initialize rental qty in state
   state.rentals[name] = 0;
 
-  qty.addEventListener('input', () => {
-    const v = Math.max(0, Math.floor(Number(qty.value) || 0));
-    qty.value = v;
+  qty.addEventListener('change', () => {
+    const v = Math.max(0, Math.min(100, Number(qty.value) || 0));
+    // keep select value normalized
+    qty.value = String(v);
     state.rentals[name] = v;
     calculateAndRender();
   });
@@ -543,8 +568,6 @@ function calculateAndRender() {
   }
   // 備考：仕掛けはレンタル扱いではありません（250〜500円／釣り物により変動）。
   parts.push('');
-  parts.push('備考：');
-  parts.push('  仕掛けはレンタル扱いではありません（250〜500円／釣り物により変動）。');
 
   parts.push('合計金額：' + res.total.toLocaleString() + '円');
 
@@ -665,6 +688,7 @@ resetBtn.addEventListener('click', () => {
 
 // Initialize
 (function init(){
+  populateCountSelects();
   updatePlanOptions();
   calculateAndRender();
 })();

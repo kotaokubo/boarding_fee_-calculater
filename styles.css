@@ -1,30 +1,100 @@
-:root{font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; color:#222}
-body{max-width:900px;margin:24px auto;padding:20px;background:#f8f9fb;border-radius:8px}
-h1{font-size:20px;margin-bottom:8px}
-.card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:12px}
-label{display:block;margin-top:8px;font-weight:600}
+:root{
+	--font-sans: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+	--bg: #f8fafc; /* bg-gray-50-ish */
+	--surface: #ffffff;
+	--text: #1f2937; /* text-gray-800 */
+	--muted: #6b7280; /* text-gray-500 */
+	--blue-600: #2563eb;
+	--blue-700: #1d4ed8;
+	--blue-400: #60a5fa;
+	--gray-200: #e5e7eb;
+	font-family: var(--font-sans);
+	color: var(--text);
+}
+
+/* Apply unified font to page and form controls for consistent rendering */
+html, body, input, select, textarea, button {
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Page */
+body{background:var(--bg);margin:0;padding:24px;font-size:16px;line-height:1.45}
+.app-container{max-width:980px;margin:0 auto;}
+.top{margin-bottom:18px}
+.site-title{font-size:20px;margin:0 0 4px 0;color:var(--text);font-weight:700}
+.lead{margin:0;color:var(--muted);font-size:14px}
+
+/* layout */
+.grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+
+/* Card */
+.card{background:var(--surface);padding:20px;border-radius:16px;box-shadow:0 6px 18px rgba(20,24,28,0.06);border:1px solid rgba(15,23,42,0.04)}
+.form-card{padding:20px}
+.reservation-summary{padding:18px}
+.section-title{font-size:16px;margin:0 0 10px 0;color:#374151;font-weight:600}
+
+/* fields */
+.field{margin-bottom:12px}
+label{display:block;margin-bottom:8px;font-weight:600;color:var(--text)}
+.meta{color:var(--muted);font-size:13px}
+.date-row{display:flex;gap:10px;align-items:center}
+.plan-row{display:flex;gap:12px;align-items:center}
+
+/* inputs */
+.form-input{padding:12px 14px;border:1px solid var(--gray-200);border-radius:12px;background:#fff;color:var(--text);height:44px;box-sizing:border-box}
+.form-input:focus{outline:none;box-shadow:0 0 0 4px rgba(96,165,250,0.18);border-color:var(--blue-600)}
+.form-input.wide{min-width:124px;max-width:100%}
+select.form-input{appearance:none}
+
+/* select used for person counts */
+.count-select{width:100px}
+
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
-/* Ensure each direct child of a row stacks label + control consistently */
 .row > div{display:flex;flex-direction:column}
 .row > div > label{margin-bottom:6px}
-/* Normalize control heights so date and number inputs align */
-select,input[type="date"],input[type="number"]{padding:8px;border:1px solid #d7dbe0;border-radius:6px;line-height:1;height:38px;box-sizing:border-box}
 
 .label-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .label-row > label{margin:0}
-.unit-price{font-size:14px;color:#222;margin-left:8px;font-weight:600}
+.unit-price{font-size:14px;color:var(--text);font-weight:700}
+.people-inputs .col{min-width:120px}
 
-/* screen-reader only helper */
+/* render people inputs as list-like rows similar to rentals */
+.people-inputs .row{flex-direction:column}
+.people-inputs .col{display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:10px 8px;border-bottom:1px solid var(--gray-200);min-width:0}
+.people-inputs .col:last-child{border-bottom:none}
+.people-inputs .label-row{display:flex;flex:1;gap:8px;align-items:center}
+.people-inputs select.count-select{width:80px}
+.people-col{ gap: 12px; width: 100%; }
+
+.rentals{display:flex;flex-direction:column;margin-top:6px;padding:0}
+.rental-item{display:flex;gap:12px;align-items:center;padding:10px 8px;border-bottom:1px solid var(--gray-200)}
+.rental-item:last-child{border-bottom:none}
+.rental-item .label{flex:1}
+.rental-item select.count-select{width:80px}
+
+/* actions */
+.actions{display:flex;gap:10px;margin-top:10px}
+.btn{border-radius:10px;padding:10px 14px;border:1px solid transparent;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--blue-600);color:white}
+.btn-primary:hover{background:var(--blue-700)}
+.btn-secondary{background:var(--gray-200);color:#374151}
+.btn-secondary:hover{background:#d1d5db}
+
+/* summary box styles */
+.breakdown{font-size:14px;color:var(--text);margin-bottom:12px}
+.total-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.total{font-weight:800;font-size:20px}
+
+.muted{color:var(--muted)}
+
+/* accessibility helpers */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.small{width:120px}
-.people-inputs .col{min-width:140px}
-.rentals{display:flex;flex-direction:column;gap:6px;margin-top:8px}
-.rental-item{display:flex;gap:8px;align-items:center}
-.rental-item input[type="number"]{width:70px}
-.summary{font-size:16px;padding:12px;border-radius:8px;background:#fff3cd;color:#6a4d00}
-.total{font-weight:800;font-size:18px}
-button{background:#0b76ef;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
-button.secondary{background:#6b7280}
-.muted{color:#6b7280;font-size:13px}
-footer{margin-top:16px;font-size:13px;color:#666}
-@media (max-width:560px){.row{flex-direction:column}}
+
+@media (max-width:560px){
+	.row{flex-direction:column}
+	.grid{grid-template-columns:1fr}
+	.actions{flex-direction:column}
+}

@@ -6,74 +6,93 @@
   <title>釣り船 料金計算 & 予約メール</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <h1>釣り船 料金計算 & 予約メール機能</h1>
-  <div class="card">
-    <div>
-      <label for="tripType">釣り船</label>
-      <select id="tripType">
-        <option value="乗合船">乗合船</option>
-        <option value="仕立て船">仕立て船（貸切船）</option>
-      </select>
-    </div>
+<body class="bg-root">
+  <div class="app-container">
+    <header class="top">
+      <h1 class="site-title">釣り船 料金計算 &amp; 予約メール</h1>
+      <p class="lead muted">シンプルで見やすい予約フォーム。必要項目を入力して予約メールを作成してください。</p>
+    </header>
 
-    <div style="display:flex;flex-direction:column;gap:6px;">
-      <label for="planSelect" style="margin:0;padding:0">プラン</label>
-      <div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
-        <select id="planSelect" style="width:320px;max-width:60vw;padding:6px 8px;height:36px;"></select>
-        <div id="planTimes" style="white-space:nowrap;color:#333;font-size:0.95em;padding-left:6px;"> </div>
-      </div>
-    </div>
-    <div id="planSupplement" style="margin-top:6px;color:#333;font-size:0.95em"></div>
+    <main class="grid">
+      <section class="card form-card">
+        <h2 class="section-title">予約情報</h2>
 
-    <div>
-      <label for="date">日付</label>
-      <input type="date" id="date" />
-      <span id="dateWeekday" style="margin-left:8px;color:#333;font-size:0.95em"></span>
-    </div>
-
-    <div class="people-inputs">
-      <label>人数</label>
-      <div class="row" aria-label="人数">
-        <div class="col">
-            <div class="label-row">
-              <label for="menCount"><span class="sr-only">男性</span></label>
-              <div class="unit-price" id="priceMen">—</div>
-            </div>
-            <input type="number" id="menCount" min="0" value="0" />
+        <div class="field">
+          <label for="tripType">釣り船の種類</label>
+          <select id="tripType" class="form-input">
+            <option value="乗合船">乗合船</option>
+            <option value="仕立て船">仕立て船（貸切船）</option>
+          </select>
         </div>
-        <div class="col">
-            <div class="label-row">
-              <label for="womenCount"><span class="sr-only">女性</span></label>
-              <div class="unit-price" id="priceWomen">—</div>
-            </div>
-            <input type="number" id="womenCount" min="0" value="0" />
+
+        <div class="field">
+          <label for="planSelect">プラン</label>
+          <div class="plan-row">
+            <select id="planSelect" class="form-input wide"></select>
+            <div id="planTimes" class="meta"></div>
+          </div>
+          <div id="planSupplement" class="meta muted" style="margin-top:6px"></div>
         </div>
-        <div class="col">
-            <div class="label-row">
-              <label for="studentCount"><span class="sr-only">高校生</span></label>
-              <div class="unit-price" id="priceStudent">—</div>
-            </div>
-            <input type="number" id="studentCount" min="0" value="0" />
+
+        <div class="field">
+          <label for="date">日付</label>
+          <div class="date-row">
+            <input type="date" id="date" class="form-input" />
+            <span id="dateWeekday" class="meta" aria-live="polite"></span>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div>
-      <label>レンタル品（複数可）</label>
-      <div id="rentalList" class="rentals"></div>
-      <div id="shikakeNote" class="note" style="margin-top:6px;color:#333;font-size:0.95em">仕掛け：250〜500円（釣り物により変動） — レンタル料金には含まれません。実際の金額は当日ご案内します。</div>
-    </div>
+        <div class="field people-inputs">
+          <label>人数</label>
+          <div class="row" aria-label="人数">
+            <div class="col people-col">
+              <div class="label-row">
+                <div class="unit-price" id="priceMen">—</div>
+              </div>
+              <select id="menCount" class="count-select">
+                <!-- options 0..100 -->
+              </select>
+            </div>
+            <div class="col people-col">
+              <div class="label-row">
+                <div class="unit-price" id="priceWomen">—</div>
+              </div>
+              <select id="womenCount" class="count-select">
+                <!-- options 0..100 -->
+              </select>
+            </div>
+            <div class="col people-col">
+              <div class="label-row">
+                <div class="unit-price" id="priceStudent">—</div>
+              </div>
+              <select id="studentCount" class="count-select">
+                <!-- options 0..100 -->
+              </select>
+            </div>
+          </div>
+        </div>
 
-    <div style="margin-top:12px">
-      <button id="mailtoBtn">予約メールを作成</button>
-      <button id="resetBtn" class="secondary" style="margin-left:8px">リセット</button>
-    </div>
-  </div>
+        <div class="field">
+          <label>レンタル品（複数可）</label>
+          <div id="rentalList" class="rentals"></div>
+          <div id="shikakeNote" class="note muted" style="margin-top:6px; font-size: 14px">※ 仕掛け：250〜500円（釣り物により変動）</div>
+        </div>
 
-  <div class="card summary">
-    <div id="breakdown">— 選択内容を入力してください —</div>
-    <div style="margin-top:8px" class="total" id="totalAmount"></div>
+        <div class="actions">
+          <button id="mailtoBtn" class="btn btn-primary">予約メールを作成</button>
+          <button id="resetBtn" class="btn btn-secondary">リセット</button>
+        </div>
+      </section>
+
+      <aside class="card reservation-summary">
+        <h2 class="section-title">予約内容</h2>
+        <div id="breakdown" class="breakdown">— 選択内容を入力してください —</div>
+        <div class="total-row">
+          <div class="label muted">合計</div>
+          <div class="total" id="totalAmount">—</div>
+        </div>
+      </aside>
+    </main>
   </div>
 
   <script src="plans-data.js"></script>
