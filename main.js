@@ -29,6 +29,7 @@ const studentEl = document.getElementById('studentCount');
 const rentalListEl = document.getElementById('rentalList');
 const breakdownEl = document.getElementById('breakdown');
 const totalAmountEl = document.getElementById('totalAmount');
+const fixedTotalAmountEl = document.getElementById('fixedTotalAmount');
 const mailtoBtn = document.getElementById('mailtoBtn');
 const resetBtn = document.getElementById('resetBtn');
 const priceMenEl = document.getElementById('priceMen');
@@ -551,7 +552,9 @@ function calculateAndRender() {
     const rprice = (rInfo && rInfo.price) ? rInfo.price : 0;
     rentParts.push(`${name} × ${qty} = ${(rprice * qty).toLocaleString()}円`);
     if (rInfo && rInfo.refund) {
-      refundParts.push(`${name}：${rInfo.refund.toLocaleString()}円`);
+      const perRefund = Number(rInfo.refund) || 0;
+      const totalRefund = perRefund * qty;
+      refundParts.push(`${name}：${perRefund.toLocaleString()}円 × ${qty} = ${totalRefund.toLocaleString()}円`);
     }
   }
   parts.push('');
@@ -574,6 +577,7 @@ function calculateAndRender() {
   // Use pre-wrap to respect line breaks
   breakdownEl.innerHTML = '<pre style="white-space:pre-wrap;margin:0">' + parts.join('\n') + '</pre>';
   totalAmountEl.textContent = '合計：' + res.total.toLocaleString() + '円';
+  if (fixedTotalAmountEl) fixedTotalAmountEl.textContent = '合計：' + res.total.toLocaleString() + '円';
 
   return res;
 }
@@ -626,7 +630,9 @@ function createMailTo() {
       rInfo = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     }
     if (rInfo && rInfo.refund) {
-      refundBodyParts.push(`${name}：${rInfo.refund.toLocaleString()}円（返却時）`);
+      const perRefund = Number(rInfo.refund) || 0;
+      const totalRefund = perRefund * qty;
+      refundBodyParts.push(`${name}：${perRefund.toLocaleString()}円 × ${qty} = ${totalRefund.toLocaleString()}円`);
     }
   }
   if (refundBodyParts.length) {
@@ -669,6 +675,10 @@ dateEl.addEventListener('change', (e) => {
 menEl.addEventListener('input', (e) => { state.men = Number(e.target.value)||0; calculateAndRender(); });
 womenEl.addEventListener('input', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
 studentEl.addEventListener('input', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
+// also handle change events for select elements on mobile/browsers that fire change rather than input
+menEl.addEventListener('change', (e) => { state.men = Number(e.target.value)||0; calculateAndRender(); });
+womenEl.addEventListener('change', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
+studentEl.addEventListener('change', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
 
 mailtoBtn.addEventListener('click', (e) => {
   e.preventDefault();
