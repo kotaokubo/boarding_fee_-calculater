@@ -145,7 +145,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 	.grid{grid-template-columns:1fr}
 	
 	/* モバイル用フォーム調整 */
-	.form-input{font-size:16px;padding:12px 16px;height:44px}
+	.form-input{padding:12px 16px;height:44px}
 	.form-input[type="date"]{width:100%;max-width:100%;text-align:left;height:44px;padding:12px 40px 12px 16px}
 	
 	/* モバイル用数量選択 */
@@ -186,7 +186,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 
 @media (max-width:560px){
   .fixed-total-inner{padding:12px 24px}
-  .fixed-amount{font-size:16px}
   
   /* スマホでの安全領域対応を強化 */
   .fixed-total{
@@ -195,8 +194,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   
   /* モバイル用セレクトボックス調整 */
   .select-dropdown{
-    padding:12px 36px 12px 16px;
-    font-size:16px;
     min-height:48px;
     background-position:right 14px center;
   }
