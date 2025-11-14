@@ -34,19 +34,19 @@ body{background:var(--bg);margin:0;padding:24px;font-size:16px;line-height:1.45}
 .card{background:var(--surface);padding:20px;border-radius:16px;box-shadow:0 6px 18px rgba(20,24,28,0.06);border:1px solid rgba(15,23,42,0.04)}
 .form-card{padding:20px}
 .reservation-summary{padding:18px}
-.section-title{font-size:16px;margin:0 0 10px 0;color:#374151;font-weight:600}
+.section-title{font-size:20px;margin:0 0 10px 0;color:#374151;font-weight:600}
 
 /* fields */
 .field{margin-bottom:12px}
-label{display:block;margin-bottom:8px;font-weight:600;color:var(--text)}
+label{display:block;padding-top:15px;margin-bottom:8px;font-weight:600;color:var(--text)}
 .meta{color:var(--muted);font-size:13px}
 .date-row{display:flex;gap:10px;align-items:center}
 .plan-row{display:flex;gap:12px;align-items:center}
 
 /* inputs */
-.form-input{padding:12px 14px;border:1px solid var(--gray-200);border-radius:12px;background:#fff;color:var(--text);height:44px;box-sizing:border-box}
+.form-input{font-size: 15px;padding:12px;border:1px solid var(--gray-200);border-radius:12px;background:#fff;color:var(--text);height:44px;box-sizing:border-box}
 .form-input:focus{outline:none;box-shadow:0 0 0 4px rgba(96,165,250,0.18);border-color:var(--blue-600)}
-.form-input.wide{min-width:124px;max-width:100%}
+.form-input.wide{min-width:120px;max-width:100%}
 select.form-input{appearance:none}
 
 /* select used for person counts */
@@ -58,35 +58,38 @@ select.form-input{appearance:none}
 
 .label-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .label-row > label{margin:0}
-.unit-price{font-size:14px;color:var(--text);font-weight:700}
+.unit-price{font-size:15px;color:var(--text);}
 .people-inputs .col{min-width:120px}
 
 /* render people inputs as list-like rows similar to rentals */
 .people-inputs .row{flex-direction:column}
-.people-inputs .col{display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:10px 8px;border-bottom:1px solid var(--gray-200);min-width:0}
+.people-inputs .col{display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:10px 0px;border-bottom:1px solid var(--gray-200);min-width:0}
 .people-inputs .col:last-child{border-bottom:none}
 .people-inputs .label-row{display:flex;flex:1;gap:8px;align-items:center}
-.people-inputs select.count-select{width:80px}
+.people-inputs select.count-select{width:60px}
 .people-col{ gap: 12px; width: 100%; }
 
-.rentals{display:flex;flex-direction:column;margin-top:6px;padding:0}
-.rental-item{display:flex;gap:12px;align-items:center;padding:10px 8px;border-bottom:1px solid var(--gray-200)}
+.rentals{display:flex;flex-direction:column;margin-top:6px;padding:0;font-size: 15px}
+.rental-item{display:flex;gap:12px;align-items:center;padding:10px 0px;border-bottom:1px solid var(--gray-200)}
 .rental-item:last-child{border-bottom:none}
 .rental-item .label{flex:1}
-.rental-item select.count-select{width:80px}
+.rental-item select.count-select{width:60px}
 
 /* actions */
-.actions{display:flex;gap:10px;margin-top:10px}
+.actions{display:flex;gap:10px;padding:20px 0;}
 .btn{border-radius:10px;padding:10px 14px;border:1px solid transparent;cursor:pointer;font-weight:600}
-.btn-primary{background:var(--blue-600);color:white}
+.btn-primary{background:var(--blue-600);color:white;font-size: 16px;width:65%;}
 .btn-primary:hover{background:var(--blue-700)}
-.btn-secondary{background:var(--gray-200);color:#374151}
+.btn-secondary{background:var(--gray-200);color:#374151;font-size: 16px;width:35%;}
 .btn-secondary:hover{background:#d1d5db}
 
 /* summary box styles */
-.breakdown{font-size:14px;color:var(--text);margin-bottom:12px}
+.ｆ{font-size:14px;color:var(--text);margin-bottom:12px}
 .total-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
 .total{font-weight:800;font-size:20px}
+
+/* breakdown styles */
+.breakdown{font-family:var(--font-sans);font-size:15px;line-height:1.6;color:var(--text)}
 
 .muted{color:var(--muted)}
 
@@ -96,7 +99,6 @@ select.form-input{appearance:none}
 @media (max-width:560px){
 	.row{flex-direction:column}
 	.grid{grid-template-columns:1fr}
-	.actions{flex-direction:column}
 }
 
 /* fixed total bar */

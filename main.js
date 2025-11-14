@@ -16,7 +16,8 @@ const state = {
   men: 0,
   women: 0,
   student: 0,
-  rentals: {} // {name: qty}
+  rentals: {}, // {name: qty}
+  shikake: {} // {name: qty}
 };
 
 // DOM refs
@@ -27,8 +28,8 @@ const menEl = document.getElementById('menCount');
 const womenEl = document.getElementById('womenCount');
 const studentEl = document.getElementById('studentCount');
 const rentalListEl = document.getElementById('rentalList');
+const shikakeListEl = document.getElementById('shikakeList');
 const breakdownEl = document.getElementById('breakdown');
-const totalAmountEl = document.getElementById('totalAmount');
 const fixedTotalAmountEl = document.getElementById('fixedTotalAmount');
 const mailtoBtn = document.getElementById('mailtoBtn');
 const resetBtn = document.getElementById('resetBtn');
@@ -92,6 +93,7 @@ function updatePlanOptions() {
   // set state.plan to first option
   state.plan = planSelectEl.value || null;
   updateUnitPrices();
+  renderShikakeOptions();
   renderRentalOptions();
   calculateAndRender();
 }
@@ -112,7 +114,7 @@ function updateUnitPrices(){
   if (fareObj) {
     priceMenEl.textContent = '男性：' + fareObj.men.toLocaleString() + '円';
     priceWomenEl.textContent = '女性：' + fareObj.women.toLocaleString() + '円';
-    priceStudentEl.textContent = '高校生：' + fareObj.student.toLocaleString() + '円';
+    priceStudentEl.textContent = '子供（高校生以下）：' + fareObj.student.toLocaleString() + '円';
   } else {
     priceMenEl.textContent = '—';
     priceWomenEl.textContent = '—';
@@ -139,23 +141,35 @@ function updatePlanSupplement(){
   if (!el) return;
   const plan = state.plan || '';
   // User-specified classification lists
-  const advancedKeywords = ['アナゴ','穴子','イカ','トラフグ','カワハギ','深場五目','アナゴ','アナゴ'];
-  const intermediateKeywords = ['ウィリー','ワラサ','イサキ'];
-  const beginnerKeywords = ['アジ','アミ五目','キス','ショートメバル','カサゴ'];
+  const advancedKeywords = ['イカ'];
+  const intermediateKeywords = ['マダイ'];
+  const beginnerKeywords = ['午前アジ','午前アミ五目'];
 
   // Determine difficulty with precedence: 上級者 -> 中級者 -> 初心者
-  let difficulty = '中級者';
+  // Only show difficulty if the plan matches one of the specified keywords
+  let difficulty = null;
+  
   for (const kw of advancedKeywords) {
-    if (plan.indexOf(kw) !== -1) { difficulty = '上級者'; break; }
-  }
-  if (difficulty === '中級者') {
-    for (const kw of intermediateKeywords) {
-      if (plan.indexOf(kw) !== -1) { difficulty = '中級者'; break; }
+    if (plan.indexOf(kw) !== -1) { 
+      difficulty = '上級者'; 
+      break; 
     }
-    // If not matched intermediate, check beginner
-    if (difficulty === '中級者') {
-      for (const kw of beginnerKeywords) {
-        if (plan.indexOf(kw) !== -1) { difficulty = '初心者'; break; }
+  }
+  
+  if (difficulty === null) {
+    for (const kw of intermediateKeywords) {
+      if (plan.indexOf(kw) !== -1) { 
+        difficulty = '中級者'; 
+        break; 
+      }
+    }
+  }
+  
+  if (difficulty === null) {
+    for (const kw of beginnerKeywords) {
+      if (plan.indexOf(kw) !== -1) { 
+        difficulty = '初心者'; 
+        break; 
       }
     }
   }
@@ -173,7 +187,8 @@ function updatePlanSupplement(){
     '上級者': { bg: '#fff2e6', color: '#ff8c00' }
   };
 
-  const txt = texts[difficulty] || '';
+  // Only show the supplement if a difficulty was determined (i.e., if the plan matches specified keywords)
+  const txt = difficulty ? (texts[difficulty] || '') : '';
   el.textContent = txt;
   if (!txt) {
     el.style.display = 'none';
@@ -197,6 +212,94 @@ function getTimesForPlan(planName) {
   }
   return { meet: '06:30', depart: '07:00' };
 }
+
+// Define shikake prices based on plan type (tackle is now rental only)
+function getShikakePrices(planName) {
+  if (!planName) return {};
+  
+  // マダイ船の判定
+  if (planName.indexOf('マダイ') !== -1) {
+    return {
+      '仕掛け': { price: 550, note: '500〜600円' }
+    };
+  }
+  
+  // ヤリスルメイカ船の判定
+  if (planName.indexOf('ヤリスルメイカ') !== -1 || planName.indexOf('ヤリイカ') !== -1) {
+    return {
+      'オモリ（150号）': { price: 600, note: '600円' },
+      '仕掛け': { price: 1250, note: '1000〜1500円' }
+    };
+  }
+  
+  // タチアジ船の判定
+  if (planName.indexOf('タチアジ') !== -1) {
+    return {
+      '仕掛け': { price: 375, note: '250〜500円' }
+    };
+  }
+  
+  // カワハギ船の判定
+  if (planName.indexOf('カワハギ') !== -1) {
+    return {
+      '仕掛け': { price: 500, note: '400〜600円' }
+    };
+  }
+  
+  // マゴチ船の判定
+  if (planName.indexOf('マゴチ') !== -1) {
+    return {
+      '仕掛け': { price: 450, note: '450円程度' }
+    };
+  }
+  
+  // テンヤタチウオ船の判定
+  if (planName.indexOf('テンヤタチウオ') !== -1) {
+    return {
+      'イワシ（10匹）': { price: 650, note: '650円' },
+      '仕掛け': { price: 1000, note: '1000円程度' }
+    };
+  }
+  
+  // 午前・午後船（その他）の判定
+  if (planName.indexOf('午前') !== -1 || planName.indexOf('午後') !== -1 || 
+      planName.indexOf('アジ') !== -1 || planName.indexOf('アミ五目') !== -1 || 
+      planName.indexOf('キス') !== -1 || planName.indexOf('メバル') !== -1 || 
+      planName.indexOf('カサゴ') !== -1) {
+    return {
+      '仕掛け': { price: 375, note: '250〜500円' }
+    };
+  }
+  return {};
+}
+
+// Render shikake (tackle) options based on selected plan
+function renderShikakeOptions() {
+  shikakeListEl.innerHTML = '';
+  state.shikake = {};
+  
+  const shikakePrices = getShikakePrices(state.plan);
+  
+  if (Object.keys(shikakePrices).length === 0) {
+    // プランに対応する仕掛けがない場合
+    shikakeListEl.innerHTML = '<div class="no-shikake">このプランには対応する仕掛けはありません</div>';
+    return;
+  }
+  
+  // テキスト表示のみ（個数選択なし、計算なし）
+  for (const [name, priceInfo] of Object.entries(shikakePrices)) {
+    const noteText = priceInfo.note || '';
+    const displayText = noteText ? `${name}：${noteText}` : `${name}`;
+    const div = document.createElement('div');
+    div.className = 'shikake-info';
+    div.style.padding = '8px 0';
+    div.style.color = '#666';
+    div.textContent = displayText;
+    shikakeListEl.appendChild(div);
+  }
+}
+
+
 
 // Render rental options merging plan-specific and common rentals
 function renderRentalOptions() {
@@ -234,6 +337,18 @@ function renderRentalOptions() {
   for (const name of Object.keys(commonRental)) {
     // Treat '仕掛け' as a備考 (note) only — do not show as a rental option or include in calculations.
     if (name === '仕掛け') continue;
+    
+    // 専用竿が定義されているプランでは、共通の竿（竿,リール）を非表示
+    if (name === '竿（竿,リール）' && state.plan && planSpecific && planSpecific.rental) {
+      // プラン固有の竿が定義されているかチェック
+      const hasSpecificTackle = planSpecific.rental['竿（手巻き）'] || 
+                               planSpecific.rental['竿（電動リール）'] || 
+                               planSpecific.rental['竿（専用竿）'];
+      if (hasSpecificTackle) {
+        continue; // 専用竿があるので共通竿は表示しない
+      }
+    }
+    
     const info = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     addRentalRow(name, info);
   }
@@ -249,10 +364,10 @@ function addRentalRow(name, priceInfo) {
   // priceInfo may be an object {price, refund} or a number
   const price = (priceInfo && typeof priceInfo === 'object') ? priceInfo.price : priceInfo;
   const refund = (priceInfo && typeof priceInfo === 'object' && priceInfo.refund) ? priceInfo.refund : null;
-  label.textContent = name + ' — ' + (price ? price.toLocaleString() : '0') + '円';
+  label.textContent = name + '：' + (price ? price.toLocaleString() : '0') + '円';
   if (refund) {
     const refundLabel = document.createElement('div');
-    refundLabel.style.fontSize = '0.85em';
+    refundLabel.style.fontSize = '12px';
     refundLabel.style.color = '#336';
     refundLabel.textContent = '（返却時返金：' + refund.toLocaleString() + '円）';
     label.appendChild(refundLabel);
@@ -410,7 +525,8 @@ function calculateTotal() {
   for (const [name, qty] of Object.entries(state.rentals || {})) {
     // skip 仕掛け if it somehow exists in rentals state
     if (name === '仕掛け') continue;
-    if (!qty) continue;
+    if (!qty || qty <= 0) continue;
+    
     // find rental info: check plan-specific (current tripType), then corresponding 乗合船 plan, then commonRental
     let rInfo = null;
     if (plans[state.tripType] && plans[state.tripType][state.plan] && plans[state.tripType][state.plan].rental && plans[state.tripType][state.plan].rental[name]) {
@@ -420,8 +536,19 @@ function calculateTotal() {
     } else if (commonRental[name] !== undefined) {
       rInfo = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     }
-    const price = (rInfo && rInfo.price) ? rInfo.price : 0;
-    rentalTotal += price * qty;
+    
+    let price = 0;
+    if (rInfo) {
+      if (typeof rInfo === 'object' && rInfo.price !== undefined) {
+        price = rInfo.price;
+      } else if (typeof rInfo === 'number') {
+        price = rInfo;
+      }
+    }
+    
+    if (price > 0) {
+      rentalTotal += price * qty;
+    }
   }
 
   if (state.tripType === '乗合船') {
@@ -501,9 +628,9 @@ function calculateAndRender() {
   const res = calculateTotal();
   // Render breakdown with clearer formatting and charter notes
   const parts = [];
-  parts.push('【予約内容】');
   parts.push('');
-  parts.push('釣り物：' + state.tripType + (state.plan ? (' ' + state.plan) : ''));
+  parts.push('プラン：' + state.tripType + (state.plan ? (' ' + state.plan) : ''));
+  parts.push('');
   parts.push('日付：' + formatDateWithWeekday(state.date));
   // 人数表示は予約内容から除外（画面が冗長になるため）
 
@@ -512,8 +639,8 @@ function calculateAndRender() {
     const bp = res.breakdown;
     if (bp.minPeopleUsed) {
       parts.push('');
-      parts.push('料金内訳（仕立て船）：');
-      parts.push(`  ・最低料金：${bp.minPeopleUsed}名分 = ${bp.minPriceUsed.toLocaleString()}円（乗合船の男性料金で計算）`);
+      parts.push('料金内訳：');
+      parts.push(`  ・最低料金：${bp.minPeopleUsed}名分 = ${bp.minPriceUsed.toLocaleString()}円（乗合船の大人料金で計算）`);
       if (bp.shortageCount && bp.shortageCount > 0) {
         parts.push(`  ・不足分：${bp.shortageCount}名分は最低料金により加算されています（実人数が最低人数に満たないため）`);
       }
@@ -526,10 +653,10 @@ function calculateAndRender() {
     const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || null;
     if (fareObj) {
       parts.push('');
-      parts.push('料金内訳（乗合船）：');
-      if (res.breakdown.men) parts.push(`  ・男性 ${res.breakdown.men} 名 × ${fareObj.men.toLocaleString()}円 = ${(res.breakdown.men * fareObj.men).toLocaleString()}円`);
-      if (res.breakdown.women) parts.push(`  ・女性 ${res.breakdown.women} 名 × ${fareObj.women.toLocaleString()}円 = ${(res.breakdown.women * fareObj.women).toLocaleString()}円`);
-      if (res.breakdown.student) parts.push(`  ・子供（高校生以下） ${res.breakdown.student} 名 × ${fareObj.student.toLocaleString()}円 = ${(res.breakdown.student * fareObj.student).toLocaleString()}円`);
+      parts.push('料金内訳：');
+      if (res.breakdown.men) parts.push(` ・男性 ${res.breakdown.men}名 × ${fareObj.men.toLocaleString()}円 = ${(res.breakdown.men * fareObj.men).toLocaleString()}円`);
+      if (res.breakdown.women) parts.push(` ・女性 ${res.breakdown.women}名 × ${fareObj.women.toLocaleString()}円 = ${(res.breakdown.women * fareObj.women).toLocaleString()}円`);
+      if (res.breakdown.student) parts.push(` ・子供 ${res.breakdown.student}名 × ${fareObj.student.toLocaleString()}円 = ${(res.breakdown.student * fareObj.student).toLocaleString()}円`);
     }
   }
 
@@ -549,7 +676,14 @@ function calculateAndRender() {
     } else if (commonRental[name] !== undefined) {
       rInfo = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     }
-    const rprice = (rInfo && rInfo.price) ? rInfo.price : 0;
+    let rprice = 0;
+    if (rInfo) {
+      if (typeof rInfo === 'object' && rInfo.price !== undefined) {
+        rprice = rInfo.price;
+      } else if (typeof rInfo === 'number') {
+        rprice = rInfo;
+      }
+    }
     rentParts.push(`${name} × ${qty} = ${(rprice * qty).toLocaleString()}円`);
     if (rInfo && rInfo.refund) {
       const perRefund = Number(rInfo.refund) || 0;
@@ -558,25 +692,24 @@ function calculateAndRender() {
     }
   }
   parts.push('');
+if (rentParts.length) {
   parts.push('レンタル：');
-  if (rentParts.length) {
-    for (const r of rentParts) parts.push('  ・' + r);
-  } else {
-    parts.push('  なし');
-  }
+  for (const r of rentParts) parts.push(' ・' + r);
+} else {
+  parts.push('レンタル：なし');
+}
   if (refundParts.length) {
     parts.push('');
     parts.push('※返却時に返金のあるレンタル：');
-    for (const f of refundParts) parts.push('  ・' + f);
+    for (const f of refundParts) parts.push(' ・' + f);
   }
   // 備考：仕掛けはレンタル扱いではありません（250〜500円／釣り物により変動）。
   parts.push('');
 
   parts.push('合計金額：' + res.total.toLocaleString() + '円');
 
-  // Use pre-wrap to respect line breaks
-  breakdownEl.innerHTML = '<pre style="white-space:pre-wrap;margin:0">' + parts.join('\n') + '</pre>';
-  totalAmountEl.textContent = '合計：' + res.total.toLocaleString() + '円';
+  // Use div with line breaks preserved
+  breakdownEl.innerHTML = parts.join('<br>');
   if (fixedTotalAmountEl) fixedTotalAmountEl.textContent = '合計：' + res.total.toLocaleString() + '円';
 
   return res;
@@ -586,6 +719,8 @@ function calculateAndRender() {
 function createMailTo() {
   const res = calculateTotal();
   const men = Number(state.men)||0, women = Number(state.women)||0, student = Number(state.student)||0;
+  
+  // レンタル
   const rentParts = [];
   for (const [name, qty] of Object.entries(state.rentals || {})) {
     if (qty && qty>0) rentParts.push(`${name}×${qty}`);
@@ -594,10 +729,10 @@ function createMailTo() {
 
   // Build body per spec
   const bodyLines = [];
-  bodyLines.push('【予約内容}');
+  bodyLines.push('【予約内容】');
   // The user example uses full-width bracket and formatting; follow sample exactly except line with bracket typo corrected
   bodyLines[0] = '【予約内容】';
-  bodyLines.push('釣り物：' + state.tripType + (state.plan ? (' ' + state.plan) : ''));
+  bodyLines.push('プラン：' + state.tripType + (state.plan ? (' ' + state.plan) : ''));
   bodyLines.push('');
   bodyLines.push('日付：' + formatDateWithWeekday(state.date));
   const times = getTimesForPlan(state.plan);
@@ -661,6 +796,7 @@ tripTypeEl.addEventListener('change', (e) => {
 
 planSelectEl.addEventListener('change', (e) => {
   state.plan = e.target.value;
+  renderShikakeOptions();
   renderRentalOptions();
   updateUnitPrices();
   calculateAndRender();
@@ -689,6 +825,7 @@ resetBtn.addEventListener('click', () => {
   tripTypeEl.value = '乗合船';
   state.tripType = '乗合船';
   state.men = state.women = state.student = 0;
+  state.shikake = {};
   menEl.value = womenEl.value = studentEl.value = 0;
   dateEl.valueAsDate = new Date();
   state.date = dateEl.value;

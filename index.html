@@ -37,7 +37,6 @@
           <label for="date">日付</label>
           <div class="date-row">
             <input type="date" id="date" class="form-input" />
-            <span id="dateWeekday" class="meta" aria-live="polite"></span>
           </div>
         </div>
 
@@ -72,11 +71,15 @@
         </div>
 
         <div class="field">
-          <label>レンタル品（複数可）</label>
+          <label>レンタル品</label>
           <div id="rentalList" class="rentals"></div>
-          <div id="shikakeNote" class="note muted" style="margin-top:6px; font-size: 14px">※ 仕掛け：250〜500円（釣り物により変動）</div>
         </div>
 
+        <div class="field">
+          <label>購入品</label>
+          <div id="shikakeList" class="shikake-items"></div>
+          <div id="shikakeNote" class="note muted" style="font-size: 12px">※ 枚数・個数により値段が前後します。目安としてお考えください。</div>
+        </div>
         <div class="actions">
           <button id="mailtoBtn" class="btn btn-primary">予約メールを作成</button>
           <button id="resetBtn" class="btn btn-secondary">リセット</button>
@@ -86,17 +89,13 @@
       <aside class="card reservation-summary">
         <h2 class="section-title">予約内容</h2>
         <div id="breakdown" class="breakdown">— 選択内容を入力してください —</div>
-        <div class="total-row">
-          <div class="label muted">合計</div>
-          <div class="total" id="totalAmount">—</div>
-        </div>
       </aside>
     </main>
   </div>
       <!-- Fixed total bar shown at bottom of viewport -->
       <div class="fixed-total" role="region" aria-label="合計金額">
         <div class="fixed-total-inner">
-          <div class="fixed-label muted">合計</div>
+          <div class="fixed-label muted"></div>
           <div id="fixedTotalAmount" class="fixed-amount">—</div>
         </div>
       </div>

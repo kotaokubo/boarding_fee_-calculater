@@ -1,4 +1,4 @@
-// Plans data separated for easier editing / JSONification later.
+// Plans data separated for easier maintenance and potential future replacement with external JSON.
 // Exposes `window.plans` and `window.commonRental` so main.js can remain a simple script.
 window.plans = {
   "乗合船": {
@@ -22,17 +22,55 @@ window.plans = {
       "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
       "note": "アミコマセ・イカ短・付け餌・氷付き"
     },
-    "マダイ五目": { "fare": { "men": 11500, "women": 9500, "student": 8000 }, "note": "オキアミ規定量・氷付" },
+    "マダイ五目": { 
+      "fare": { "men": 11500, "women": 9500, "student": 8000 }, 
+      "rental": { 
+        "竿（手巻き）": 1200,
+        "竿（電動リール）": 2200
+      },
+      "note": "オキアミ規定量・氷付" 
+    },
     // "ＬＴイサキ五目": { "fare": { "men": 11500, "women": 9500, "student": 7500 }, "note": "アミコマセ・イカ短・氷付" },
-    "ヤリスルメイカ": { "fare": { "men": 12000, "women": 10000, "student": 8000 }, "note": "氷付・投入器有り" },
+    "ヤリスルメイカ": { 
+      "fare": { "men": 12000, "women": 10000, "student": 8000 }, 
+      "rental": { 
+        "竿（電動リール）": 2200
+      },
+      "note": "氷付・投入器有り" 
+    },
     // "ワラサ": { "fare": { "men": 12000, "women": 10000, "student": 9500 }, "note": "氷付・オキアミ規定量" },
-    "タチアジリレー": { "fare": { "men": 11000, "women": 9000, "student": 7000 }, "note": "氷付・サバ餌・ミンチ" },
+    "タチアジリレー": { 
+      "fare": { "men": 11000, "women": 9000, "student": 7000 }, 
+      "rental": { 
+        "竿（手巻き）": 1200,
+        "竿（電動リール）": 2200
+      },
+      "note": "氷付・サバ餌・ミンチ" 
+    },
     // "遠征ウィリー五目": { "fare": { "men": 11500, "women": 9500, "student": 8000 }, "note": "アミコマセ・付け餌・氷付" },
-    "カワハギ": { "fare": { "men": 11000, "women": 9000, "student": 7000 }, "note": "付け餌・氷付" },
+    "カワハギ": { 
+      "fare": { "men": 11000, "women": 9000, "student": 7000 }, 
+      "rental": { 
+        "竿（専用竿）": 1500
+      },
+      "note": "付け餌・氷付" 
+    },
     // "トラフグ": { "fare": { "men": 11500, "women": 9500, "student": 8000 }, "note": "オキアミ規定量・氷付" },
-    "マゴチ": { "fare": { "men": 10700, "women": 8700, "student": 6500 }, "note": "サイマキ５匹付※追加可能" },
+    "マゴチ": { 
+      "fare": { "men": 10700, "women": 8700, "student": 6500 }, 
+      "rental": { 
+        "竿（専用竿）": 1500
+      },
+      "note": "サイマキ５匹付※追加可能" 
+    },
     // "スミイカ": { "fare": { "men": 11000, "women": 9000, "student": 6500 }, "note": "サイマキ５匹もしくはシャコ５匹付※追加可能" },
-    "テンヤタチウオ": { "fare": { "men": 9700, "women": 7700, "student": 6500 }, "note": "氷付・餌別" },
+    "テンヤタチウオ": { 
+      "fare": { "men": 9700, "women": 7700, "student": 6500 }, 
+      "rental": { 
+        "竿（専用竿）": 1500
+      },
+      "note": "氷付・餌別" 
+    },
     // "マダコ": { "fare": { "men": 10000, "women": 8000, "student": 6500 }, "note": "カニ餌・氷付" },
     "ショートメバル": { "fare": { "men": 7500, "women": 6000, "student": 4300 }, "note": "活きモエビ・アオイソメ・氷付" },
     // "鬼カサゴ": { "fare": { "men": 12000, "women": 10000, "student": 8000 }, "note": "サバ餌・氷付" },
@@ -57,7 +95,7 @@ window.plans = {
 };
 
 window.commonRental = {
-  "タックル（竿・リール）": 600,
+  "竿（竿,リール）": 600,
   "カッパ長靴セット": 600,
   "長靴のみ": 200
 };
