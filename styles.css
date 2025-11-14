@@ -47,12 +47,13 @@ label{display:block;padding-top:15px;margin-bottom:8px;font-weight:600;color:var
 /* inputs */
 .form-input{font-size: 15px;padding:12px;border:1px solid var(--gray-200);border-radius:12px;background:#fff;color:var(--text);height:44px;box-sizing:border-box}
 .form-input:focus{outline:none;box-shadow:0 0 0 4px rgba(96,165,250,0.18);border-color:var(--blue-600)}
-.form-input.wide{min-width:120px;max-width:100%}
+.form-input.wide{min-width:120px;max-width:100%;height:44px;}
 select.form-input{appearance:none}
 
 /* 日付入力のカレンダーアイコン */
 input[type="date"]{
 	position:relative;
+	text-align:left;
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/%3e%3c/svg%3e");
 	background-repeat: no-repeat;
 	background-position: right 12px center;
@@ -69,7 +70,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 }
 
 /* select used for person counts */
-.count-select{width:100px}
+.count-select{width:100px;font-size:16px}
 
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
 .row > div{display:flex;flex-direction:column}
@@ -92,7 +93,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 .rental-item{display:flex;gap:12px;align-items:center;padding:10px 0px;border-bottom:1px solid var(--gray-200)}
 .rental-item:last-child{border-bottom:none}
 .rental-item .label{flex:1}
-.rental-item select.count-select{width:60px}
+.rental-item select.count-select{width:70px}
 
 /* actions */
 .actions{display:flex;gap:10px;padding:20px 0;}
@@ -121,7 +122,10 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 	
 	/* モバイル用フォーム調整 */
 	.form-input{font-size:16px;padding:12px 16px;height:44px}
-	.form-input[type="date"]{width:100%;max-width:100%;text-align:left;height:44px}
+	.form-input[type="date"]{width:100%;max-width:100%;text-align:left;height:44px;padding:12px 40px 12px 16px}
+	
+	/* モバイル用数量選択 */
+	.count-select{font-size:18px}
 
 	/* セレクトボックスの調整 */
 	select.form-input{
@@ -131,12 +135,13 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 		background-size: 16px;
 		padding-right: 40px;
 		width: 100%;
+		height: 44px;
 	}
 	
 	/* プランと釣船種類のテキスト調整 */
 	.plan-row{flex-direction:column;align-items:stretch;gap:8px}
 	.plan-row select{width:100%}
-	.meta-time{font-size:12px;margin-top:4px}
+	.meta-time{font-size:15px;margin-top:4px}
 }
 
 /* fixed total bar */

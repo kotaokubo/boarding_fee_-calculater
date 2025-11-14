@@ -257,7 +257,7 @@ function getShikakePrices(planName) {
   if (planName.indexOf('テンヤタチウオ') !== -1) {
     return {
       'イワシ（10匹）': { price: 650, note: '650円' },
-      '仕掛け': { price: 1000, note: '1000円程度' }
+      'テンヤ': { price: 1000, note: '1000円程度' }
     };
   }
   
