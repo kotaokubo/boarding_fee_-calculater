@@ -1,5 +1,5 @@
 :root{
-	--font-sans: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+	--font-sans: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', arial, helvetica, sans-serif;
 	--bg: #f8fafc; /* bg-gray-50-ish */
 	--surface: #ffffff;
 	--text: #1f2937; /* text-gray-800 */
@@ -20,9 +20,32 @@ html, body, input, select, textarea, button {
 }
 
 /* Page */
-body{background:var(--bg);margin:0;padding:24px;font-size:16px;line-height:1.45}
-.app-container{max-width:980px;margin:0 auto;padding-bottom:88px}
+body{
+  background:var(--bg);
+  margin:0;
+  padding:24px;
+  font-size:16px;
+  line-height:1.45;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-image:url('ichinosemaru-haikei.jpg');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  filter:blur(8px);
+  opacity:0.15;
+  z-index:-1;
+}
+.app-container{max-width:980px;margin:0 auto;padding-bottom:50px;position:relative;z-index:1}
 .top{margin-bottom:18px}
+.logo{max-width:180px;height:auto;margin-bottom:12px;display:block}
 .site-title{font-size:20px;margin:0 0 4px 0;color:var(--text);font-weight:700}
 .lead{margin:0;color:var(--muted);font-size:14px}
 
@@ -189,6 +212,68 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 .fixed-total-inner{max-width:980px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
 .fixed-amount{font-weight:800;font-size:18px}
 .fixed-label{color:var(--muted)}
+
+/* Footer */
+#footer{
+  margin-top:24px;
+  padding:24px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+#f_left{
+  flex:0 0 auto;
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+}
+#f_center{
+  flex:1;
+  text-align:center;
+}
+#f_center p{
+  margin:4px 0;
+  color:var(--text);
+}
+#f_center .font24{
+  font-size:18px;
+  font-weight:700;
+  margin-top:6px;
+}
+#f_right{
+  flex:0 0 auto;
+  margin:0;
+  font-size:13px;
+  text-align:right;
+  line-height:1.6;
+}
+#f_right a{
+  color:var(--blue-600);
+  text-decoration:none;
+}
+#f_right a:hover{
+  color:var(--blue-700);
+  text-decoration:underline;
+}
+.clearfix::after{
+  content:"";
+  display:table;
+  clear:both;
+}
+
+@media (max-width:768px){
+  #footer{
+    flex-direction:column;
+    text-align:center;
+    gap:16px;
+		padding-bottom:6px;
+  }
+  #f_left,
+  #f_right{
+    text-align:center;
+  }
+}
 
 @media (max-width:560px){
   .fixed-total-inner{padding:12px 24px}
