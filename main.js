@@ -780,7 +780,7 @@ function createMailTo() {
 
   const body = bodyLines.join('\n');
 
-  const to = 'yoyaku@example.com';
+  const to = 'ichinosemaru1@docomo.ne.jp';
   const subject = '釣り船予約依頼';
   const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
