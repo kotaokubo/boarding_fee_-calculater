@@ -723,7 +723,7 @@ function createMailTo() {
   // レンタル
   const rentParts = [];
   for (const [name, qty] of Object.entries(state.rentals || {})) {
-    if (qty && qty>0) rentParts.push(`${name}×${qty}`);
+    if (qty && qty>0) rentParts.push(`${name}：${qty}`);
   }
   const rentalText = rentParts.length ? rentParts.join('、') : 'なし';
 
@@ -739,7 +739,15 @@ function createMailTo() {
   if (times.meet && times.depart) {
     bodyLines.push('集合時間：' + times.meet + '、出船時間：' + times.depart);
   }
-  // 人数はメール本文では表示しない（予約内容を簡潔にするため）
+  bodyLines.push('');
+  bodyLines.push('人数：');
+  if (men > 0) bodyLines.push('  ・男性：' + men + '名');
+  if (women > 0) bodyLines.push('  ・女性：' + women + '名');
+  if (student > 0) bodyLines.push('  ・中学生以下：' + student + '名');
+  const totalPeople = men + women + student;
+  if (totalPeople > 0) {
+    bodyLines.push('  合計：' + totalPeople + '名');
+  }
   bodyLines.push('');
   bodyLines.push('レンタル：');
   if (rentParts.length) {
@@ -747,36 +755,6 @@ function createMailTo() {
   } else {
     bodyLines.push('  なし');
   }
-  // include備考 about 仕掛け
-  bodyLines.push('');
-  bodyLines.push('備考：');
-  bodyLines.push('  仕掛けはレンタル扱いではありません（250〜500円／釣り物により変動）。実際の金額は当日ご案内します。');
-  // Include refund note for rentals that have a refund defined
-  const refundBodyParts = [];
-  for (const [name, qty] of Object.entries(state.rentals || {})) {
-    if (!qty || qty <= 0) continue;
-    // find refund info
-    let rInfo = null;
-    if (plans[state.tripType] && plans[state.tripType][state.plan] && plans[state.tripType][state.plan].rental && plans[state.tripType][state.plan].rental[name]) {
-      rInfo = plans[state.tripType][state.plan].rental[name];
-    } else if (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].rental && plans['乗合船'][state.plan].rental[name]) {
-      rInfo = plans['乗合船'][state.plan].rental[name];
-    } else if (commonRental[name] !== undefined) {
-      rInfo = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
-    }
-    if (rInfo && rInfo.refund) {
-      const perRefund = Number(rInfo.refund) || 0;
-      const totalRefund = perRefund * qty;
-      refundBodyParts.push(`${name}：${perRefund.toLocaleString()}円 × ${qty} = ${totalRefund.toLocaleString()}円`);
-    }
-  }
-  if (refundBodyParts.length) {
-    bodyLines.push('');
-    bodyLines.push('※レンタル返却時に一部返金があるもの：');
-    for (const f of refundBodyParts) bodyLines.push('  ・' + f);
-  }
-  bodyLines.push('');
-  bodyLines.push('合計金額：' + res.total.toLocaleString() + '円');
 
   const body = bodyLines.join('\n');
 
