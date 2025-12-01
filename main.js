@@ -253,8 +253,8 @@ function getShikakePrices(planName) {
     };
   }
   
-  // テンヤタチウオ船の判定
-  if (planName.indexOf('テンヤタチウオ') !== -1) {
+  // タチウオ船の判定（午前タチウオ、テンヤタチウオ）
+  if (planName.indexOf('タチウオ') !== -1) {
     return {
       'イワシ（10匹）': { price: 650, note: '650円' },
       'テンヤ': { price: 1000, note: '1000円程度' }
@@ -576,44 +576,29 @@ function calculateTotal() {
     if (!info) {
       subtotal = 0; // fallback if no charter rules are available at all
     } else {
-  const minPeople = info.minPeople;
-      // Per requirement: 仕立て船の最低料金は「乗合船の男性料金 × minPeople」とする。
-      // Try to compute from the reference fare (from 乗合船 for the selected plan); fall back to info.minPrice if unavailable.
+      const minPeople = info.minPeople;
+      const minPrice = 54400; // 固定の最低料金
+      
+      // 乗合船の料金を取得
       const refFare = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
-      const computedMinPrice = (refFare.men && minPeople) ? (refFare.men * minPeople) : info.minPrice;
-      const minPrice = computedMinPrice || info.minPrice || 0;
-      subtotal = minPrice;
-      minPeopleUsed = minPeople;
-      minPriceUsed = minPrice;
-      if (totalPeople > minPeople) {
-        const extra = totalPeople - minPeople;
-        // determine per-person extra price: try to map by type to 乗合船 fare
-        const refFare = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
-        // Charge extras by composition of the extra people: prefer to deduct minPeople proportionally? Simpler: charge additional actual persons at their per-person fare.
-        // We'll assume the extra people are those counted in state beyond minPeople; here we compute extra charges by ordering: men -> women -> student until extra exhausted.
-        let remaining = extra;
-        const perType = [];
-        if (men > 0) perType.push({type:'men',count:men,price:refFare.men});
-        if (women > 0) perType.push({type:'women',count:women,price:refFare.women});
-        if (student > 0) perType.push({type:'student',count:student,price:refFare.student});
-
-        // iterate and charge up to remaining
-        for (const t of perType) {
-          if (remaining <= 0) break;
-          const chargeCount = Math.min(t.count, remaining);
-            subtotal += chargeCount * t.price;
-            remaining -= chargeCount;
+      
+      // 実際の人数での料金計算
+      const actualFare = men * refFare.men + women * refFare.women + student * refFare.student;
+      
+      // 最低料金と実際の料金を比較
+      if (actualFare < minPrice) {
+        // 最低料金を適用
+        subtotal = minPrice;
+        minPeopleUsed = minPeople;
+        minPriceUsed = minPrice;
+        if (totalPeople < minPeople) {
+          shortageCount = minPeople - totalPeople;
         }
-        // If still remaining (shouldn't happen), charge with average
-            if (remaining > 0) {
-              const avg = Math.round((refFare.men + refFare.women + refFare.student)/3) || 0;
-              subtotal += remaining * avg;
-            }
-        extraCount = extra;
-        extraChargeAmount = subtotal - minPrice;
-      } else if (totalPeople < minPeople) {
-        // 人数が最低人数に満たない場合は、不足分を加算して最低料金を適用している（表示用）
-        shortageCount = minPeople - totalPeople;
+      } else {
+        // 実際の料金を適用
+        subtotal = actualFare;
+        minPeopleUsed = 0; // 最低料金適用なし
+        minPriceUsed = 0;
       }
     }
   }
@@ -637,16 +622,17 @@ function calculateAndRender() {
   // For 仕立て船, show applied minPeople/minPrice and shortages/extras
   if (state.tripType === '仕立て船') {
     const bp = res.breakdown;
-    if (bp.minPeopleUsed) {
-      parts.push('');
-      parts.push('料金内訳：');
-      parts.push(`  ・最低料金：${bp.minPeopleUsed}名分 = ${bp.minPriceUsed.toLocaleString()}円（乗合船の大人料金で計算）`);
-      if (bp.shortageCount && bp.shortageCount > 0) {
-        parts.push(`  ・不足分：${bp.shortageCount}名分は最低料金により加算されています（実人数が最低人数に満たないため）`);
-      }
-      if (bp.extraCount && bp.extraCount > 0) {
-        parts.push(`  ・超過分：${bp.extraCount}名分の追加料金 = ${bp.extraChargeAmount.toLocaleString()}円`);
-      }
+    parts.push('');
+    parts.push('料金内訳：');
+    
+    if (bp.minPriceUsed > 0) {
+      // 最低料金が適用された場合
+      parts.push(`  ・最低料金：${bp.minPriceUsed.toLocaleString()}円`);
+    } else {
+      // 通常の料金計算が適用された場合
+      if (res.breakdown.men) parts.push(` ・男性 ${res.breakdown.men}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0).toLocaleString()}円 = ${(res.breakdown.men * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0)).toLocaleString()}円`);
+      if (res.breakdown.women) parts.push(` ・女性 ${res.breakdown.women}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.women : 0).toLocaleString()}円 = ${(res.breakdown.women * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.women : 0)).toLocaleString()}円`);
+      if (res.breakdown.student) parts.push(` ・子供 ${res.breakdown.student}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.student : 0).toLocaleString()}円 = ${(res.breakdown.student * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.student : 0)).toLocaleString()}円`);
     }
   } else {
     // Non-charter: show per-person breakdown
@@ -706,7 +692,7 @@ if (rentParts.length) {
   // 備考：仕掛けはレンタル扱いではありません（250〜500円／釣り物により変動）。
   parts.push('');
 
-  parts.push('合計金額：' + res.total.toLocaleString() + '円');
+  parts.push('<strong>合計金額：' + res.total.toLocaleString() + '円</strong>');
 
   // Use div with line breaks preserved
   breakdownEl.innerHTML = parts.join('<br>');

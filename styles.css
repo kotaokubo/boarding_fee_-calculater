@@ -68,60 +68,13 @@ label{display:block;padding-top:15px;margin-bottom:8px;font-weight:600;color:var
 .plan-row{display:flex;gap:12px;align-items:center}
 
 /* inputs */
-.form-input{
-  padding:12px 16px;
-  border:1px solid #ddd;
-  border-radius:6px;
-  font-size:14px;
-  font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  line-height:1.5;
-  background-color:white;
-  color:var(--text);
-  transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
-}
-
-/* セレクトボックス専用スタイル */
-.select-dropdown{
-  padding:10px 40px 10px 14px;
-  font-size:15px;
-  height:auto;
-  min-height:44px;
-  line-height:1.4;
-  background-color:white;
-  color:var(--text);
-  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='m2 0-2 2h4zm0 5 2-2h-4z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 12px center;
-  background-size:12px;
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-}
+.form-input{font-size: 15px;padding:12px;border:1px solid var(--gray-200);border-radius:12px;background:#fff;color:var(--text);box-sizing:border-box}
 .form-input:focus{outline:none;box-shadow:0 0 0 4px rgba(96,165,250,0.18);border-color:var(--blue-600)}
 .form-input.wide{min-width:120px;max-width:100%;height:44px;}
 select.form-input{appearance:none}
 
-/* 日付入力のカレンダーアイコン */
-input[type="date"]{
-	position:relative;
-	text-align:left;
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'/%3e%3c/svg%3e");
-	background-repeat: no-repeat;
-	background-position: right 12px center;
-	background-size: 20px;
-	padding-right: 40px;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator{
-	opacity: 0;
-	position: absolute;
-	right: 12px;
-	width: 20px;
-	height: 20px;
-}
-
 /* select used for person counts */
-.count-select{width:100px;font-size:16px}
+.count-select{width:100px}
 
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
 .row > div{display:flex;flex-direction:column}
@@ -176,7 +129,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 	.form-input[type="date"]{width:100%;max-width:100%;text-align:left;height:44px;padding:12px 40px 12px 16px}
 	
 	/* モバイル用数量選択 */
-	.count-select{font-size:18px}
+	.count-select{font-size:16px}
 
 	/* セレクトボックスの調整 */
 	select.form-input{
