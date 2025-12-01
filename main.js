@@ -253,19 +253,11 @@ function getShikakePrices(planName) {
     };
   }
   
-  // タチウオ船の判定（午前タチウオ、テンヤタチウオ）
-  if (planName.indexOf('タチウオ') !== -1) {
-    return {
-      'イワシ（10匹）': { price: 650, note: '650円' },
-      'テンヤ': { price: 1000, note: '1000円程度' }
-    };
-  }
-  
   // 午前・午後船（その他）の判定
   if (planName.indexOf('午前') !== -1 || planName.indexOf('午後') !== -1 || 
       planName.indexOf('アジ') !== -1 || planName.indexOf('アミ五目') !== -1 || 
       planName.indexOf('キス') !== -1 || planName.indexOf('メバル') !== -1 || 
-      planName.indexOf('カサゴ') !== -1) {
+      planName.indexOf('カサゴ') !== -1 || planName.indexOf('タチウオ') !== -1) {
     return {
       '仕掛け': { price: 375, note: '250〜500円' }
     };

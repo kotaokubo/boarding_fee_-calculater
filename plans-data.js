@@ -65,7 +65,7 @@ window.plans = {
     },
     // "スミイカ": { "fare": { "men": 11000, "women": 9000, "student": 6500 }, "note": "サイマキ５匹もしくはシャコ５匹付※追加可能" },
     "午前タチウオ": { 
-      "fare": { "men": 9700, "women": 7700, "student": 6500 }, 
+      "fare": { "men": 7000, "women": 5800, "student": 4300 }, 
       "rental": { 
         "竿（専用竿）": 1500
       },
