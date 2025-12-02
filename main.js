@@ -548,50 +548,29 @@ function calculateTotal() {
     const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
     subtotal += men * fareObj.men + women * fareObj.women + student * fareObj.student;
   } else if (state.tripType === '仕立て船') {
-    // Using provided rules: 最低料金 +（最低人数を超えた人数分 × 乗合料金）
-    // Assumptions: For per-person "乗合料金" use the corresponding fare from 乗合船 same plan name if exists.
-    const rateType = getRateType(state.date);
-    // Look up charter-specific info for the selected plan/day. Try rateType first.
-    let info = null;
-    const tryKeys = (rateType === 'saturday') ? ['saturday', 'holiday'] : [rateType];
-    for (const k of tryKeys) {
-      if (plans['仕立て船'] && plans['仕立て船'][state.plan] && plans['仕立て船'][state.plan][k]) {
-        info = plans['仕立て船'][state.plan][k];
-        break;
+    // 乗合船の料金を取得
+    const refFare = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
+    
+    // プランごとの最低料金（男性料金8名分）
+    const minPrice = refFare.men * 8;
+    
+    // 実際の人数での料金計算
+    const actualFare = men * refFare.men + women * refFare.women + student * refFare.student;
+    
+    // 最低料金と実際の料金を比較
+    if (actualFare < minPrice) {
+      // 最低料金を適用
+      subtotal = minPrice;
+      minPeopleUsed = 8; // 8名分として表示
+      minPriceUsed = minPrice;
+      if (totalPeople < 8) {
+        shortageCount = 8 - totalPeople;
       }
-      if (plans['仕立て船'] && plans['仕立て船']['午前アジ'] && plans['仕立て船']['午前アジ'][k]) {
-        info = plans['仕立て船']['午前アジ'][k];
-        break;
-      }
-    }
-
-    if (!info) {
-      subtotal = 0; // fallback if no charter rules are available at all
     } else {
-      const minPeople = info.minPeople;
-      const minPrice = 54400; // 固定の最低料金
-      
-      // 乗合船の料金を取得
-      const refFare = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
-      
-      // 実際の人数での料金計算
-      const actualFare = men * refFare.men + women * refFare.women + student * refFare.student;
-      
-      // 最低料金と実際の料金を比較
-      if (actualFare < minPrice) {
-        // 最低料金を適用
-        subtotal = minPrice;
-        minPeopleUsed = minPeople;
-        minPriceUsed = minPrice;
-        if (totalPeople < minPeople) {
-          shortageCount = minPeople - totalPeople;
-        }
-      } else {
-        // 実際の料金を適用
-        subtotal = actualFare;
-        minPeopleUsed = 0; // 最低料金適用なし
-        minPriceUsed = 0;
-      }
+      // 実際の料金を適用
+      subtotal = actualFare;
+      minPeopleUsed = 0; // 最低料金適用なし
+      minPriceUsed = 0;
     }
   }
 
