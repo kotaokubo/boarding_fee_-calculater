@@ -602,11 +602,9 @@ function calculateAndRender() {
       // 最低料金が適用された場合
       parts.push(`  ・最低料金（男性8名分）：${bp.minPriceUsed.toLocaleString()}円`);
       if (bp.extraCount && bp.extraCount > 0) {
-        parts.push(`  ・超過人数：${bp.extraCount}名分 = ${bp.extraChargeAmount.toLocaleString()}円`);
+        parts.push(`  ・追加人数：${bp.extraCount}名分 = ${bp.extraChargeAmount.toLocaleString()}円`);
       }
-      if (bp.shortageCount && bp.shortageCount > 0) {
-        parts.push(`  ・不足人数：${bp.shortageCount}名（最低料金は男性8名分で適用）`);
-      }
+      // 不足人数の表示は不要
     } else {
       // 通常の料金計算が適用された場合
       if (res.breakdown.men) parts.push(` ・男性 ${res.breakdown.men}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0).toLocaleString()}円 = ${(res.breakdown.men * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0)).toLocaleString()}円`);
