@@ -554,23 +554,25 @@ function calculateTotal() {
     // プランごとの最低料金（男性料金8名分）
     const minPrice = refFare.men * 8;
     
-    // 実際の人数での料金計算
-    const actualFare = men * refFare.men + women * refFare.women + student * refFare.student;
-    
-    // 最低料金と実際の料金を比較
-    if (actualFare < minPrice) {
-      // 最低料金を適用
+    // 8名までは最低料金、8名を超える分だけ各属性の単価で加算
+    minPeopleUsed = 8;
+    minPriceUsed = minPrice;
+    if (totalPeople <= 8) {
       subtotal = minPrice;
-      minPeopleUsed = 8; // 8名分として表示
-      minPriceUsed = minPrice;
-      if (totalPeople < 8) {
-        shortageCount = 8 - totalPeople;
-      }
+      shortageCount = 8 - totalPeople; // 8名に満たない不足人数
     } else {
-      // 実際の料金を適用
-      subtotal = actualFare;
-      minPeopleUsed = 0; // 最低料金適用なし
-      minPriceUsed = 0;
+      // 8名を超えた分の人数を、子供→女性→男性 の順で加算対象に充てる
+      let extras = totalPeople - 8;
+      let extraStudent = Math.min(student, extras);
+      extras -= extraStudent;
+      let extraWomen = Math.min(women, extras);
+      extras -= extraWomen;
+      let extraMen = Math.min(men, extras);
+      const extraCharge = (extraMen * refFare.men) + (extraWomen * refFare.women) + (extraStudent * refFare.student);
+      subtotal = minPrice + extraCharge;
+      extraCount = (totalPeople - 8);
+      extraChargeAmount = extraCharge;
+      shortageCount = 0;
     }
   }
 
@@ -598,7 +600,13 @@ function calculateAndRender() {
     
     if (bp.minPriceUsed > 0) {
       // 最低料金が適用された場合
-      parts.push(`  ・最低料金：${bp.minPriceUsed.toLocaleString()}円`);
+      parts.push(`  ・最低料金（男性8名分）：${bp.minPriceUsed.toLocaleString()}円`);
+      if (bp.extraCount && bp.extraCount > 0) {
+        parts.push(`  ・超過人数：${bp.extraCount}名分 = ${bp.extraChargeAmount.toLocaleString()}円`);
+      }
+      if (bp.shortageCount && bp.shortageCount > 0) {
+        parts.push(`  ・不足人数：${bp.shortageCount}名（最低料金は男性8名分で適用）`);
+      }
     } else {
       // 通常の料金計算が適用された場合
       if (res.breakdown.men) parts.push(` ・男性 ${res.breakdown.men}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0).toLocaleString()}円 = ${(res.breakdown.men * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0)).toLocaleString()}円`);
