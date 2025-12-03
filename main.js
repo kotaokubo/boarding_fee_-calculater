@@ -511,6 +511,7 @@ function calculateTotal() {
   let minPriceUsed = 0;
   let extraCount = 0;
   let extraChargeAmount = 0;
+  let extraBreakdown = { men: 0, women: 0, student: 0 };
   let shortageCount = 0;
 
   // rental cost
@@ -572,13 +573,14 @@ function calculateTotal() {
       subtotal = minPrice + extraCharge;
       extraCount = (totalPeople - 8);
       extraChargeAmount = extraCharge;
+      extraBreakdown = { men: extraMen, women: extraWomen, student: extraStudent };
       shortageCount = 0;
     }
   }
 
   const total = subtotal + rentalTotal;
 
-  return { total, subtotal, rentalTotal, breakdown: {men,women,student,totalPeople, minPeopleUsed, minPriceUsed, extraCount, extraChargeAmount, shortageCount} };
+  return { total, subtotal, rentalTotal, breakdown: {men,women,student,totalPeople, minPeopleUsed, minPriceUsed, extraCount, extraChargeAmount, shortageCount, extraBreakdown} };
 }
 
 // Recalculate and update UI
@@ -602,7 +604,13 @@ function calculateAndRender() {
       // 最低料金が適用された場合
       parts.push(`  ・最低料金（男性8名分）：${bp.minPriceUsed.toLocaleString()}円`);
       if (bp.extraCount && bp.extraCount > 0) {
-        parts.push(`  ・追加人数：${bp.extraCount}名分 = ${bp.extraChargeAmount.toLocaleString()}円`);
+        const eb = bp.extraBreakdown || { men: 0, women: 0, student: 0 };
+        const labels = [];
+        if (eb.student) labels.push(`子供${eb.student}名分`);
+        if (eb.women) labels.push(`女性${eb.women}名分`);
+        if (eb.men) labels.push(`男性${eb.men}名分`);
+        const who = labels.length ? `（${labels.join('・')}）` : '';
+        parts.push(`  ・追加人数：${bp.extraCount}名分${who} = ${bp.extraChargeAmount.toLocaleString()}円`);
       }
       // 不足人数の表示は不要
     } else {
