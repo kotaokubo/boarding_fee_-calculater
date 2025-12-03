@@ -605,12 +605,22 @@ function calculateAndRender() {
       parts.push(`  ・最低料金（男性8名分）：${bp.minPriceUsed.toLocaleString()}円`);
       if (bp.extraCount && bp.extraCount > 0) {
         const eb = bp.extraBreakdown || { men: 0, women: 0, student: 0 };
-        const labels = [];
-        if (eb.student) labels.push(`子供${eb.student}名分`);
-        if (eb.women) labels.push(`女性${eb.women}名分`);
-        if (eb.men) labels.push(`男性${eb.men}名分`);
-        const who = labels.length ? `（${labels.join('・')}）` : '';
-        parts.push(`  ・追加人数：${bp.extraCount}名分${who} = ${bp.extraChargeAmount.toLocaleString()}円`);
+        // 合計と内訳行を表示
+        parts.push(`  ・追加人数：${bp.extraCount}名`);
+        const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
+        if (eb.men) {
+          const amt = eb.men * fareObj.men;
+          parts.push(`    男性${eb.men}名分 = ${amt.toLocaleString()}円`);
+        }
+        if (eb.women) {
+          const amt = eb.women * fareObj.women;
+          parts.push(`    女性${eb.women}名分 = ${amt.toLocaleString()}円`);
+        }
+        if (eb.student) {
+          const amt = eb.student * fareObj.student;
+          parts.push(`    子供${eb.student}名分 = ${amt.toLocaleString()}円`);
+        }
+        parts.push(`    （追加分合計 = ${bp.extraChargeAmount.toLocaleString()}円）`);
       }
       // 不足人数の表示は不要
     } else {
