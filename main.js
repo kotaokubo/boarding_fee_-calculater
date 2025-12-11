@@ -825,11 +825,20 @@ mailtoBtn.addEventListener('click', (e) => {
 modalCloseBtn.addEventListener('click', closePersonalInfoModal);
 modalCancelBtn.addEventListener('click', closePersonalInfoModal);
 
-// Auto-convert name to katakana for kana field
+// Auto-convert name to katakana for kana field (only for hiragana)
 visitorNameEl.addEventListener('input', (e) => {
   const nameValue = e.target.value;
-  const katakanaValue = hiraganaToKatakana(nameValue);
-  visitorKanaEl.value = katakanaValue;
+  // Check if input contains only hiragana (and no kanji or other characters)
+  const hiraganaOnly = /^[\u3041-\u3096]*$/.test(nameValue);
+  if (hiraganaOnly && nameValue.length > 0) {
+    // Convert only if purely hiragana
+    const katakanaValue = hiraganaToKatakana(nameValue);
+    visitorKanaEl.value = katakanaValue;
+  } else if (nameValue.length === 0) {
+    // Clear kana field if name is empty
+    visitorKanaEl.value = '';
+  }
+  // If contains kanji or mixed characters, do not auto-convert (user must enter manually)
 });
 
 // Close modal when clicking outside the modal content
