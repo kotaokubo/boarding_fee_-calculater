@@ -861,7 +861,8 @@ visitorNameEl.addEventListener('input', async (e) => {
       return;
     } catch (err) {
       console.warn('Kuroshiro conversion error:', err);
-      // Fall through to hiragana-only conversion
+      // If Kuroshiro fails, keep existing kana value (don't clear it)
+      return;
     }
   }
   
