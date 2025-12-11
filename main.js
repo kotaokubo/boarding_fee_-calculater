@@ -21,8 +21,7 @@ const state = {
   // Personal information
   visitorName: '',
   visitorKana: '',
-  visitorPhone: '',
-  visitorEmail: ''
+  visitorPhone: ''
 };
 
 // DOM refs
@@ -49,7 +48,6 @@ const personalInfoForm = document.getElementById('personalInfoForm');
 const visitorNameEl = document.getElementById('visitorName');
 const visitorKanaEl = document.getElementById('visitorKana');
 const visitorPhoneEl = document.getElementById('visitorPhone');
-const visitorEmailEl = document.getElementById('visitorEmail');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const modalCancelBtn = document.getElementById('modalCancelBtn');
 const modalSubmitBtn = document.getElementById('modalSubmitBtn');
@@ -733,7 +731,6 @@ function createMailTo() {
   if (state.visitorName) bodyLines.push('お名前：' + state.visitorName);
   if (state.visitorKana) bodyLines.push('フリガナ：' + state.visitorKana);
   if (state.visitorPhone) bodyLines.push('電話番号：' + state.visitorPhone);
-  if (state.visitorEmail) bodyLines.push('メールアドレス：' + state.visitorEmail);
   bodyLines.push('');
   
   bodyLines.push('【ご予約詳細】');
@@ -889,7 +886,6 @@ modalSubmitBtn.addEventListener('click', (e) => {
   state.visitorName = visitorNameEl.value.trim();
   state.visitorKana = visitorKanaEl.value.trim();
   state.visitorPhone = visitorPhoneEl.value.trim();
-  state.visitorEmail = visitorEmailEl.value.trim();
   
   // Close modal
   closePersonalInfoModal();
@@ -909,7 +905,6 @@ resetBtn.addEventListener('click', () => {
   state.visitorName = '';
   state.visitorKana = '';
   state.visitorPhone = '';
-  state.visitorEmail = '';
   menEl.value = womenEl.value = studentEl.value = 0;
   dateEl.valueAsDate = new Date();
   state.date = dateEl.value;
