@@ -17,7 +17,11 @@ const state = {
   women: 0,
   student: 0,
   rentals: {}, // {name: qty}
-  shikake: {} // {name: qty}
+  shikake: {}, // {name: qty}
+  // Personal information
+  visitorName: '',
+  visitorPhone: '',
+  visitorEmail: ''
 };
 
 // DOM refs
@@ -37,6 +41,16 @@ const priceMenEl = document.getElementById('priceMen');
 const priceWomenEl = document.getElementById('priceWomen');
 const priceStudentEl = document.getElementById('priceStudent');
 const planTimesEl = document.getElementById('planTimes');
+
+// Modal refs
+const personalInfoModal = document.getElementById('personalInfoModal');
+const personalInfoForm = document.getElementById('personalInfoForm');
+const visitorNameEl = document.getElementById('visitorName');
+const visitorPhoneEl = document.getElementById('visitorPhone');
+const visitorEmailEl = document.getElementById('visitorEmail');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const modalCancelBtn = document.getElementById('modalCancelBtn');
+const modalSubmitBtn = document.getElementById('modalSubmitBtn');
 
 // Init date to today
 (function setToday() {
@@ -711,8 +725,15 @@ function createMailTo() {
   // Build body per spec
   const bodyLines = [];
   bodyLines.push('【予約内容】');
-  // The user example uses full-width bracket and formatting; follow sample exactly except line with bracket typo corrected
-  bodyLines[0] = '【予約内容】';
+  
+  // 個人情報
+  bodyLines.push('【お客様情報】');
+  if (state.visitorName) bodyLines.push('お名前：' + state.visitorName);
+  if (state.visitorPhone) bodyLines.push('電話番号：' + state.visitorPhone);
+  if (state.visitorEmail) bodyLines.push('メールアドレス：' + state.visitorEmail);
+  bodyLines.push('');
+  
+  bodyLines.push('【ご予約詳細】');
   bodyLines.push('プラン：' + state.tripType + (state.plan ? (' ' + state.plan) : ''));
   bodyLines.push('');
   bodyLines.push('日付：' + formatDateWithWeekday(state.date));
@@ -775,9 +796,54 @@ menEl.addEventListener('change', (e) => { state.men = Number(e.target.value)||0;
 womenEl.addEventListener('change', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
 studentEl.addEventListener('change', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
 
+// Modal event handlers
+function showPersonalInfoModal() {
+  personalInfoModal.style.display = 'flex';
+  // Focus on first input
+  visitorNameEl.focus();
+}
+
+function closePersonalInfoModal() {
+  personalInfoModal.style.display = 'none';
+}
+
 mailtoBtn.addEventListener('click', (e) => {
   e.preventDefault();
+  showPersonalInfoModal();
+});
+
+modalCloseBtn.addEventListener('click', closePersonalInfoModal);
+modalCancelBtn.addEventListener('click', closePersonalInfoModal);
+
+// Close modal when clicking outside the modal content
+personalInfoModal.addEventListener('click', (e) => {
+  if (e.target === personalInfoModal) {
+    closePersonalInfoModal();
+  }
+});
+
+modalSubmitBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  
+  // Validate form
+  if (!personalInfoForm.checkValidity()) {
+    personalInfoForm.reportValidity();
+    return;
+  }
+  
+  // Save personal info to state
+  state.visitorName = visitorNameEl.value.trim();
+  state.visitorPhone = visitorPhoneEl.value.trim();
+  state.visitorEmail = visitorEmailEl.value.trim();
+  
+  // Close modal
+  closePersonalInfoModal();
+  
+  // Create and open mailto
   createMailTo();
+  
+  // Clear form for next use
+  personalInfoForm.reset();
 });
 
 resetBtn.addEventListener('click', () => {
@@ -785,12 +851,16 @@ resetBtn.addEventListener('click', () => {
   state.tripType = '乗合船';
   state.men = state.women = state.student = 0;
   state.shikake = {};
+  state.visitorName = '';
+  state.visitorPhone = '';
+  state.visitorEmail = '';
   menEl.value = womenEl.value = studentEl.value = 0;
   dateEl.valueAsDate = new Date();
   state.date = dateEl.value;
   updatePlanOptions();
   calculateAndRender();
 });
+
 
 // Initialize
 (function init(){
