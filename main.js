@@ -844,15 +844,13 @@ mailtoBtn.addEventListener('click', (e) => {
 modalCloseBtn.addEventListener('click', closePersonalInfoModal);
 modalCancelBtn.addEventListener('click', closePersonalInfoModal);
 
-// Auto-convert name to katakana for kana field
-visitorNameEl.addEventListener('input', async (e) => {
-  const nameValue = e.target.value.trim();
-  
-  if (nameValue.length === 0) {
+// Helper function to convert name to katakana
+async function convertNameToKana(nameValue) {
+  if (!nameValue || nameValue.length === 0) {
     visitorKanaEl.value = '';
     return;
   }
-  
+
   // Try to use Kuroshiro for full conversion (including kanji)
   if (kuroshiroReady && kuroshiro) {
     try {
@@ -865,13 +863,25 @@ visitorNameEl.addEventListener('input', async (e) => {
       return;
     }
   }
-  
+
   // Fallback: Convert only if purely hiragana
   const hiraganaOnly = /^[\u3041-\u3096]*$/.test(nameValue);
   if (hiraganaOnly) {
     const katakanaValue = hiraganaToKatakana(nameValue);
     visitorKanaEl.value = katakanaValue;
   }
+}
+
+// Auto-convert name to katakana for kana field (on input)
+visitorNameEl.addEventListener('input', (e) => {
+  const nameValue = e.target.value.trim();
+  convertNameToKana(nameValue);
+});
+
+// Also handle composition events for IME input (important for mobile/Japanese input)
+visitorNameEl.addEventListener('compositionend', (e) => {
+  const nameValue = e.target.value.trim();
+  convertNameToKana(nameValue);
 });
 
 // Close modal when clicking outside the modal content
