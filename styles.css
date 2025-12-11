@@ -330,9 +330,12 @@ select.form-input{appearance:none}
   background-color: #f9fafb;
 }
 
-.modal-footer .btn {
-  flex: 1;
-  max-width: 150px;
+#modalCancelBtn {
+  flex: 0 0 40%;
+}
+
+#modalSubmitBtn {
+  flex: 0 0 60%;
 }
 
 @media (max-width: 560px) {

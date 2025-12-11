@@ -724,7 +724,7 @@ function createMailTo() {
 
   // Build body per spec
   const bodyLines = [];
-  bodyLines.push('【予約内容】');
+  bodyLines.push('予約内容のご確認');
   
   // 個人情報
   bodyLines.push('【お客様情報】');
@@ -757,6 +757,13 @@ function createMailTo() {
   } else {
     bodyLines.push('  なし');
   }
+
+  // Add total amount at the end
+  bodyLines.push('');
+  bodyLines.push('━━━━━━━━━━━━━━━━');
+  bodyLines.push('【合計金額】');
+  bodyLines.push(res.total.toLocaleString() + '円');
+  bodyLines.push('━━━━━━━━━━━━━━━━');
 
   const body = bodyLines.join('\n');
 
