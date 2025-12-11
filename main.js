@@ -771,6 +771,21 @@ function createMailTo() {
   window.location.href = mailto;
 }
 
+// Initialize Kuroshiro for kanji to katakana conversion
+let kuroshiro = null;
+let kuroshiroReady = false;
+
+(async function initKuroshiro() {
+  try {
+    kuroshiro = new Kuroshiro();
+    await kuroshiro.init(new KuromojiAnalyzer());
+    kuroshiroReady = true;
+  } catch (err) {
+    console.warn('Kuroshiro initialization failed:', err);
+    // Fallback: Continue without kuroshiro (only hiragana to katakana conversion)
+  }
+})();
+
 // Hiragana to Katakana converter
 function hiraganaToKatakana(str) {
   return str.replace(/[\u3041-\u3096]/g, (match) => {
@@ -825,20 +840,33 @@ mailtoBtn.addEventListener('click', (e) => {
 modalCloseBtn.addEventListener('click', closePersonalInfoModal);
 modalCancelBtn.addEventListener('click', closePersonalInfoModal);
 
-// Auto-convert name to katakana for kana field (only for hiragana)
-visitorNameEl.addEventListener('input', (e) => {
-  const nameValue = e.target.value;
-  // Check if input contains only hiragana (and no kanji or other characters)
+// Auto-convert name to katakana for kana field
+visitorNameEl.addEventListener('input', async (e) => {
+  const nameValue = e.target.value.trim();
+  
+  if (nameValue.length === 0) {
+    visitorKanaEl.value = '';
+    return;
+  }
+  
+  // Try to use Kuroshiro for full conversion (including kanji)
+  if (kuroshiroReady && kuroshiro) {
+    try {
+      const katakanaValue = await kuroshiro.convert(nameValue, { to: 'katakana' });
+      visitorKanaEl.value = katakanaValue;
+      return;
+    } catch (err) {
+      console.warn('Kuroshiro conversion error:', err);
+      // Fall through to hiragana-only conversion
+    }
+  }
+  
+  // Fallback: Convert only if purely hiragana
   const hiraganaOnly = /^[\u3041-\u3096]*$/.test(nameValue);
-  if (hiraganaOnly && nameValue.length > 0) {
-    // Convert only if purely hiragana
+  if (hiraganaOnly) {
     const katakanaValue = hiraganaToKatakana(nameValue);
     visitorKanaEl.value = katakanaValue;
-  } else if (nameValue.length === 0) {
-    // Clear kana field if name is empty
-    visitorKanaEl.value = '';
   }
-  // If contains kanji or mixed characters, do not auto-convert (user must enter manually)
 });
 
 // Close modal when clicking outside the modal content
