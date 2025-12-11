@@ -20,6 +20,7 @@ const state = {
   shikake: {}, // {name: qty}
   // Personal information
   visitorName: '',
+  visitorKana: '',
   visitorPhone: '',
   visitorEmail: ''
 };
@@ -46,6 +47,7 @@ const planTimesEl = document.getElementById('planTimes');
 const personalInfoModal = document.getElementById('personalInfoModal');
 const personalInfoForm = document.getElementById('personalInfoForm');
 const visitorNameEl = document.getElementById('visitorName');
+const visitorKanaEl = document.getElementById('visitorKana');
 const visitorPhoneEl = document.getElementById('visitorPhone');
 const visitorEmailEl = document.getElementById('visitorEmail');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -729,6 +731,7 @@ function createMailTo() {
   // 個人情報
   bodyLines.push('【お客様情報】');
   if (state.visitorName) bodyLines.push('お名前：' + state.visitorName);
+  if (state.visitorKana) bodyLines.push('フリガナ：' + state.visitorKana);
   if (state.visitorPhone) bodyLines.push('電話番号：' + state.visitorPhone);
   if (state.visitorEmail) bodyLines.push('メールアドレス：' + state.visitorEmail);
   bodyLines.push('');
@@ -766,6 +769,13 @@ function createMailTo() {
 
   // open default mailer
   window.location.href = mailto;
+}
+
+// Hiragana to Katakana converter
+function hiraganaToKatakana(str) {
+  return str.replace(/[\u3041-\u3096]/g, (match) => {
+    return String.fromCharCode(match.charCodeAt(0) + 0x60);
+  });
 }
 
 // Event wiring
@@ -815,6 +825,13 @@ mailtoBtn.addEventListener('click', (e) => {
 modalCloseBtn.addEventListener('click', closePersonalInfoModal);
 modalCancelBtn.addEventListener('click', closePersonalInfoModal);
 
+// Auto-convert name to katakana for kana field
+visitorNameEl.addEventListener('input', (e) => {
+  const nameValue = e.target.value;
+  const katakanaValue = hiraganaToKatakana(nameValue);
+  visitorKanaEl.value = katakanaValue;
+});
+
 // Close modal when clicking outside the modal content
 personalInfoModal.addEventListener('click', (e) => {
   if (e.target === personalInfoModal) {
@@ -833,6 +850,7 @@ modalSubmitBtn.addEventListener('click', (e) => {
   
   // Save personal info to state
   state.visitorName = visitorNameEl.value.trim();
+  state.visitorKana = visitorKanaEl.value.trim();
   state.visitorPhone = visitorPhoneEl.value.trim();
   state.visitorEmail = visitorEmailEl.value.trim();
   
@@ -852,6 +870,7 @@ resetBtn.addEventListener('click', () => {
   state.men = state.women = state.student = 0;
   state.shikake = {};
   state.visitorName = '';
+  state.visitorKana = '';
   state.visitorPhone = '';
   state.visitorEmail = '';
   menEl.value = womenEl.value = studentEl.value = 0;

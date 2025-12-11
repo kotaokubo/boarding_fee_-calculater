@@ -121,7 +121,7 @@
       <div id="personalInfoModal" class="modal" style="display:none;">
         <div class="modal-content">
           <div class="modal-header">
-            <h2>個人情報入力</h2>
+            <h2>お客様情報</h2>
             <button class="modal-close" id="modalCloseBtn">&times;</button>
           </div>
           <div class="modal-body">
@@ -129,6 +129,10 @@
               <div class="field">
                 <label for="visitorName">お名前 <span class="required">*</span></label>
                 <input type="text" id="visitorName" class="form-input wide" placeholder="例：山田太郎" required />
+              </div>
+              <div class="field">
+                <label for="visitorKana">フリガナ <span class="required">*</span></label>
+                <input type="text" id="visitorKana" class="form-input wide" placeholder="例：ヤマダタロウ" readonly style="background-color:#f0f0f0;cursor:default;" />
               </div>
               <div class="field">
                 <label for="visitorPhone">電話番号 <span class="required">*</span></label>
