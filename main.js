@@ -762,13 +762,6 @@ function createMailTo() {
     bodyLines.push('  なし');
   }
 
-  // Add total amount at the end
-  bodyLines.push('');
-  bodyLines.push('━━━━━━━━━━━━━━━━');
-  bodyLines.push('【合計金額】');
-  bodyLines.push(res.total.toLocaleString() + '円');
-  bodyLines.push('━━━━━━━━━━━━━━━━');
-
   const body = bodyLines.join('\n');
 
   const to = 'ichinosemaru1@docomo.ne.jp';
