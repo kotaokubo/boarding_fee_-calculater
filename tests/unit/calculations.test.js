@@ -61,6 +61,18 @@ describe('calculateTotal - 乗合船', () => {
     expect(result.total).toBe(8000);
   });
 
+  it('refund付きレンタル（ビシセット）の費用を正しく追加する', () => {
+    state.men = 1;
+    state.rentals = { 'ビシセット': 1 };
+    const result = calculateTotal();
+    // 午前アジ: men=6800, ビシセット={ price: 2200, refund: 2100 }
+    // subtotal: 1*6800 = 6800
+    // rentalTotal: 1*2200 = 2200
+    expect(result.subtotal).toBe(6800);
+    expect(result.rentalTotal).toBe(2200);
+    expect(result.total).toBe(9000);
+  });
+
   it('複数のレンタル品の費用を正しく追加する', () => {
     state.men = 1;
     state.rentals = { '竿（竿,リール）': 1, 'カッパ長靴セット': 1 };
@@ -84,6 +96,30 @@ describe('calculateTotal - 乗合船', () => {
   it('負のレンタル数量をゼロとして処理する', () => {
     state.men = 1;
     state.rentals = { '竿（竿,リール）': -1 };
+    const result = calculateTotal();
+    expect(result.rentalTotal).toBe(0);
+    expect(result.total).toBe(6800);
+  });
+
+  it('"仕掛け"という名前のレンタルは無視する', () => {
+    state.men = 1;
+    state.rentals = { '仕掛け': 3 };
+    const result = calculateTotal();
+    expect(result.rentalTotal).toBe(0);
+    expect(result.total).toBe(6800);
+  });
+
+  it('state.rentalsがnullの場合も正しく動作する', () => {
+    state.men = 1;
+    state.rentals = null;
+    const result = calculateTotal();
+    expect(result.rentalTotal).toBe(0);
+    expect(result.total).toBe(6800);
+  });
+
+  it('存在しないレンタル品の場合、料金は加算されない', () => {
+    state.men = 1;
+    state.rentals = { '存在しないレンタル': 5 };
     const result = calculateTotal();
     expect(result.rentalTotal).toBe(0);
     expect(result.total).toBe(6800);
@@ -364,6 +400,18 @@ describe('calculateTotal - 仕立て船', () => {
     expect(result.total).toBe(56200);
   });
 
+  it('仕立て船で乗合船プラン固有のレンタル（ビシセット）を使用する', () => {
+    state.men = 8;
+    state.rentals = { 'ビシセット': 2 };
+    const result = calculateTotal();
+    // Minimum: 54400
+    // ビシセット is in plans['乗合船']['午前アジ'].rental with price 2200
+    // Rentals: 2*2200 = 4400
+    expect(result.subtotal).toBe(54400);
+    expect(result.rentalTotal).toBe(4400);
+    expect(result.total).toBe(58800);
+  });
+
   it('追加料金にレンタル費用を追加する（10名でレンタルあり）', () => {
     state.men = 6;
     state.women = 2;
@@ -472,5 +520,26 @@ describe('calculateTotal - 仕立て船', () => {
     expect(result.total).toBe(93000);
     expect(result.breakdown.extraCount).toBe(3);
     expect(result.breakdown.extraChargeAmount).toBe(11400);
+  });
+
+  it('存在しないプラン名の場合、デフォルト値を使用する', () => {
+    state.plan = '存在しないプラン';
+    state.date = '2026-01-15'; // weekday
+    state.men = 8;
+    const result = calculateTotal();
+    // デフォルト: minPeople=8, minPrice=54400
+    expect(result.subtotal).toBe(54400);
+    expect(result.total).toBe(54400);
+    expect(result.breakdown.minPeopleUsed).toBe(8);
+    expect(result.breakdown.minPriceUsed).toBe(54400);
+  });
+
+  it('dateが未設定の場合、weekdayとして扱う', () => {
+    state.date = null;
+    state.men = 8;
+    const result = calculateTotal();
+    // weekday default: minPeople=8, minPrice=54400
+    expect(result.subtotal).toBe(54400);
+    expect(result.total).toBe(54400);
   });
 });

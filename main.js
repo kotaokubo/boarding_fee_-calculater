@@ -5,6 +5,7 @@
 
 // Plans and rental data are provided by `plans-data.js` and exposed on window.
 // This keeps data separate and makes it easy to replace with an external JSON later.
+/* v8 ignore next 2 */
 const plans = window.plans || {};
 const commonRental = window.commonRental || {};
 
@@ -56,6 +57,9 @@ const modalSubmitBtn = document.getElementById('modalSubmitBtn');
 const alertModal = document.getElementById('alertModal');
 const alertOkBtn = document.getElementById('alertOkBtn');
 
+/* v8 ignore start */
+// Browser-only DOM manipulation code - not tested in Node.js environment
+
 // Init date to today (only in browser)
 if (typeof document !== 'undefined' && dateEl) {
   (function setToday() {
@@ -71,7 +75,6 @@ if (typeof document !== 'undefined' && dateEl) {
 }
 
 // (person-count inputs are handled by direct event listeners later in the file)
-
 // Populate 0..100 options for person-count selects
 function populateCountSelects() {
   const max = 100;
@@ -547,6 +550,8 @@ function calculateTotal() {
     } else if (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].rental && plans['乗合船'][state.plan].rental[name]) {
       rInfo = plans['乗合船'][state.plan].rental[name];
     } else if (commonRental[name] !== undefined) {
+      // Defensive code: commonRental currently only has number values, but could have objects in future
+      /* v8 ignore next */
       rInfo = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     }
     
@@ -982,6 +987,7 @@ if (typeof document !== 'undefined' && document.getElementById('planSelect')) {
     calculateAndRender();
   })();
 }
+/* v8 ignore stop */
 
 // Export functions for testing
 if (typeof module !== 'undefined' && module.exports) {

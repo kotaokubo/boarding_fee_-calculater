@@ -1,6 +1,6 @@
 // tests/unit/date-utils.test.js
 import { describe, it, expect } from 'vitest';
-import { getRateType, parseISODate, toISODate, offsetISO, getWeekdayName, formatDateWithWeekday } from '../../main.js';
+import { getRateType, parseISODate, toISODate, offsetISO, isHolidayISO, getWeekdayName, formatDateWithWeekday } from '../../main.js';
 
 describe('parseISODate', () => {
   it('有効な日付文字列を解析する', () => {
@@ -74,6 +74,26 @@ describe('offsetISO', () => {
   });
 });
 
+describe('isHolidayISO', () => {
+  it('祝日の場合trueを返す', () => {
+    expect(isHolidayISO('2026-01-01')).toBe(true); // 元日
+    expect(isHolidayISO('2026-01-12')).toBe(true); // 成人の日
+    expect(isHolidayISO('2026-05-05')).toBe(true); // こどもの日
+  });
+
+  it('祝日でない場合falseを返す', () => {
+    expect(isHolidayISO('2026-01-15')).toBe(false); // 平日
+    expect(isHolidayISO('2026-01-18')).toBe(false); // 日曜（祝日ではない）
+    expect(isHolidayISO('2026-12-25')).toBe(false); // クリスマス（日本では祝日でない）
+  });
+
+  it('無効な日付の場合falseを返す', () => {
+    expect(isHolidayISO('')).toBe(false);
+    expect(isHolidayISO('invalid')).toBe(false);
+    expect(isHolidayISO('2026-13-01')).toBe(false); // 無効な月
+  });
+});
+
 describe('getRateType', () => {
   describe('weekday detection', () => {
     it('月曜日の場合weekdayを返す', () => {
@@ -140,6 +160,12 @@ describe('getRateType', () => {
       // 2026-01-01 is 元日 (Thursday, isolated)
       const result = getRateType('2026-01-01');
       expect(result).toBe('sunday');
+    });
+
+    it('金曜の孤立した祝日の場合saturdayを返す', () => {
+      // 2026-03-20 is 春分の日 (Friday, isolated)
+      const result = getRateType('2026-03-20');
+      expect(result).toBe('saturday');
     });
   });
 
