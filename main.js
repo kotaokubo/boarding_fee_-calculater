@@ -779,21 +779,6 @@ function createMailTo() {
   window.location.href = mailto;
 }
 
-// Initialize Kuroshiro for kanji to katakana conversion
-let kuroshiro = null;
-let kuroshiroReady = false;
-
-(async function initKuroshiro() {
-  try {
-    kuroshiro = new Kuroshiro();
-    await kuroshiro.init(new KuromojiAnalyzer());
-    kuroshiroReady = true;
-  } catch (err) {
-    console.warn('Kuroshiro initialization failed:', err);
-    // Fallback: Continue without kuroshiro (only hiragana to katakana conversion)
-  }
-})();
-
 // Hiragana to Katakana converter
 function hiraganaToKatakana(str) {
   return str.replace(/[\u3041-\u3096]/g, (match) => {
@@ -881,26 +866,13 @@ modalCloseBtn.addEventListener('click', closePersonalInfoModal);
 modalCancelBtn.addEventListener('click', closePersonalInfoModal);
 
 // Helper function to convert name to katakana
-async function convertNameToKana(nameValue) {
+function convertNameToKana(nameValue) {
   if (!nameValue || nameValue.length === 0) {
     visitorKanaEl.value = '';
     return;
   }
 
-  // Try to use Kuroshiro for full conversion (including kanji)
-  if (kuroshiroReady && kuroshiro) {
-    try {
-      const katakanaValue = await kuroshiro.convert(nameValue, { to: 'katakana' });
-      visitorKanaEl.value = katakanaValue;
-      return;
-    } catch (err) {
-      console.warn('Kuroshiro conversion error:', err);
-      // If Kuroshiro fails, keep existing kana value (don't clear it)
-      return;
-    }
-  }
-
-  // Fallback: Convert only if purely hiragana
+  // Convert only if purely hiragana
   const hiraganaOnly = /^[\u3041-\u3096]*$/.test(nameValue);
   if (hiraganaOnly) {
     const katakanaValue = hiraganaToKatakana(nameValue);
