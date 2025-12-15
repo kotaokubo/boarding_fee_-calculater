@@ -840,7 +840,11 @@ function closePersonalInfoModal() {
   personalInfoModal.style.display = 'none';
 }
 
-function showAlertModal() {
+function showAlertModal(message) {
+  const alertMessage = document.getElementById('alertMessage');
+  if (message && alertMessage) {
+    alertMessage.textContent = message;
+  }
   alertModal.style.display = 'flex';
 }
 
@@ -851,10 +855,22 @@ function closeAlertModal() {
 mailtoBtn.addEventListener('click', (e) => {
   e.preventDefault();
   
+  // Validate date (check if it's in the past)
+  if (state.date) {
+    const selectedDate = new Date(state.date + 'T00:00:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (selectedDate < today) {
+      showAlertModal('未来の日付を選択してください');
+      return;
+    }
+  }
+  
   // Validate people count
   const totalPeople = state.men + state.women + state.student;
   if (totalPeople === 0) {
-    showAlertModal();
+    showAlertModal('人数を1名以上選択してください');
     return;
   }
   
