@@ -903,12 +903,7 @@ visitorNameEl.addEventListener('input', (e) => {
   convertNameToKana(nameValue);
 });
 
-// Close modal when clicking outside the modal content
-personalInfoModal.addEventListener('click', (e) => {
-  if (e.target === personalInfoModal) {
-    closePersonalInfoModal();
-  }
-});
+// Note: Personal info modal does not close when clicking outside (removed for better UX)
 
 modalSubmitBtn.addEventListener('click', (e) => {
   e.preventDefault();
