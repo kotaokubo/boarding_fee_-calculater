@@ -56,17 +56,19 @@ const modalSubmitBtn = document.getElementById('modalSubmitBtn');
 const alertModal = document.getElementById('alertModal');
 const alertOkBtn = document.getElementById('alertOkBtn');
 
-// Init date to today
-(function setToday() {
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth()+1).padStart(2,'0');
-  const dd = String(today.getDate()).padStart(2,'0');
-  dateEl.value = yyyy + '-' + mm + '-' + dd;
-  state.date = dateEl.value;
-  // update weekday display next to date input if present
-  updateDateWeekdayDisplay();
-})();
+// Init date to today (only in browser)
+if (typeof document !== 'undefined' && dateEl) {
+  (function setToday() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth()+1).padStart(2,'0');
+    const dd = String(today.getDate()).padStart(2,'0');
+    dateEl.value = yyyy + '-' + mm + '-' + dd;
+    state.date = dateEl.value;
+    // update weekday display next to date input if present
+    updateDateWeekdayDisplay();
+  })();
+}
 
 // (person-count inputs are handled by direct event listeners later in the file)
 
@@ -779,33 +781,35 @@ function hiraganaToKatakana(str) {
   });
 }
 
-// Event wiring
-tripTypeEl.addEventListener('change', (e) => {
-  state.tripType = e.target.value;
-  updatePlanOptions();
-});
+// Event wiring (only in browser)
+if (typeof document !== 'undefined' && tripTypeEl) {
+  tripTypeEl.addEventListener('change', (e) => {
+    state.tripType = e.target.value;
+    updatePlanOptions();
+  });
 
-planSelectEl.addEventListener('change', (e) => {
-  state.plan = e.target.value;
-  renderShikakeOptions();
-  renderRentalOptions();
-  updateUnitPrices();
-  calculateAndRender();
-});
+  planSelectEl.addEventListener('change', (e) => {
+    state.plan = e.target.value;
+    renderShikakeOptions();
+    renderRentalOptions();
+    updateUnitPrices();
+    calculateAndRender();
+  });
 
-dateEl.addEventListener('change', (e) => {
-  state.date = e.target.value;
-  updateDateWeekdayDisplay();
-  calculateAndRender();
-});
+  dateEl.addEventListener('change', (e) => {
+    state.date = e.target.value;
+    updateDateWeekdayDisplay();
+    calculateAndRender();
+  });
 
-menEl.addEventListener('input', (e) => { state.men = Number(e.target.value)||0; calculateAndRender(); });
-womenEl.addEventListener('input', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
-studentEl.addEventListener('input', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
-// also handle change events for select elements on mobile/browsers that fire change rather than input
-menEl.addEventListener('change', (e) => { state.men = Number(e.target.value)||0; calculateAndRender(); });
-womenEl.addEventListener('change', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
-studentEl.addEventListener('change', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
+  menEl.addEventListener('input', (e) => { state.men = Number(e.target.value)||0; calculateAndRender(); });
+  womenEl.addEventListener('input', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
+  studentEl.addEventListener('input', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
+  // also handle change events for select elements on mobile/browsers that fire change rather than input
+  menEl.addEventListener('change', (e) => { state.men = Number(e.target.value)||0; calculateAndRender(); });
+  womenEl.addEventListener('change', (e) => { state.women = Number(e.target.value)||0; calculateAndRender(); });
+  studentEl.addEventListener('change', (e) => { state.student = Number(e.target.value)||0; calculateAndRender(); });
+}
 
 // Modal event handlers
 function showPersonalInfoModal() {
@@ -830,33 +834,35 @@ function closeAlertModal() {
   alertModal.style.display = 'none';
 }
 
-mailtoBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  
-  // Validate date (check if it's in the past)
-  if (state.date) {
-    const selectedDate = new Date(state.date + 'T00:00:00');
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+if (typeof document !== 'undefined' && mailtoBtn) {
+  mailtoBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     
-    if (selectedDate < today) {
-      showAlertModal('未来の日付を選択してください');
+    // Validate date (check if it's in the past)
+    if (state.date) {
+      const selectedDate = new Date(state.date + 'T00:00:00');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (selectedDate < today) {
+        showAlertModal('未来の日付を選択してください');
+        return;
+      }
+    }
+    
+    // Validate people count
+    const totalPeople = state.men + state.women + state.student;
+    if (totalPeople === 0) {
+      showAlertModal('人数を1名以上選択してください');
       return;
     }
-  }
-  
-  // Validate people count
-  const totalPeople = state.men + state.women + state.student;
-  if (totalPeople === 0) {
-    showAlertModal('人数を1名以上選択してください');
-    return;
-  }
-  
-  showPersonalInfoModal();
-});
+    
+    showPersonalInfoModal();
+  });
 
-modalCloseBtn.addEventListener('click', closePersonalInfoModal);
-modalCancelBtn.addEventListener('click', closePersonalInfoModal);
+  modalCloseBtn.addEventListener('click', closePersonalInfoModal);
+  modalCancelBtn.addEventListener('click', closePersonalInfoModal);
+}
 
 // Helper function to convert name to katakana
 function convertNameToKana(nameValue) {
@@ -874,83 +880,104 @@ function convertNameToKana(nameValue) {
   // If not hiragana (e.g., kanji, katakana, mixed), don't change the kana field
 }
 
-// Track if IME composition is in progress
-let isComposing = false;
+if (typeof document !== 'undefined' && visitorNameEl) {
+  // Track if IME composition is in progress
+  let isComposing = false;
 
-visitorNameEl.addEventListener('compositionstart', () => {
-  isComposing = true;
-});
+  visitorNameEl.addEventListener('compositionstart', () => {
+    isComposing = true;
+  });
 
-visitorNameEl.addEventListener('compositionend', (e) => {
-  isComposing = false;
-  const nameValue = e.target.value.trim();
-  convertNameToKana(nameValue);
-});
+  visitorNameEl.addEventListener('compositionend', (e) => {
+    isComposing = false;
+    const nameValue = e.target.value.trim();
+    convertNameToKana(nameValue);
+  });
 
-// Auto-convert name to katakana for kana field (on input)
-visitorNameEl.addEventListener('input', (e) => {
-  // Skip conversion during IME composition
-  if (isComposing) return;
-  
-  const nameValue = e.target.value.trim();
-  convertNameToKana(nameValue);
-});
+  // Auto-convert name to katakana for kana field (on input)
+  visitorNameEl.addEventListener('input', (e) => {
+    // Skip conversion during IME composition
+    if (isComposing) return;
+    
+    const nameValue = e.target.value.trim();
+    convertNameToKana(nameValue);
+  });
 
-// Note: Personal info modal does not close when clicking outside (removed for better UX)
+  // Note: Personal info modal does not close when clicking outside (removed for better UX)
 
-modalSubmitBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  
-  // Validate form
-  if (!personalInfoForm.checkValidity()) {
-    personalInfoForm.reportValidity();
-    return;
-  }
-  
-  // Save personal info to state
-  state.visitorName = visitorNameEl.value.trim();
-  state.visitorKana = visitorKanaEl.value.trim();
-  state.visitorPhone = visitorPhoneEl.value.trim();
-  
-  // Close modal
-  closePersonalInfoModal();
-  
-  // Create and open mailto
-  createMailTo();
-  
-  // Clear form for next use
-  personalInfoForm.reset();
-});
+  modalSubmitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Validate form
+    if (!personalInfoForm.checkValidity()) {
+      personalInfoForm.reportValidity();
+      return;
+    }
+    
+    // Save personal info to state
+    state.visitorName = visitorNameEl.value.trim();
+    state.visitorKana = visitorKanaEl.value.trim();
+    state.visitorPhone = visitorPhoneEl.value.trim();
+    
+    // Close modal
+    closePersonalInfoModal();
+    
+    // Create and open mailto
+    createMailTo();
+    
+    // Clear form for next use
+    personalInfoForm.reset();
+  });
 
-// Alert modal event handlers
-alertOkBtn.addEventListener('click', closeAlertModal);
+  // Alert modal event handlers
+  alertOkBtn.addEventListener('click', closeAlertModal);
 
-// Close alert modal when clicking outside the modal content
-alertModal.addEventListener('click', (e) => {
-  if (e.target === alertModal) {
-    closeAlertModal();
-  }
-});
+  // Close alert modal when clicking outside the modal content
+  alertModal.addEventListener('click', (e) => {
+    if (e.target === alertModal) {
+      closeAlertModal();
+    }
+  });
 
-resetBtn.addEventListener('click', () => {
-  tripTypeEl.value = '乗合船';
-  state.tripType = '乗合船';
-  state.men = state.women = state.student = 0;
-  state.shikake = {};
-  state.visitorName = '';
-  state.visitorKana = '';
-  state.visitorPhone = '';
-  menEl.value = womenEl.value = studentEl.value = 0;
-  dateEl.valueAsDate = new Date();
-  state.date = dateEl.value;
-  updatePlanOptions();
-  calculateAndRender();
-});
+  resetBtn.addEventListener('click', () => {
+    tripTypeEl.value = '乗合船';
+    state.tripType = '乗合船';
+    state.men = state.women = state.student = 0;
+    state.shikake = {};
+    state.visitorName = '';
+    state.visitorKana = '';
+    state.visitorPhone = '';
+    menEl.value = womenEl.value = studentEl.value = 0;
+    dateEl.valueAsDate = new Date();
+    state.date = dateEl.value;
+    updatePlanOptions();
+    calculateAndRender();
+  });
+}
 
 
-// Initialize
-(function init(){
-  populateCountSelects();
-  updatePlanOptions();
-  calculateAndRender();
-})();
+// Initialize (only in browser)
+if (typeof document !== 'undefined' && document.getElementById('planSelect')) {
+  (function init(){
+    populateCountSelects();
+    updatePlanOptions();
+    calculateAndRender();
+  })();
+}
+
+// Export functions for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    state,
+    calculateTotal,
+    getRateType,
+    getShikakePrices,
+    getTimesForPlan,
+    parseISODate,
+    toISODate,
+    offsetISO,
+    isHolidayISO,
+    getWeekdayName,
+    formatDateWithWeekday
+  };
+}

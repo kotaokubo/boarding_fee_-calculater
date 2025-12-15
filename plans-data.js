@@ -128,3 +128,8 @@ window.holidays = [
   '2026-11-03', // 文化の日
   '2026-11-23'  // 勤労感謝の日
 ];
+
+// Export for testing (ES modules)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { plans: window.plans, commonRental: window.commonRental, holidays: window.holidays };
+}
