@@ -52,6 +52,10 @@ const modalCloseBtn = document.getElementById('modalCloseBtn');
 const modalCancelBtn = document.getElementById('modalCancelBtn');
 const modalSubmitBtn = document.getElementById('modalSubmitBtn');
 
+// Alert modal refs
+const alertModal = document.getElementById('alertModal');
+const alertOkBtn = document.getElementById('alertOkBtn');
+
 // Init date to today
 (function setToday() {
   const today = new Date();
@@ -836,8 +840,24 @@ function closePersonalInfoModal() {
   personalInfoModal.style.display = 'none';
 }
 
+function showAlertModal() {
+  alertModal.style.display = 'flex';
+}
+
+function closeAlertModal() {
+  alertModal.style.display = 'none';
+}
+
 mailtoBtn.addEventListener('click', (e) => {
   e.preventDefault();
+  
+  // Validate people count
+  const totalPeople = state.men + state.women + state.student;
+  if (totalPeople === 0) {
+    showAlertModal();
+    return;
+  }
+  
   showPersonalInfoModal();
 });
 
@@ -913,6 +933,16 @@ modalSubmitBtn.addEventListener('click', (e) => {
   
   // Clear form for next use
   personalInfoForm.reset();
+});
+
+// Alert modal event handlers
+alertOkBtn.addEventListener('click', closeAlertModal);
+
+// Close alert modal when clicking outside the modal content
+alertModal.addEventListener('click', (e) => {
+  if (e.target === alertModal) {
+    closeAlertModal();
+  }
 });
 
 resetBtn.addEventListener('click', () => {

@@ -365,3 +365,36 @@ select.form-input{appearance:none}
     max-width: none;
   }
 }
+
+/* Alert Modal (Compact) */
+.alert-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.alert-modal-body {
+  padding: 24px 24px 32px 24px;
+  text-align: center;
+}
+
+.alert-modal-body p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.alert-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 24px 24px 24px;
+}
+
+.alert-modal-footer .btn {
+  min-width: 132px;
+  max-width: 140px;
+}
