@@ -130,18 +130,30 @@ describe('getRateType', () => {
   });
 
   describe('isolated holiday', () => {
-    it('孤立した月曜祝日の場合sundayを返す', () => {
-      // 2026-01-12 is 成人の日 (Monday holiday, isolated)
-      const result = getRateType('2026-01-12');
+    it('孤立した祝日の場合sundayを返す', () => {
+      // 2026-02-11 is 建国記念の日 (Wednesday, isolated)
+      const result = getRateType('2026-02-11');
       expect(result).toBe('sunday');
     });
 
-    it('returns saturday for isolated Friday holiday', () => {
-      // 2026-02-11 is 建国記念の日 (Wednesday), but let\'s use a Friday example
-      // 2026-07-24 is スポーツの日 (Friday) - actually moved to Monday
-      // Let me check actual Friday holiday: 2026-04-29 is 昭和の日 (Wednesday)
-      // Let\'s create a test case assuming we have a Friday holiday
-      // For now, skip this test as actual Friday holidays are rare
+    it('孤立した祝日の場合sundayを返す（元日）', () => {
+      // 2026-01-01 is 元日 (Thursday, isolated)
+      const result = getRateType('2026-01-01');
+      expect(result).toBe('sunday');
+    });
+  });
+
+  describe('weekend + holiday consecutive days', () => {
+    it('日曜＋祝日の連休：日曜日はsaturdayを返す（連休中日）', () => {
+      // 2026-01-11 is Sunday, 2026-01-12 is 成人の日 (Monday)
+      const result = getRateType('2026-01-11');
+      expect(result).toBe('saturday');
+    });
+
+    it('日曜＋祝日の連休：祝日はsundayを返す（連休最終日）', () => {
+      // 2026-01-12 is 成人の日 (Monday), after Sunday 01-11
+      const result = getRateType('2026-01-12');
+      expect(result).toBe('sunday');
     });
   });
 
