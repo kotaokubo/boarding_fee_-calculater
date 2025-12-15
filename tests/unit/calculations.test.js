@@ -241,7 +241,7 @@ describe('calculateTotal - 仕立て船', () => {
   beforeEach(() => {
     state.tripType = '仕立て船';
     state.plan = '午前アジ';
-    state.date = '2026-01-15';
+    state.date = '2026-01-15'; // Thursday (weekday)
     state.men = 0;
     state.women = 0;
     state.student = 0;
@@ -249,7 +249,7 @@ describe('calculateTotal - 仕立て船', () => {
     state.shikake = {};
   });
 
-  it('8名以下の場合、最低料金を請求する（8名ちょうど）', () => {
+  it('平日：8名以下の場合、最低料金を請求する（8名ちょうど）', () => {
     state.men = 8;
     const result = calculateTotal();
     // 午前アジ 乗合船: men=6800
@@ -377,5 +377,100 @@ describe('calculateTotal - 仕立て船', () => {
     expect(result.subtotal).toBe(62000);
     expect(result.rentalTotal).toBe(1800);
     expect(result.total).toBe(63800);
+  });
+
+  it('土曜・連休：最低人数と最低料金が異なる（15名、15名ちょうど）', () => {
+    state.date = '2026-01-10'; // Saturday
+    state.men = 15;
+    const result = calculateTotal();
+    // Saturday: minPeople=15, minPrice=102000
+    expect(result.subtotal).toBe(102000);
+    expect(result.total).toBe(102000);
+    expect(result.breakdown.minPeopleUsed).toBe(15);
+    expect(result.breakdown.minPriceUsed).toBe(102000);
+    expect(result.breakdown.shortageCount).toBe(0);
+    expect(result.breakdown.extraCount).toBe(0);
+  });
+
+  it('土曜・連休：15名以下の場合、最低料金を請求する（10名）', () => {
+    state.date = '2026-01-10'; // Saturday
+    state.men = 10;
+    const result = calculateTotal();
+    // Saturday: minPeople=15, minPrice=102000
+    expect(result.subtotal).toBe(102000);
+    expect(result.total).toBe(102000);
+    expect(result.breakdown.shortageCount).toBe(5);
+    expect(result.breakdown.extraCount).toBe(0);
+  });
+
+  it('土曜・連休：15名を超える場合、追加料金を請求する（18名）', () => {
+    state.date = '2026-01-10'; // Saturday
+    state.men = 10;
+    state.women = 5;
+    state.student = 3;
+    const result = calculateTotal();
+    // Saturday: minPeople=15, minPrice=102000
+    // Total people: 18, extra: 3
+    // Priority: student (3)
+    // Extra charge: 3*3800 = 11400
+    // Total: 102000 + 11400 = 113400
+    expect(result.subtotal).toBe(113400);
+    expect(result.total).toBe(113400);
+    expect(result.breakdown.extraCount).toBe(3);
+    expect(result.breakdown.extraChargeAmount).toBe(11400);
+    expect(result.breakdown.extraBreakdown.student).toBe(3);
+  });
+
+  it('日曜・連休最終日：最低人数と最低料金が異なる（12名、12名ちょうど）', () => {
+    state.date = '2026-01-11'; // Sunday (before 2026-01-12 holiday, so saturday rate)
+    state.men = 12;
+    const result = calculateTotal();
+    // This Sunday is before a holiday, so it uses saturday rate
+    // Saturday: minPeople=15, minPrice=102000
+    expect(result.subtotal).toBe(102000);
+    expect(result.total).toBe(102000);
+    expect(result.breakdown.minPeopleUsed).toBe(15);
+    expect(result.breakdown.minPriceUsed).toBe(102000);
+  });
+
+  it('日曜・連休最終日：孤立した日曜の場合、sunday料金を使用（12名）', () => {
+    state.date = '2026-01-18'; // Sunday (not before holiday, isolated)
+    state.men = 12;
+    const result = calculateTotal();
+    // Isolated Sunday: minPeople=12, minPrice=81600
+    expect(result.subtotal).toBe(81600);
+    expect(result.total).toBe(81600);
+    expect(result.breakdown.minPeopleUsed).toBe(12);
+    expect(result.breakdown.minPriceUsed).toBe(81600);
+    expect(result.breakdown.shortageCount).toBe(0);
+    expect(result.breakdown.extraCount).toBe(0);
+  });
+
+  it('日曜・連休最終日：12名以下の場合、最低料金を請求する（8名）', () => {
+    state.date = '2026-01-18'; // Sunday (isolated)
+    state.men = 8;
+    const result = calculateTotal();
+    // Sunday: minPeople=12, minPrice=81600
+    expect(result.subtotal).toBe(81600);
+    expect(result.total).toBe(81600);
+    expect(result.breakdown.shortageCount).toBe(4);
+    expect(result.breakdown.extraCount).toBe(0);
+  });
+
+  it('日曜・連休最終日：12名を超える場合、追加料金を請求する（15名）', () => {
+    state.date = '2026-01-18'; // Sunday (isolated)
+    state.men = 8;
+    state.women = 4;
+    state.student = 3;
+    const result = calculateTotal();
+    // Sunday: minPeople=12, minPrice=81600
+    // Total people: 15, extra: 3
+    // Priority: student (3)
+    // Extra charge: 3*3800 = 11400
+    // Total: 81600 + 11400 = 93000
+    expect(result.subtotal).toBe(93000);
+    expect(result.total).toBe(93000);
+    expect(result.breakdown.extraCount).toBe(3);
+    expect(result.breakdown.extraChargeAmount).toBe(11400);
   });
 });

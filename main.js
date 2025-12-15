@@ -569,21 +569,39 @@ function calculateTotal() {
     const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
     subtotal += men * fareObj.men + women * fareObj.women + student * fareObj.student;
   } else if (state.tripType === '仕立て船') {
-    // 乗合船の料金を取得
+    // 仕立て船の料金を取得（日付により異なる）
+    const charterPlan = (plans['仕立て船'] && plans['仕立て船'][state.plan]) || null;
+    
+    // 日付から料金タイプを判定
+    const rateType = getRateType(state.date);
+    // saturday → holiday, sunday → sunday, weekday → weekday
+    let rateKey = 'weekday';
+    if (rateType === 'saturday') {
+      rateKey = 'holiday';
+    } else if (rateType === 'sunday') {
+      rateKey = 'sunday';
+    }
+    
+    // 仕立て船の料金データから minPeople と minPrice を取得
+    let minPeople = 8;
+    let minPrice = 54400;
+    if (charterPlan && charterPlan[rateKey]) {
+      minPeople = charterPlan[rateKey].minPeople || 8;
+      minPrice = charterPlan[rateKey].minPrice || 54400;
+    }
+    
+    // 乗合船の料金を取得（追加人数の単価計算用）
     const refFare = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
     
-    // プランごとの最低料金（男性料金8名分）
-    const minPrice = refFare.men * 8;
-    
-    // 8名までは最低料金、8名を超える分だけ各属性の単価で加算
-    minPeopleUsed = 8;
+    minPeopleUsed = minPeople;
     minPriceUsed = minPrice;
-    if (totalPeople <= 8) {
+    
+    if (totalPeople <= minPeople) {
       subtotal = minPrice;
-      shortageCount = 8 - totalPeople; // 8名に満たない不足人数
+      shortageCount = minPeople - totalPeople;
     } else {
-      // 8名を超えた分の人数を、子供→女性→男性 の順で加算対象に充てる
-      let extras = totalPeople - 8;
+      // 最低人数を超えた分の人数を、子供→女性→男性 の順で加算対象に充てる
+      let extras = totalPeople - minPeople;
       let extraStudent = Math.min(student, extras);
       extras -= extraStudent;
       let extraWomen = Math.min(women, extras);
@@ -591,7 +609,7 @@ function calculateTotal() {
       let extraMen = Math.min(men, extras);
       const extraCharge = (extraMen * refFare.men) + (extraWomen * refFare.women) + (extraStudent * refFare.student);
       subtotal = minPrice + extraCharge;
-      extraCount = (totalPeople - 8);
+      extraCount = (totalPeople - minPeople);
       extraChargeAmount = extraCharge;
       extraBreakdown = { men: extraMen, women: extraWomen, student: extraStudent };
       shortageCount = 0;
