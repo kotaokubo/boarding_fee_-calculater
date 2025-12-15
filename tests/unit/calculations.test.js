@@ -174,26 +174,26 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
 
   it('レンタル費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（竿,リール）': 1 };
+    state.rentals = { '竿（手巻き）': 1 };
     const result = calculateTotal();
-    // マダイ五目: men=11500, 竿（竿,リール）=600
+    // マダイ五目: men=11500, 竿（手巻き）=1200
     // subtotal: 11500
-    // rentalTotal: 600
+    // rentalTotal: 1200
     expect(result.subtotal).toBe(11500);
-    expect(result.rentalTotal).toBe(600);
-    expect(result.total).toBe(12100);
+    expect(result.rentalTotal).toBe(1200);
+    expect(result.total).toBe(12700);
   });
 
   it('複数のレンタル品の費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（竿,リール）': 2, 'カッパ長靴セット': 1 };
+    state.rentals = { '竿（手巻き）': 1, '竿（電動リール）': 1 };
     const result = calculateTotal();
-    // マダイ五目: men=11500, 竿（竿,リール）=600, カッパ長靴セット=600
+    // マダイ五目: men=11500, 竿（手巻き）=1200, 竿（電動リール）=2200
     // subtotal: 11500
-    // rentalTotal: 2*600 + 1*600 = 1800
+    // rentalTotal: 1200 + 2200 = 3400
     expect(result.subtotal).toBe(11500);
-    expect(result.rentalTotal).toBe(1800);
-    expect(result.total).toBe(13300);
+    expect(result.rentalTotal).toBe(3400);
+    expect(result.total).toBe(14900);
   });
 
   it('仕掛けの費用は乗合船では合計に含まれない', () => {
@@ -210,17 +210,17 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
   it('レンタルと仕掛けの両方を含む計算を正しく行う', () => {
     state.men = 2;
     state.women = 1;
-    state.rentals = { '竿（竿,リール）': 2 };
+    state.rentals = { '竿（電動リール）': 2 };
     state.shikake = { '仕掛け': 3 };
     const result = calculateTotal();
-    // マダイ五目: men=11500, women=9500, 竿（竿,リール）=600, 仕掛け=550
+    // マダイ五目: men=11500, women=9500, 竿（電動リール）=2200, 仕掛け=550
     // subtotal: 2*11500 + 1*9500 = 23000 + 9500 = 32500
-    // rentalTotal: 2*600 = 1200
+    // rentalTotal: 2*2200 = 4400
     // shikake: 3*550 = 1650 (included in total)
     expect(result.subtotal).toBe(32500);
-    expect(result.rentalTotal).toBe(1200);
+    expect(result.rentalTotal).toBe(4400);
     // shikakeは乗合船ではtotalに含まれない
-    expect(result.total).toBe(33700);
+    expect(result.total).toBe(36900);
     expect(result.breakdown.totalPeople).toBe(3);
   });
 
