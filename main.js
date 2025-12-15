@@ -872,22 +872,33 @@ function convertNameToKana(nameValue) {
     return;
   }
 
-  // Convert only if purely hiragana
+  // Convert only if purely hiragana (otherwise keep existing kana value)
   const hiraganaOnly = /^[\u3041-\u3096]*$/.test(nameValue);
   if (hiraganaOnly) {
     const katakanaValue = hiraganaToKatakana(nameValue);
     visitorKanaEl.value = katakanaValue;
   }
+  // If not hiragana (e.g., kanji, katakana, mixed), don't change the kana field
 }
 
-// Auto-convert name to katakana for kana field (on input)
-visitorNameEl.addEventListener('input', (e) => {
+// Track if IME composition is in progress
+let isComposing = false;
+
+visitorNameEl.addEventListener('compositionstart', () => {
+  isComposing = true;
+});
+
+visitorNameEl.addEventListener('compositionend', (e) => {
+  isComposing = false;
   const nameValue = e.target.value.trim();
   convertNameToKana(nameValue);
 });
 
-// Also handle composition events for IME input (important for mobile/Japanese input)
-visitorNameEl.addEventListener('compositionend', (e) => {
+// Auto-convert name to katakana for kana field (on input)
+visitorNameEl.addEventListener('input', (e) => {
+  // Skip conversion during IME composition
+  if (isComposing) return;
+  
   const nameValue = e.target.value.trim();
   convertNameToKana(nameValue);
 });
