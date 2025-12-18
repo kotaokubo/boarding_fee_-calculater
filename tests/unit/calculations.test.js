@@ -186,9 +186,9 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
   it('学生のみの料金を正しく計算する', () => {
     state.student = 2;
     const result = calculateTotal();
-    // マダイ五目: student=8000
-    expect(result.subtotal).toBe(16000);
-    expect(result.total).toBe(16000);
+    // マダイ五目: student=7500
+    expect(result.subtotal).toBe(15000);
+    expect(result.total).toBe(15000);
     expect(result.breakdown.student).toBe(2);
     expect(result.breakdown.totalPeople).toBe(2);
   });
@@ -198,10 +198,10 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
     state.women = 1;
     state.student = 1;
     const result = calculateTotal();
-    // マダイ五目: men=11500, women=9500, student=8000
-    // 2*11500 + 1*9500 + 1*8000 = 23000 + 9500 + 8000 = 40500
-    expect(result.subtotal).toBe(40500);
-    expect(result.total).toBe(40500);
+    // マダイ五目: men=11500, women=9500, student=7500
+    // 2*11500 + 1*9500 + 1*7500 = 23000 + 9500 + 7500 = 40000
+    expect(result.subtotal).toBe(40000);
+    expect(result.total).toBe(40000);
     expect(result.breakdown.men).toBe(2);
     expect(result.breakdown.women).toBe(1);
     expect(result.breakdown.student).toBe(1);
@@ -265,10 +265,10 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
     state.women = 3;
     state.student = 2;
     const result = calculateTotal();
-    // マダイ五目: men=11500, women=9500, student=8000
-    // 4*11500 + 3*9500 + 2*8000 = 46000 + 28500 + 16000 = 90500
-    expect(result.subtotal).toBe(90500);
-    expect(result.total).toBe(90500);
+    // マダイ五目: men=11500, women=9500, student=7500
+    // 4*11500 + 3*9500 + 2*7500 = 46000 + 28500 + 15000 = 89500
+    expect(result.subtotal).toBe(89500);
+    expect(result.total).toBe(89500);
     expect(result.breakdown.totalPeople).toBe(9);
   });
 });
