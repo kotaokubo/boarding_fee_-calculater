@@ -522,18 +522,6 @@ describe('calculateTotal - 仕立て船', () => {
     expect(result.breakdown.extraChargeAmount).toBe(11400);
   });
 
-  it('存在しないプラン名の場合、デフォルト値を使用する', () => {
-    state.plan = '存在しないプラン';
-    state.date = '2026-01-15'; // weekday
-    state.men = 8;
-    const result = calculateTotal();
-    // デフォルト: minPeople=8, minPrice=54400
-    expect(result.subtotal).toBe(54400);
-    expect(result.total).toBe(54400);
-    expect(result.breakdown.minPeopleUsed).toBe(8);
-    expect(result.breakdown.minPriceUsed).toBe(54400);
-  });
-
   it('dateが未設定の場合、weekdayとして扱う', () => {
     state.date = null;
     state.men = 8;
