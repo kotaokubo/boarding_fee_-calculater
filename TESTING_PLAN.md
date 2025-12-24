@@ -1074,10 +1074,10 @@ npm install
 # テストをwatch modeで実行（開発時推奨）
 npm test
 
-# テストを一度だけ実行（CI用）
+# テストを一度だけ実行して終了（watchモード回避）
 npm run test:run
 
-# 特定のテストファイルのみ実行
+# 特定のテストファイルのみ実行して終了（watchモード回避）
 npm run test:run tests/unit/calculations.test.js
 
 # UI付きでテスト実行
