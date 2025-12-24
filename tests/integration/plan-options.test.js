@@ -24,7 +24,12 @@ describe('updatePlanOptions', () => {
   beforeEach(() => {
     // DOM構築
     document.body.innerHTML = `
+      <select id="tripType"></select>
       <select id="planSelect"></select>
+      <input type="date" id="date" />
+      <input type="number" id="men" />
+      <input type="number" id="women" />
+      <input type="number" id="student" />
       <div id="priceMen"></div>
       <div id="priceWomen"></div>
       <div id="priceStudent"></div>
@@ -45,7 +50,12 @@ describe('updatePlanOptions', () => {
 
     // main.jsのDOM参照を更新（テスト環境で必要）
     setDOMElements({
+      tripTypeEl: document.getElementById('tripType'),
       planSelectEl: planSelectEl,
+      dateEl: document.getElementById('date'),
+      menEl: document.getElementById('men'),
+      womenEl: document.getElementById('women'),
+      studentEl: document.getElementById('student'),
       priceMenEl: document.getElementById('priceMen'),
       priceWomenEl: document.getElementById('priceWomen'),
       priceStudentEl: document.getElementById('priceStudent'),
