@@ -642,7 +642,7 @@ function calculateAndRender() {
     
     if (bp.minPriceUsed > 0) {
       // 最低料金が適用された場合
-      parts.push(`  ・最低料金（男性8名分）：${bp.minPriceUsed.toLocaleString()}円`);
+      parts.push(`  ・最低料金（男性${bp.minPeopleUsed}名分）：${bp.minPriceUsed.toLocaleString()}円`);
       if (bp.extraCount && bp.extraCount > 0) {
         const eb = bp.extraBreakdown || { men: 0, women: 0, student: 0 };
         // 合計と内訳行を表示
