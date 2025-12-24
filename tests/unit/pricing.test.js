@@ -11,7 +11,7 @@ describe('getShikakePrices', () => {
   });
 
   it('ヤリスルメイカの仕掛け価格を返す', () => {
-    const result = getShikakePrices('ヤリスルメイカ');
+    const result = getShikakePrices('ヤリ・スルメイカ');
     expect(result).toStrictEqual({
       'オモリ（150号）': { price: 600, note: '600円' },
       '仕掛け': { price: 1250, note: '1000〜1500円' }
@@ -115,12 +115,12 @@ describe('getShikakePrices', () => {
 describe('getTimesForPlan', () => {
   it('午後アジの午後時刻を返す', () => {
     const result = getTimesForPlan('午後アジ');
-    expect(result).toStrictEqual({ meet: '12:30', depart: '13:00' });
+    expect(result).toStrictEqual({ meet: '12:00', depart: '12:30' });
   });
 
   it('午後プレフィックス付きプランの午後時刻を返す', () => {
     const result = getTimesForPlan('午後マダイ');
-    expect(result).toStrictEqual({ meet: '12:30', depart: '13:00' });
+    expect(result).toStrictEqual({ meet: '12:00', depart: '12:30' });
   });
 
   it('午前アジの午前時刻を返す', () => {

@@ -172,7 +172,7 @@ function updatePlanSupplement(){
   // User-specified classification lists
   const advancedKeywords = ['イカ'];
   const intermediateKeywords = ['マダイ'];
-  const beginnerKeywords = ['午前アジ','午前アミ五目'];
+  const beginnerKeywords = ['午前アジ', '午後アジ', 'アミ五目'];
 
   // Determine difficulty with precedence: 上級者 -> 中級者 -> 初心者
   // Only show difficulty if the plan matches one of the specified keywords
@@ -237,7 +237,7 @@ function updatePlanSupplement(){
 function getTimesForPlan(planName) {
   if (!planName) return { meet: '', depart: '' };
   if (planName.indexOf('午後') !== -1) {
-    return { meet: '12:30', depart: '13:00' };
+    return { meet: '12:00', depart: '12:30' };
   }
   return { meet: '06:30', depart: '07:00' };
 }
@@ -254,7 +254,7 @@ function getShikakePrices(planName) {
   }
   
   // ヤリスルメイカ船の判定
-  if (planName.indexOf('ヤリスルメイカ') !== -1 || planName.indexOf('ヤリイカ') !== -1) {
+  if (planName.indexOf('ヤリ・スルメイカ') !== -1 || planName.indexOf('ヤリイカ') !== -1) {
     return {
       'オモリ（150号）': { price: 600, note: '600円' },
       '仕掛け': { price: 1250, note: '1000〜1500円' }
