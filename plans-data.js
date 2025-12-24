@@ -1,94 +1,235 @@
 // Plans data separated for easier maintenance and potential future replacement with external JSON.
-// Exposes `window.plans` and `window.commonRental` so main.js can remain a simple script.
+// New structure: Each plan contains basePrice (per-person pricing), charter (minimum pricing), rental, and note.
 window.plans = {
-  "乗合船": {
-    "午前アジ": {
-      "fare": { "men": 6800, "women": 5500, "student": 3800 },
-      "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
-      "note": "コマセ・イカ短・アオイソ・氷付き"
-    },
-    "午後アジ": {
-      "fare": { "men": 6800, "women": 5500, "student": 3800 },
-      "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
-      "note": "コマセ・イカ短・アオイソ・氷付き"
-    },
-    "午前アミ五目": {
-      "fare": { "men": 7000, "women": 5800, "student": 4300 },
-      "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
-      "note": "アミコマセ・イカ短・付け餌・氷付き"
-    },
-    "午後アミ五目": {
-      "fare": { "men": 7000, "women": 5800, "student": 4300 },
-      "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
-      "note": "アミコマセ・イカ短・付け餌・氷付き"
-    },
-    "マダイ五目": { 
-      "fare": { "men": 11500, "women": 9500, "student": 7500 }, 
-      "rental": { 
-        "竿（手巻き）": 1200,
-        "竿（電動リール）": 2200
-      },
-      "note": "オキアミ規定量・氷付き" 
-    },
-    // "ＬＴイサキ五目": { "fare": { "men": 11500, "women": 9000, "student": 8000 }, "note": "アミコマセ・イカ短・氷付き" },
-    "ヤリ・スルメイカ": { 
-      "fare": { "men": 12000, "women": 10000, "student": 8000 }, 
-      "rental": { 
-        "竿（電動リール）": 2200
-      },
-      "note": "氷付き、投入機あり" 
-    },
-    // "ワラサ": { "fare": { "men": 12000, "women": 9500, "student": 8500 }, "note": "オキアミ規定量・氷付き" },
-    "タチアジリレー": { 
-      "fare": { "men": 11000, "women": 9000, "student": 7000 }, 
-      "rental": { 
-        "竿（手巻き）": 1200,
-        "竿（電動リール）": 2200
-      },
-      "note": "餌・ミンチ・氷付き" 
-    },
-    // "遠征ウィリー五目": { "fare": { "men": 11500, "women": 8500, "student": 8000 }, "note": "アミコマセ・付け餌・氷付き" },
-    "カワハギ": { 
-      "fare": { "men": 11000, "women": 9000, "student": 7000 }, 
-      "rental": { 
-        "竿（専用竿）": 1500
-      },
-      "note": "付け餌・氷付き" 
-    },
-    "マゴチ": { 
-      "fare": { "men": 10700, "women": 8700, "student": 6500 }, 
-      "rental": { 
-        "竿（専用竿）": 1500
-      },
-      "note": "サイマキ餌5匹付き" 
-    },
-    // "スミイカ": { "fare": { "men": 10500, "women": 8500, "student": 6500 }, "note": "シャコ餌付き" },
-    "テンヤタチウオ": { 
-      "fare": { "men": 9500, "women": 7700, "student": 6500 }, 
-      "rental": { 
-        "竿（専用竿）": 1500
-      },
-      "note": "氷付き、イワシ餌10匹650円で別途販売" 
-    },
-    // "マダコ": { "fare": { "men": 10000, "women": 7500, "student": 6500 }, "note": "カニ餌・氷付き" },
-    // "ショートメバル": { "fare": { "men": 7500, "women": 6000, "student": 4300 }, "note": "活きモエビ・アオイソメ・氷付き" },
-    // "鬼カサゴ": { "fare": { "men": 11500, "women": 8500, "student": 8000 }, "note": "サバ餌・氷付き" },
-    // "午前クロメバル": { "fare": { "men": 6700, "women": 4500, "student": 3700 }, "note": "活きモエビ・アオイソメ・氷付き" },
-    // "午後カサゴ": { "fare": { "men": 6700, "women": 4500, "student": 3500 }, "note": "サバ餌・アオイソ・氷付き" },
-    // "深場五目": { "fare": { "men": 12500, "women": 10500, "student": 8500 }, "note": "サバ餌・氷付き" },
-    // "午前キス": { "fare": { "men": 6800, "women": 5000, "student": 3600 }, "note": "餌・氷付き" },
-    // "午後キス": { "fare": { "men": 6800, "women": 5000, "student": 3600 }, "note": "餌・氷付き" },
-    // "キス＆アナゴリレー": { "fare": { "men": 11000, "women": 9000, "student": 7500 }, "note": "餌・氷付き" },
-    // "夜アナゴ": { "fare": { "men": 8000, "women": 6000, "student": 5000 }, "note": "餌・氷付き" },
-    // "夜アジ＆カサゴリレー": { "fare": { "men": 8000, "women": 6000, "student": 5000 }, "note": "コマセ・餌・氷付き" },
-    // "夜カサゴ＆メバル": { "fare": { "men": 7000, "women": 5500, "student": 4500 }, "note": "餌・氷付き" }
-  },
-  "仕立て船": {
-    "午前アジ": {
+  "午前アジ": {
+    "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
+    "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 15, "minPrice": 102000 },
       "sunday": { "minPeople": 12, "minPrice": 81600 }
-    }
+    },
+    "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
+    "note": "コマセ・イカ短・アオイソ・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "午後アジ": {
+    "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 54400 },
+      "holiday": { "minPeople": 15, "minPrice": 102000 },
+      "sunday": { "minPeople": 12, "minPrice": 81600 }
+    },
+    "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
+    "note": "コマセ・イカ短・アオイソ・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "午前アミ五目": {
+    "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 56000 },
+      "holiday": { "minPeople": 15, "minPrice": 105000 },
+      "sunday": { "minPeople": 12, "minPrice": 84000 }
+    },
+    "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
+    "note": "アミコマセ・イカ短・付け餌・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "午後アミ五目": {
+    "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 56000 },
+      "holiday": { "minPeople": 15, "minPrice": 105000 },
+      "sunday": { "minPeople": 12, "minPrice": 84000 }
+    },
+    "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
+    "note": "アミコマセ・イカ短・付け餌・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "マダイ五目": {
+    "basePrice": { "men": 11500, "women": 9500, "student": 7500 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 115000 },
+      "holiday": { "minPeople": 15, "minPrice": 172500 },
+      "sunday": { "minPeople": 12, "minPrice": 138000 }
+    },
+    "rental": { 
+      "竿（手巻き）": 1200,
+      "竿（電動リール）": 2200
+    },
+    "note": "オキアミ規定量・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "ＬＴイサキ五目": {
+    "basePrice": { "men": 11500, "women": 9000, "student": 8000 },
+    "note": "アミコマセ・イカ短・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "ヤリ・スルメイカ": {
+    "basePrice": { "men": 12000, "women": 10000, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 120000 },
+      "holiday": { "minPeople": 15, "minPrice": 180000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
+    },
+    "rental": { 
+      "竿（電動リール）": 2200
+    },
+    "note": "氷付き、投入機あり",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "ワラサ": {
+    "basePrice": { "men": 12000, "women": 10000, "student": 9500 },
+    "note": "オキアミ規定量・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "タチアジリレー": {
+    "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 110000 },
+      "holiday": { "minPeople": 15, "minPrice": 165000 },
+      "sunday": { "minPeople": 12, "minPrice": 132000 }
+    },
+    "rental": { 
+      "竿（手巻き）": 1200,
+      "竿（電動リール）": 2200
+    },
+    "note": "餌・ミンチ・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "遠征ウィリー五目": {
+    "basePrice": { "men": 11500, "women": 8500, "student": 8000 },
+    "note": "アミコマセ・付け餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "カワハギ": {
+    "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 110000 },
+      "holiday": { "minPeople": 15, "minPrice": 165000 },
+      "sunday": { "minPeople": 12, "minPrice": 132000 }
+    },
+    "rental": { 
+      "竿（専用竿）": 1500
+    },
+    "note": "付け餌・氷付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "マゴチ": {
+    "basePrice": { "men": 10700, "women": 8700, "student": 6500 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 107000 },
+      "holiday": { "minPeople": 15, "minPrice": 160500 },
+      "sunday": { "minPeople": 12, "minPrice": 128400 }
+    },
+    "rental": { 
+      "竿（専用竿）": 1500
+    },
+    "note": "サイマキ餌5匹付き",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "スミイカ": {
+    "basePrice": { "men": 10500, "women": 8500, "student": 6500 },
+    "note": "シャコ餌付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "テンヤタチウオ": {
+    "basePrice": { "men": 9500, "women": 7700, "student": 6500 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 95000 },
+      "holiday": { "minPeople": 15, "minPrice": 142500 },
+      "sunday": { "minPeople": 12, "minPrice": 114000 }
+    },
+    "rental": { 
+      "竿（専用竿）": 1500
+    },
+    "note": "氷付き、イワシ餌10匹650円で別途販売",
+    "visibleShared": true,
+    "visibleCharter": true
+  },
+  "マダコ": {
+    "basePrice": { "men": 10000, "women": 8000, "student": 6500 },
+    "note": "カニ餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "ショートメバル": {
+    "basePrice": { "men": 7500, "women": 6000, "student": 4300 },
+    "note": "活きモエビ・アオイソメ・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "鬼カサゴ": {
+    "basePrice": { "men": 11500, "women": 8500, "student": 8000 },
+    "note": "サバ餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "午前クロメバル": {
+    "basePrice": { "men": 6700, "women": 4500, "student": 3700 },
+    "note": "活きモエビ・アオイソメ・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "午後カサゴ": {
+    "basePrice": { "men": 6700, "women": 4500, "student": 3500 },
+    "note": "サバ餌・アオイソ・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "深場五目": {
+    "basePrice": { "men": 12500, "women": 10500, "student": 8500 },
+    "note": "サバ餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "午前キス": {
+    "basePrice": { "men": 6800, "women": 5000, "student": 3600 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "午後キス": {
+    "basePrice": { "men": 6800, "women": 5000, "student": 3600 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "キス＆アナゴリレー": {
+    "basePrice": { "men": 11000, "women": 9000, "student": 7500 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "夜アナゴ": {
+    "basePrice": { "men": 8000, "women": 6000, "student": 5000 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "夜アジ＆カサゴリレー": {
+    "basePrice": { "men": 8000, "women": 6000, "student": 5000 },
+    "note": "コマセ・餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "夜カサゴ＆メバル": {
+    "basePrice": { "men": 7000, "women": 5500, "student": 4500 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
   }
 };
 

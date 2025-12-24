@@ -26,22 +26,22 @@ const state = {
 };
 
 // DOM refs
-const tripTypeEl = document.getElementById('tripType');
-const planSelectEl = document.getElementById('planSelect');
-const dateEl = document.getElementById('date');
-const menEl = document.getElementById('menCount');
-const womenEl = document.getElementById('womenCount');
-const studentEl = document.getElementById('studentCount');
-const rentalListEl = document.getElementById('rentalList');
-const shikakeListEl = document.getElementById('shikakeList');
-const breakdownEl = document.getElementById('breakdown');
-const fixedTotalAmountEl = document.getElementById('fixedTotalAmount');
-const mailtoBtn = document.getElementById('mailtoBtn');
-const resetBtn = document.getElementById('resetBtn');
-const priceMenEl = document.getElementById('priceMen');
-const priceWomenEl = document.getElementById('priceWomen');
-const priceStudentEl = document.getElementById('priceStudent');
-const planTimesEl = document.getElementById('planTimes');
+let tripTypeEl = document.getElementById('tripType');
+let planSelectEl = document.getElementById('planSelect');
+let dateEl = document.getElementById('date');
+let menEl = document.getElementById('menCount');
+let womenEl = document.getElementById('womenCount');
+let studentEl = document.getElementById('studentCount');
+let rentalListEl = document.getElementById('rentalList');
+let shikakeListEl = document.getElementById('shikakeList');
+let breakdownEl = document.getElementById('breakdown');
+let fixedTotalAmountEl = document.getElementById('fixedTotalAmount');
+let mailtoBtn = document.getElementById('mailtoBtn');
+let resetBtn = document.getElementById('resetBtn');
+let priceMenEl = document.getElementById('priceMen');
+let priceWomenEl = document.getElementById('priceWomen');
+let priceStudentEl = document.getElementById('priceStudent');
+let planTimesEl = document.getElementById('planTimes');
 
 // Modal refs
 const personalInfoModal = document.getElementById('personalInfoModal');
@@ -94,20 +94,30 @@ function populateCountSelects() {
 
 // Populate plan select based on tripType
 function updatePlanOptions() {
-  const type = state.tripType;
   planSelectEl.innerHTML = '';
-  // If 仕立て船 is selected, allow choosing any plan from 乗合船 as well
-  let optionNames = [];
-  if (type === '仕立て船') {
-    const charterPlans = Object.keys((plans['仕立て船']) || {});
-    const regularPlans = Object.keys((plans['乗合船']) || {});
-    // merge and dedupe, keep charterPlans first
-    optionNames = Array.from(new Set([...charterPlans, ...regularPlans]));
-  } else {
-    optionNames = Object.keys((plans[type]) || {});
+  
+  // 動的にwindow.plansを取得（テストで変更できるように）
+  const plans = window.plans;
+  
+  // Validate plans exists and is not empty
+  if (!plans || typeof plans !== 'object' || Array.isArray(plans)) {
+    throw new Error('Plans data is not available');
+  }
+  
+  const allPlanNames = Object.keys(plans);
+  
+  if (allPlanNames.length === 0) {
+    throw new Error('Plans data is empty');
   }
 
-  for (const p of optionNames) {
+  // tripTypeに応じてプランをフィルタリング
+  const visibilityKey = state.tripType === '乗合船' ? 'visibleShared' : 'visibleCharter';
+  const filteredPlanNames = allPlanNames.filter(planName => {
+    const plan = plans[planName];
+    return plan && plan[visibilityKey] === true;
+  });
+
+  for (const p of filteredPlanNames) {
     const opt = document.createElement('option');
     opt.value = p;
     opt.textContent = p;
@@ -125,13 +135,9 @@ function updatePlanOptions() {
 function updateUnitPrices(){
   const plan = state.plan;
   let fareObj = null;
-  // First try to find fare on the selected trip type
-  if (plans[state.tripType] && plans[state.tripType][plan] && plans[state.tripType][plan].fare) {
-    fareObj = plans[state.tripType][plan].fare;
-  }
-  // If not found (e.g., charter selecting a regular plan), try乗合船
-  if (!fareObj && plans['乗合船'] && plans['乗合船'][plan] && plans['乗合船'][plan].fare) {
-    fareObj = plans['乗合船'][plan].fare;
+  // 新しい構造ではbasePriceを使用
+  if (plans[plan] && plans[plan].basePrice) {
+    fareObj = plans[plan].basePrice;
   }
 
   if (fareObj) {
@@ -320,12 +326,10 @@ function renderShikakeOptions() {
 function renderRentalOptions() {
   rentalListEl.innerHTML = '';
   state.rentals = {};
-  // plan-specific rentals (if any). For 仕立て船, the selected plan may be from 乗合船.
+  // プラン固有のレンタル品（新しい構造では直接アクセス）
   let planSpecific = null;
-  if (plans[state.tripType] && plans[state.tripType][state.plan]) {
-    planSpecific = plans[state.tripType][state.plan];
-  } else if (plans['乗合船'] && plans['乗合船'][state.plan]) {
-    planSpecific = plans['乗合船'][state.plan];
+  if (plans[state.plan]) {
+    planSpecific = plans[state.plan];
   }
   // Track which rental names we've already added to avoid duplicates
   const addedRentals = new Set();
@@ -337,16 +341,7 @@ function renderRentalOptions() {
     }
   }
 
-  // If this is a 仕立て船 selection, also include rentals defined on the corresponding 乗合船 plan
-  // (e.g., ビシセット) so charters can rent the same items. Avoid duplicates by checking addedRentals.
-  if (state.tripType === '仕立て船' && plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].rental) {
-    const sharedRentals = plans['乗合船'][state.plan].rental;
-    for (const name of Object.keys(sharedRentals)) {
-      if (addedRentals.has(name)) continue;
-      addRentalRow(name, sharedRentals[name]);
-      addedRentals.add(name);
-    }
-  }
+  // 新しい構造では全プランがフラットなので、仕立て船用の追加処理は不要
 
   // common rentals
   for (const name of Object.keys(commonRental)) {
@@ -543,12 +538,10 @@ function calculateTotal() {
     if (name === '仕掛け') continue;
     if (!qty || qty <= 0) continue;
     
-    // find rental info: check plan-specific (current tripType), then corresponding 乗合船 plan, then commonRental
+    // レンタル品情報の検索: プラン固有 → 共通レンタル
     let rInfo = null;
-    if (plans[state.tripType] && plans[state.tripType][state.plan] && plans[state.tripType][state.plan].rental && plans[state.tripType][state.plan].rental[name]) {
-      rInfo = plans[state.tripType][state.plan].rental[name];
-    } else if (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].rental && plans['乗合船'][state.plan].rental[name]) {
-      rInfo = plans['乗合船'][state.plan].rental[name];
+    if (plans[state.plan] && plans[state.plan].rental && plans[state.plan].rental[name]) {
+      rInfo = plans[state.plan].rental[name];
     } else if (commonRental[name] !== undefined) {
       // Defensive code: commonRental currently only has number values, but could have objects in future
       /* v8 ignore next */
@@ -571,11 +564,11 @@ function calculateTotal() {
 
   if (state.tripType === '乗合船') {
     // per-person fare
-    const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
+    const fareObj = (plans[state.plan] && plans[state.plan].basePrice) || {men:0,women:0,student:0};
     subtotal += men * fareObj.men + women * fareObj.women + student * fareObj.student;
   } else if (state.tripType === '仕立て船') {
     // 仕立て船の料金を取得（日付により異なる）
-    const charterPlan = (plans['仕立て船'] && plans['仕立て船'][state.plan]) || null;
+    const charterPlan = (plans[state.plan] && plans[state.plan].charter) || null;
     
     // 日付から料金タイプを判定
     const rateType = getRateType(state.date);
@@ -587,16 +580,20 @@ function calculateTotal() {
       rateKey = 'sunday';
     }
     
+    // 基本料金を取得（追加人数の単価計算用）
+    const refFare = (plans[state.plan] && plans[state.plan].basePrice) || {men:0,women:0,student:0};
+    
     // 仕立て船の料金データから minPeople と minPrice を取得
     let minPeople = 8;
     let minPrice = 54400;
     if (charterPlan && charterPlan[rateKey]) {
       minPeople = charterPlan[rateKey].minPeople || 8;
       minPrice = charterPlan[rateKey].minPrice || 54400;
+    } else {
+      // 仕立て船に料金設定がない場合は、基本料金の男性料金×8名で計算
+      minPeople = 8;
+      minPrice = refFare.men * 8;
     }
-    
-    // 乗合船の料金を取得（追加人数の単価計算用）
-    const refFare = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
     
     minPeopleUsed = minPeople;
     minPriceUsed = minPrice;
@@ -650,7 +647,7 @@ function calculateAndRender() {
         const eb = bp.extraBreakdown || { men: 0, women: 0, student: 0 };
         // 合計と内訳行を表示
         parts.push(`  ・追加人数：${bp.extraCount}名`);
-        const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || {men:0,women:0,student:0};
+        const fareObj = (plans[state.plan] && plans[state.plan].basePrice) || {men:0,women:0,student:0};
         if (eb.men) {
           const amt = eb.men * fareObj.men;
           parts.push(`    男性${eb.men}名分 = ${amt.toLocaleString()}円`);
@@ -668,13 +665,14 @@ function calculateAndRender() {
       // 不足人数の表示は不要
     } else {
       // 通常の料金計算が適用された場合
-      if (res.breakdown.men) parts.push(` ・男性 ${res.breakdown.men}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0).toLocaleString()}円 = ${(res.breakdown.men * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.men : 0)).toLocaleString()}円`);
-      if (res.breakdown.women) parts.push(` ・女性 ${res.breakdown.women}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.women : 0).toLocaleString()}円 = ${(res.breakdown.women * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.women : 0)).toLocaleString()}円`);
-      if (res.breakdown.student) parts.push(` ・子供 ${res.breakdown.student}名 × ${(plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.student : 0).toLocaleString()}円 = ${(res.breakdown.student * (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare ? plans['乗合船'][state.plan].fare.student : 0)).toLocaleString()}円`);
+      const fareObj = (plans[state.plan] && plans[state.plan].basePrice) || {men:0,women:0,student:0};
+      if (res.breakdown.men) parts.push(` ・男性 ${res.breakdown.men}名 × ${fareObj.men.toLocaleString()}円 = ${(res.breakdown.men * fareObj.men).toLocaleString()}円`);
+      if (res.breakdown.women) parts.push(` ・女性 ${res.breakdown.women}名 × ${fareObj.women.toLocaleString()}円 = ${(res.breakdown.women * fareObj.women).toLocaleString()}円`);
+      if (res.breakdown.student) parts.push(` ・子供 ${res.breakdown.student}名 × ${fareObj.student.toLocaleString()}円 = ${(res.breakdown.student * fareObj.student).toLocaleString()}円`);
     }
   } else {
     // Non-charter: show per-person breakdown
-    const fareObj = (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].fare) || null;
+    const fareObj = (plans[state.plan] && plans[state.plan].basePrice) || null;
     if (fareObj) {
       parts.push('');
       parts.push('料金内訳：');
@@ -693,10 +691,8 @@ function calculateAndRender() {
     if (!qty || qty <= 0) continue;
     // find price and refund (plan-specific rental preferred)
     let rInfo = null;
-    if (plans[state.tripType] && plans[state.tripType][state.plan] && plans[state.tripType][state.plan].rental && plans[state.tripType][state.plan].rental[name]) {
-      rInfo = plans[state.tripType][state.plan].rental[name];
-    } else if (plans['乗合船'] && plans['乗合船'][state.plan] && plans['乗合船'][state.plan].rental && plans['乗合船'][state.plan].rental[name]) {
-      rInfo = plans['乗合船'][state.plan].rental[name];
+    if (plans[state.plan] && plans[state.plan].rental && plans[state.plan].rental[name]) {
+      rInfo = plans[state.plan].rental[name];
     } else if (commonRental[name] !== undefined) {
       rInfo = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     }
@@ -1002,6 +998,28 @@ if (typeof module !== 'undefined' && module.exports) {
     offsetISO,
     isHolidayISO,
     getWeekdayName,
-    formatDateWithWeekday
+    formatDateWithWeekday,
+    updatePlanOptions,
+    updateUnitPrices,
+    renderShikakeOptions,
+    renderRentalOptions,
+    calculateAndRender,
+    // DOM要素の設定関数（テスト用）
+    setDOMElements: (elements) => {
+      if (elements.tripTypeEl) tripTypeEl = elements.tripTypeEl;
+      if (elements.planSelectEl) planSelectEl = elements.planSelectEl;
+      if (elements.dateEl) dateEl = elements.dateEl;
+      if (elements.menEl) menEl = elements.menEl;
+      if (elements.womenEl) womenEl = elements.womenEl;
+      if (elements.studentEl) studentEl = elements.studentEl;
+      if (elements.rentalListEl) rentalListEl = elements.rentalListEl;
+      if (elements.shikakeListEl) shikakeListEl = elements.shikakeListEl;
+      if (elements.breakdownEl) breakdownEl = elements.breakdownEl;
+      if (elements.fixedTotalAmountEl) fixedTotalAmountEl = elements.fixedTotalAmountEl;
+      if (elements.priceMenEl) priceMenEl = elements.priceMenEl;
+      if (elements.priceWomenEl) priceWomenEl = elements.priceWomenEl;
+      if (elements.priceStudentEl) priceStudentEl = elements.priceStudentEl;
+      if (elements.planTimesEl) planTimesEl = elements.planTimesEl;
+    }
   };
 }
