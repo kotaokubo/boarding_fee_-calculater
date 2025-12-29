@@ -18,7 +18,7 @@ window.plans = {
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 12, "minPrice": 81600 },
-      "sunday": { "minPeople": 12, "minPrice": 81600 }
+      "sunday": { "minPeople":  10, "minPrice": 68000 }
     },
     "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
     "note": "コマセ・イカ短・アオイソ・氷付き",
@@ -41,7 +41,7 @@ window.plans = {
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 12, "minPrice": 81600 },
-      "sunday": { "minPeople": 12, "minPrice": 81600 }
+      "sunday": { "minPeople": 10, "minPrice": 68000 }
     },
     "note": "餌・氷付き",
     "visibleShared": false,
@@ -75,7 +75,7 @@ window.plans = {
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 56000 },
       "holiday": { "minPeople": 12, "minPrice": 84000 },
-      "sunday": { "minPeople": 12, "minPrice": 84000 }
+      "sunday": { "minPeople": 10, "minPrice": 70000 }
     },
     "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
@@ -98,7 +98,7 @@ window.plans = {
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 56000 },
       "holiday": { "minPeople": 12, "minPrice": 84000 },
-      "sunday": { "minPeople": 12, "minPrice": 84000 }
+      "sunday": { "minPeople":  10, "minPrice": 70000 }
     },
     "note": "サイマキ５匹・氷付き",
     "visibleShared": false,
@@ -131,7 +131,7 @@ window.plans = {
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 12, "minPrice": 81600 },
-      "sunday": { "minPeople": 12, "minPrice": 81600 }
+      "sunday": { "minPeople": 10, "minPrice": 68000 }
     },
     "note": "氷付き",
     "visibleShared": false,
@@ -193,8 +193,8 @@ window.plans = {
     "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 88000 },
-      "holiday": { "minPeople": 10, "minPrice": 120000 },
-      "sunday": { "minPeople": 10, "minPrice": 120000 }
+      "holiday": { "minPeople": 10, "minPrice": 110000 },
+      "sunday": { "minPeople": 10, "minPrice": 110000 }
     },
     "rental": { 
       "竿（手巻き）": 1200,
