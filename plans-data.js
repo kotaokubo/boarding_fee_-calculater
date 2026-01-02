@@ -26,7 +26,7 @@ window.plans = {
     "visibleCharter": true
   },
    "午前キス・カサゴ": {
-    "basePrice": { "men": 6800, "women": 5000, "student": 3600 },
+    "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 15, "minPrice": 102000 },
@@ -37,7 +37,7 @@ window.plans = {
     "visibleCharter": true
   },
   "午後キス・カサゴ": {
-    "basePrice": { "men": 6800, "women": 5000, "student": 3600 },
+    "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 12, "minPrice": 81600 },
@@ -48,7 +48,7 @@ window.plans = {
     "visibleCharter": true
   },
   "午前マダコ": {
-    "basePrice": { "men": 6800, "women": 5000, "student": 3600 },
+    "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 15, "minPrice": 102000 },
@@ -114,7 +114,7 @@ window.plans = {
     "note": "餌・氷付き",
     "visibleShared": false,
     "visibleCharter": true
-  },
+  }, 
   "午前メバル": {
     "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
     "note": "活きモエビ・アオイソメ・氷付き",
@@ -127,7 +127,7 @@ window.plans = {
     "visibleCharter": true
   },
   "午後エギイカ": {
-    "basePrice": { "men": 6800, "women": 5000, "student": 3600 },
+    "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
       "holiday": { "minPeople": 12, "minPrice": 81600 },
@@ -138,7 +138,7 @@ window.plans = {
     "visibleCharter": true
   },
   "マダイ五目": {
-    "basePrice": { "men": 11500, "women": 9500, "student": 7500 },
+    "basePrice": { "men": 11500, "women": 9500, "student": 8000 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 92000 },
       "holiday": { "minPeople": 10, "minPrice": 115000 },
@@ -153,7 +153,7 @@ window.plans = {
     "visibleCharter": true
   },
   "ＬＴイサキ五目": {
-    "basePrice": { "men": 11500, "women": 9000, "student": 8000 },
+    "basePrice": { "men": 11500, "women": 9500, "student": 8000 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 92000 },
       "holiday": { "minPeople": 12, "minPrice": 138000 },
@@ -204,12 +204,27 @@ window.plans = {
     "visibleShared": true,
     "visibleCharter": true
   },
-  "遠征ウィリー五目": {
-    "basePrice": { "men": 11500, "women": 8500, "student": 8000 },
+  "タチウオのみ": {
+    "basePrice": { "men": 10300, "women": 8300, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 92000 },
-      "holiday": { "minPeople": 12, "minPrice": 138000 },
-      "sunday": { "minPeople": 12, "minPrice": 138000 }
+      "weekday": { "minPeople": 8, "minPrice": 82400 },
+      "holiday": { "minPeople": 10, "minPrice": 103000 },
+      "sunday": { "minPeople": 10, "minPrice": 103000 }
+    },
+    "rental": { 
+      "竿（手巻き）": 1200,
+      "竿（電動リール）": 2200
+    },
+    "note": "餌・ミンチ・氷付き",
+    "visibleShared": false,
+    "visibleCharter": true
+  },
+  "遠征ウィリー五目": {
+    "basePrice": { "men": 12000, "women": 10000, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 96000 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
     "note": "アミコマセ・付け餌・氷付き",
     "visibleShared": false,
@@ -230,11 +245,11 @@ window.plans = {
     "visibleCharter": true
   },
   "マゴチ": {
-    "basePrice": { "men": 10700, "women": 8700, "student": 6500 },
+    "basePrice": { "men": 10500, "women": 8500, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 85600 },
-      "holiday": { "minPeople": 10, "minPrice": 107000 },
-      "sunday": { "minPeople": 10, "minPrice": 107000 }
+      "weekday": { "minPeople": 8, "minPrice": 84000 },
+      "holiday": { "minPeople": 10, "minPrice": 105000 },
+      "sunday": { "minPeople": 10, "minPrice": 105000 }
     },
     "rental": { 
       "竿（専用竿）": 1500
@@ -255,11 +270,11 @@ window.plans = {
     "visibleCharter": true
   },
   "テンヤタチウオ": {
-    "basePrice": { "men": 9700, "women": 7700, "student": 6500 },
+    "basePrice": { "men": 9500, "women": 7500, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 77600 },
-      "holiday": { "minPeople": 10, "minPrice": 97000 },
-      "sunday": { "minPeople": 10, "minPrice": 97000 }
+      "weekday": { "minPeople": 8, "minPrice": 76000 },
+      "holiday": { "minPeople": 10, "minPrice": 95000 },
+      "sunday": { "minPeople": 10, "minPrice": 95000 }
     },
     "rental": { 
       "竿（専用竿）": 1500
@@ -288,7 +303,7 @@ window.plans = {
       "sunday": { "minPeople": 10, "minPrice": 75000 }
     },
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "鬼カサゴ": {
     "basePrice": { "men": 11500, "women": 8500, "student": 8000 },
@@ -298,33 +313,58 @@ window.plans = {
   },
   "深場五目": {
     "basePrice": { "men": 12500, "women": 10500, "student": 8500 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 96000 },
+      "holiday": { "minPeople": 10, "minPrice": 125000 },
+      "sunday": { "minPeople": 10, "minPrice": 125000 }
+    },
     "note": "サバ餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "キス＆アナゴリレー": {
     "basePrice": { "men": 11000, "women": 9000, "student": 7500 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 88000 },
+      "holiday": { "minPeople": 10, "minPrice": 110000 },
+      "sunday": { "minPeople": 10, "minPrice": 110000 }
+    },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "夜アナゴ": {
     "basePrice": { "men": 8000, "women": 6000, "student": 5000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 64000 },
+      "holiday": { "minPeople": 10, "minPrice": 80000 },
+      "sunday": { "minPeople": 10, "minPrice": 80000 }
+    },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "夜アジ＆カサゴリレー": {
     "basePrice": { "men": 8000, "women": 6000, "student": 5000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 64000 },
+      "holiday": { "minPeople": 10, "minPrice": 80000 },
+      "sunday": { "minPeople": 10, "minPrice": 80000 }
+    },
     "note": "コマセ・餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "夜カサゴ＆メバル": {
     "basePrice": { "men": 7000, "women": 5500, "student": 4500 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 56000 },
+      "holiday": { "minPeople": 10, "minPrice": 70000 },
+      "sunday": { "minPeople": 10, "minPrice": 70000 }
+    },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "一日アミ五目": {
     "basePrice": { "men": 11500, "women": 9500, "student": 7000 },
@@ -339,16 +379,43 @@ window.plans = {
   },
   "タチアミ五目": {
     "basePrice": { "men": 11500, "women": 9500, "student": 7500 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 92000 },
+      "holiday": { "minPeople": 10, "minPrice": 115000 },
+      "sunday": { "minPeople": 10, "minPrice": 115000 }
+    },
     "note": "餌・ミンチ・アミコマセ・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "一日ＬＴアジ": {
     "basePrice": { "men": 9500, "women": 7500, "student": 6500 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 76000 },
-      "holiday": { "minPeople": 10, "minPrice": 95000 },
-      "sunday": { "minPeople": 10, "minPrice": 95000 }
+      "holiday": { "minPeople": 10, "minPrice": 98000 },
+      "sunday": { "minPeople": 10, "minPrice": 98000 }
+    },
+    "note": "コマセ・イカ短・アオイソ・氷付き（ビシアジ＋500円）",
+    "visibleShared": false,
+    "visibleCharter": true
+  },
+  "キス・カサゴなど": {
+    "basePrice": { "men": 9000, "women": 7000, "student": 6000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 72000 },
+      "holiday": { "minPeople": 10, "minPrice": 93000 },
+      "sunday": { "minPeople": 10, "minPrice": 93000 }
+    },
+    "note": "アオイソ・餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": true
+  },
+  "ＬＴアジ（リレー）キス・イシモチ・カサゴ・タコ": {
+    "basePrice": { "men": 10500, "women": 8000, "student": 6500 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 84000 },
+      "holiday": { "minPeople": 10, "minPrice": 105000 },
+      "sunday": { "minPeople": 10, "minPrice": 105000 }
     },
     "note": "コマセ・イカ短・アオイソ・氷付き（ビシアジ＋500円）",
     "visibleShared": false,
@@ -356,9 +423,14 @@ window.plans = {
   },
   "カワハギ～アミ五目": {
     "basePrice": { "men": 12000, "women": 9500, "student": 7500 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 92000 },
+      "holiday": { "minPeople": 10, "minPrice": 120000 },
+      "sunday": { "minPeople": 10, "minPrice": 120000 }
+    },
     "note": "アミコマセ・付け餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "トラフグ": {
     "basePrice": { "men": 11500, "women": 9500, "student": 8000 },
