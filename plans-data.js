@@ -138,11 +138,11 @@ window.plans = {
     "visibleCharter": true
   },
   "マダイ五目": {
-    "basePrice": { "men": 11500, "women": 9500, "student": 8000 },
+    "basePrice": { "men": 11700, "women": 9700, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 92000 },
-      "holiday": { "minPeople": 10, "minPrice": 115000 },
-      "sunday": { "minPeople": 10, "minPrice": 115000 }
+      "weekday": { "minPeople": 8, "minPrice": 93600 },
+      "holiday": { "minPeople": 10, "minPrice": 117000 },
+      "sunday": { "minPeople": 10, "minPrice": 117000 }
     },
     "rental": { 
       "竿（手巻き）": 1200,
@@ -153,11 +153,11 @@ window.plans = {
     "visibleCharter": true
   },
   "ＬＴイサキ五目": {
-    "basePrice": { "men": 11500, "women": 9500, "student": 8000 },
+    "basePrice": { "men": 11700, "women": 9700, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 92000 },
-      "holiday": { "minPeople": 12, "minPrice": 138000 },
-      "sunday": { "minPeople": 12, "minPrice": 138000 }
+      "weekday": { "minPeople": 8, "minPrice":  93600 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
     "note": "アミコマセ・イカ短・氷付き",
     "visibleShared": false,
@@ -245,11 +245,11 @@ window.plans = {
     "visibleCharter": true
   },
   "マゴチ": {
-    "basePrice": { "men": 10500, "women": 8500, "student": 6500 },
+    "basePrice": { "men": 10700, "women": 8700, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 84000 },
-      "holiday": { "minPeople": 10, "minPrice": 105000 },
-      "sunday": { "minPeople": 10, "minPrice": 105000 }
+      "weekday": { "minPeople": 8, "minPrice": 85600 },
+      "holiday": { "minPeople": 10, "minPrice": 107000 },
+      "sunday": { "minPeople": 10, "minPrice": 107000 }
     },
     "rental": { 
       "竿（専用竿）": 1500
@@ -259,11 +259,11 @@ window.plans = {
     "visibleCharter": true
   },
   "スミイカ": {
-    "basePrice": { "men": 10500, "women": 8500, "student": 6500 },
+    "basePrice": { "men": 11000, "women": 9000, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 84000 },
-      "holiday": { "minPeople": 10, "minPrice": 105000 },
-      "sunday": { "minPeople": 10, "minPrice": 105000 }
+      "weekday": { "minPeople": 8, "minPrice": 88000 },
+      "holiday": { "minPeople": 10, "minPrice": 110000 },
+      "sunday": { "minPeople": 10, "minPrice": 110000 }
     },
     "note": "シャコ餌付き",
     "visibleShared": false,
