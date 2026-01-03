@@ -171,7 +171,29 @@ window.plans = {
       "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
     "note": "氷付き、投入機あり",
+    "visibleShared": false,
+    "visibleCharter": true
+  },
+  "ヤリイカ": {
+    "basePrice": { "men": 12000, "women": 10000, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 96000 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
+    },
+    "note": "氷付き、投入機あり",
     "visibleShared": true,
+    "visibleCharter": true
+  },
+  "スルメイカ": {
+    "basePrice": { "men": 12000, "women": 10000, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 96000 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
+    },
+    "note": "氷付き、投入機あり",
+    "visibleShared": false,
     "visibleCharter": true
   },
   "ワラサ": {
