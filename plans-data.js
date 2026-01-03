@@ -432,14 +432,14 @@ window.plans = {
     "visibleShared": false,
     "visibleCharter": true
   },
-  "ＬＴアジ（リレー）キス・イシモチ・カサゴ・タコ": {
+  "LTアジ（からリレー）キス・イシモチ・カサゴ・タコ": {
     "basePrice": { "men": 10500, "women": 8000, "student": 6500 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 84000 },
       "holiday": { "minPeople": 10, "minPrice": 105000 },
       "sunday": { "minPeople": 10, "minPrice": 105000 }
     },
-    "note": "コマセ・イカ短・アオイソ・氷付き（ビシアジ＋500円）",
+    "note": "コマセ・イカ短・アオイソ・氷付き（ビシアジ＋500円）\n LTアジ後にキス・イシモチ・カサゴ・タコのどれかを楽しめます。",
     "visibleShared": false,
     "visibleCharter": true
   },
