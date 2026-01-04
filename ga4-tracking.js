@@ -104,7 +104,7 @@ export async function trackFormSubmit(state, calculation) {
   /* istanbul ignore next */
   // Log in development mode instead of sending to GA4
   if (!isProduction()) {
-    console.log('📊 [GA4 Dev] form_submit:', {
+    console.log('📊 [GA4 Dev] generate_lead:', {
       trip_type: state.tripType,
       plan_name: state.plan || '未選択',
       men_count: state.men,
@@ -125,7 +125,7 @@ export async function trackFormSubmit(state, calculation) {
     hashString(state.visitorPhone)
   ]);
   
-  gtag('event', 'form_submit', {
+  gtag('event', 'generate_lead', {
     form_id: 'reservation_form',
     form_name: 'send_reservation_email',
     trip_type: state.tripType,

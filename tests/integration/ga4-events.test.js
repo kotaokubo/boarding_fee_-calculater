@@ -92,7 +92,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 14700 };
       await trackFormSubmit(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_submit', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({
         form_id: 'reservation_form',
         trip_type: '乗合船',
         plan_name: '午前アジ',
@@ -121,7 +121,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 6800 };
       await trackFormSubmit(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_submit', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({
         rental_count: 0
       }));
     });
@@ -140,7 +140,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 0 };
       await trackFormSubmit(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_submit', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({
         rental_count: 3
       }));
     });
