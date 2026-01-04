@@ -9,6 +9,9 @@
 const plans = window.plans || {};
 const commonRental = window.commonRental || {};
 
+// GA4 tracking utilities
+import { trackFormStart, trackFormSubmit } from './ga4-tracking.js';
+
 // --- Helper / state ---
 const state = {
   tripType: '乗合船',
@@ -880,6 +883,10 @@ if (typeof document !== 'undefined' && mailtoBtn) {
     e.preventDefault();
     
     if (validateBooking()) {
+      // Track form start event in GA4
+      const calculation = calculateTotal();
+      trackFormStart(state, calculation);
+      
       showPersonalInfoModal();
     }
   });
@@ -929,7 +936,7 @@ if (typeof document !== 'undefined' && visitorNameEl) {
 
   // Note: Personal info modal does not close when clicking outside (removed for better UX)
 
-  modalSubmitBtn.addEventListener('click', (e) => {
+  modalSubmitBtn.addEventListener('click', async (e) => {
     e.preventDefault();
     
     // Validate form
@@ -948,6 +955,10 @@ if (typeof document !== 'undefined' && visitorNameEl) {
     
     // Create and open mailto
     createMailTo();
+    
+    // Track form submit event in GA4 with hashed personal info
+    const calculation = calculateTotal();
+    await trackFormSubmit(state, calculation);
     
     // Clear form for next use
     personalInfoForm.reset();
