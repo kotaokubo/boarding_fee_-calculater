@@ -135,11 +135,9 @@ All files      |   44.36 |    80.39 |   34.48 |   44.36
 ## 🚀 テストの実行
 
 ```bash
-# 1回だけテスト実行
+# 1回だけテスト実行（推奨）
 npm run test:run
 
-# ウォッチモードでテスト実行
-npm test
 
 # UIでテスト実行
 npm run test:ui

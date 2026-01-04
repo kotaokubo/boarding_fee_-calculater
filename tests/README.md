@@ -33,11 +33,11 @@ git push --no-verify
 ### 基本コマンド
 
 ```bash
-# ウォッチモードでテスト実行（開発時推奨）
-npm test
-
-# 1回だけテスト実行
+# 1回だけテスト実行（推奨）
 npm run test:run
+
+# ウォッチモードでテスト実行（開発時に変更を監視したい場合）
+npm test
 
 # UIでテスト実行（ブラウザで結果を確認）
 npm run test:ui
