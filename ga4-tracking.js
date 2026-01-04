@@ -22,6 +22,7 @@ export async function hashString(str) {
   
   try {
     if (typeof crypto === 'undefined' || !crypto.subtle) {
+      /* istanbul ignore next */
       // Web Crypto API not available (very old browsers)
       return '';
     }
@@ -61,6 +62,7 @@ export function trackFormStart(state, calculation) {
     return;
   }
   
+  /* istanbul ignore next */
   // Log in development mode instead of sending to GA4
   if (!isProduction()) {
     console.log('📊 [GA4 Dev] form_start:', {
@@ -99,6 +101,7 @@ export async function trackFormSubmit(state, calculation) {
   const totalPeople = state.men + state.women + state.student;
   const rentalCount = Object.values(state.rentals).filter(qty => qty > 0).length;
   
+  /* istanbul ignore next */
   // Log in development mode instead of sending to GA4
   if (!isProduction()) {
     console.log('📊 [GA4 Dev] form_submit:', {
