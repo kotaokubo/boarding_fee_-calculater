@@ -83,7 +83,8 @@ export function trackFormStart(state, calculation) {
     plan_name: state.plan || '未選択',
     reservation_date: state.date || '未選択',
     total_people: totalPeople,
-    value: calculation.total
+    value: calculation.total,
+    currency: 'JPY'
   });
 }
 
@@ -136,6 +137,7 @@ export async function trackFormSubmit(state, calculation) {
     total_people: totalPeople,
     rental_count: rentalCount,
     value: calculation.total,
+    currency: 'JPY',
     visitor_name_hash: nameHash,
     visitor_kana_hash: kanaHash,
     visitor_phone_hash: phoneHash

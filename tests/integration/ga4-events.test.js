@@ -36,7 +36,8 @@ describe('GA4 Event Tracking', () => {
         plan_name: '午前アジ',
         reservation_date: '2026-03-15',
         total_people: 4,
-        value: 20900
+        value: 20900,
+        currency: 'JPY'
       });
       expect(global.gtag).toHaveBeenCalledTimes(1);
     });
@@ -100,7 +101,8 @@ describe('GA4 Event Tracking', () => {
         student_count: 0,
         total_people: 3,
         rental_count: 1,
-        value: 14700
+        value: 14700,
+        currency: 'JPY'
       }));
       
       const call = global.gtag.mock.calls[0][2];
