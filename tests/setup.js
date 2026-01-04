@@ -2,6 +2,16 @@
 import { expect, beforeEach, vi } from 'vitest';
 import crypto from 'crypto';
 
+// Mock window.location to simulate production environment for GA4 tests
+if (!global.window) {
+  global.window = {};
+}
+// Simulate production hostname for tests (not localhost)
+global.window.location = {
+  hostname: 'ichinosemaru.com', // Production-like hostname
+  href: 'https://ichinosemaru.com/'
+};
+
 // Import real data from plans-data.js
 const plansDataModule = await import('../plans-data.js');
 const { plans, commonRental, holidays } = plansDataModule;

@@ -1,6 +1,16 @@
 // GA4 (Google Analytics 4) event tracking utilities
 
 /**
+ * Check if we're in production environment
+ * @returns {boolean} true if production, false if development
+ */
+function isProduction() {
+  if (typeof window === 'undefined') return false;
+  const hostname = window.location.hostname;
+  return hostname !== 'localhost' && !hostname.match(/127\.0\.0\.1/);
+}
+
+/**
  * Hash a string using SHA-256 for privacy-safe GA4 tracking
  * @param {string} str - The string to hash
  * @returns {Promise<string>} - Hex-encoded hash, or empty string if hashing fails
@@ -51,6 +61,17 @@ export function trackFormStart(state, calculation) {
     return;
   }
   
+  // Log in development mode instead of sending to GA4
+  if (!isProduction()) {
+    console.log('📊 [GA4 Dev] form_start:', {
+      trip_type: state.tripType,
+      plan_name: state.plan || '未選択',
+      total_people: state.men + state.women + state.student,
+      value: calculation.total
+    });
+    return;
+  }
+  
   const totalPeople = state.men + state.women + state.student;
   
   gtag('event', 'form_start', {
@@ -77,6 +98,22 @@ export async function trackFormSubmit(state, calculation) {
   
   const totalPeople = state.men + state.women + state.student;
   const rentalCount = Object.values(state.rentals).filter(qty => qty > 0).length;
+  
+  // Log in development mode instead of sending to GA4
+  if (!isProduction()) {
+    console.log('📊 [GA4 Dev] form_submit:', {
+      trip_type: state.tripType,
+      plan_name: state.plan || '未選択',
+      men_count: state.men,
+      women_count: state.women,
+      student_count: state.student,
+      total_people: totalPeople,
+      rental_count: rentalCount,
+      value: calculation.total,
+      visitor_info: '[HASHED IN PRODUCTION]'
+    });
+    return;
+  }
   
   // Hash personal information for privacy
   const [nameHash, kanaHash, phoneHash] = await Promise.all([
