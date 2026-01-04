@@ -20,8 +20,8 @@ describe('GA4 Event Tracking', () => {
     state.visitorPhone = '';
   });
 
-  describe('form_start event', () => {
-    it('should track form_start event with valid data', () => {
+  describe('booking_form_started event', () => {
+    it('should track booking_form_started event with valid data', () => {
       state.men = 2;
       state.women = 1;
       state.student = 1;
@@ -29,7 +29,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 20900 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_start', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started', expect.objectContaining({
         form_id: 'plan_selection',
         form_name: 'decide_plan',
         trip_type: '乗合船',
@@ -48,12 +48,12 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 0 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_start', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started', expect.objectContaining({
         plan_name: '未選択'
       }));
     });
 
-    it('should track form_start for charter boat (仕立て船)', () => {
+    it('should track booking_form_started for charter boat (仕立て船)', () => {
       state.tripType = '仕立て船';
       state.plan = 'マダイ五目';
       state.men = 5;
@@ -61,7 +61,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 54400 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_start', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started', expect.objectContaining({
         trip_type: '仕立て船',
         total_people: 5
       }));
@@ -78,8 +78,8 @@ describe('GA4 Event Tracking', () => {
     });
   });
 
-  describe('form_submit event', () => {
-    it('should track form_submit event with hashed personal info', async () => {
+  describe('booking_submitted event', () => {
+    it('should track booking_submitted event without PII', async () => {
       state.men = 2;
       state.women = 1;
       state.student = 0;
@@ -91,7 +91,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 14700 };
       await trackFormSubmit(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_submitted', expect.objectContaining({
         form_id: 'reservation_form',
         trip_type: '乗合船',
         plan_name: '午前アジ',
@@ -100,14 +100,8 @@ describe('GA4 Event Tracking', () => {
         student_count: 0,
         total_people: 3,
         rental_count: 1,
-        value: 14700,
-        currency: 'JPY'
+        value_jpy: 14700
       }));
-      
-      const call = global.gtag.mock.calls[0][2];
-      expect(call.visitor_name_hash).toMatch(/^[0-9a-f]{64}$/);
-      expect(call.visitor_kana_hash).toMatch(/^[0-9a-f]{64}$/);
-      expect(call.visitor_phone_hash).toMatch(/^[0-9a-f]{64}$/);
     });
 
     it('should track form_submit with zero rentals', async () => {
@@ -120,7 +114,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 6800 };
       await trackFormSubmit(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_submitted', expect.objectContaining({
         rental_count: 0
       }));
     });
@@ -139,7 +133,7 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 0 };
       await trackFormSubmit(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_submitted', expect.objectContaining({
         rental_count: 3
       }));
     });

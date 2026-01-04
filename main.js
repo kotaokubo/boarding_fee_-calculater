@@ -978,7 +978,7 @@ if (typeof document !== 'undefined' && visitorNameEl) {
     // Create and open mailto
     createMailTo();
     
-    // Track form submit event in GA4 with hashed personal info
+    // Track form submit event in GA4 without PII
     const calculation = calculateTotal();
     await trackFormSubmit(state, calculation);
     

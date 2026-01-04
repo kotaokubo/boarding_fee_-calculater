@@ -90,15 +90,15 @@ export function trackFormStart(state, calculation) {
   /* istanbul ignore next */
   // Log in development mode instead of sending to GA4
   if (!isProduction()) {
-    console.log('📊 [GA4 Dev] form_start:', params);
+    console.log('📊 [GA4 Dev] booking_form_started:', params);
     return;
   }
   
-  gtag('event', 'form_start', params);
+  gtag('event', 'booking_form_started', params);
 }
 
 /**
- * Track form submit event when user completes reservation
+ * Track form submit event when user completes reservation (PII not included)
  * @param {Object} state - Current application state
  * @param {Object} calculation - Calculation result from calculateTotal()
  */
@@ -114,15 +114,8 @@ export async function trackFormSubmit(state, calculation) {
   }
   
   const rentalCount = toNumber(Object.values(state.rentals || {}).filter(qty => qty > 0).length);
-  const value = toNumber(calculation && calculation.total);
-  
-  // Hash personal information for privacy
-  const [nameHash, kanaHash, phoneHash] = await Promise.all([
-    hashString(state.visitorName),
-    hashString(state.visitorKana),
-    hashString(state.visitorPhone)
-  ]);
-  
+  const valueJpy = toNumber(calculation && calculation.total);
+
   const params = {
     send_to: 'G-SNXNEFLLZ9',
     form_id: 'reservation_form',
@@ -135,19 +128,15 @@ export async function trackFormSubmit(state, calculation) {
     student_count: toNumber(state.student),
     total_people: totalPeople,
     rental_count: rentalCount,
-    value,
-    currency: 'JPY',
-    visitor_name_hash: nameHash,
-    visitor_kana_hash: kanaHash,
-    visitor_phone_hash: phoneHash
+    value_jpy: valueJpy
   };
   
   /* istanbul ignore next */
   // Log in development mode instead of sending to GA4
   if (!isProduction()) {
-    console.log('📊 [GA4 Dev] generate_lead:', { ...params, visitor_info: '[HASHED IN PRODUCTION]' });
+    console.log('📊 [GA4 Dev] booking_submitted:', params);
     return;
   }
   
-  gtag('event', 'generate_lead', params);
+  gtag('event', 'booking_submitted', params);
 }
