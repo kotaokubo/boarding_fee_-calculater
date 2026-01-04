@@ -75,8 +75,8 @@ export function trackFormStart(state, calculation) {
   const totalPeople = state.men + state.women + state.student;
   
   gtag('event', 'form_start', {
-    form_id: 'personal_info_form',
-    form_name: 'reservation_inquiry',
+    form_id: 'plan_selection',
+    form_name: 'decide_plan',
     trip_type: state.tripType,
     plan_name: state.plan || '未選択',
     reservation_date: state.date || '未選択',
@@ -123,8 +123,8 @@ export async function trackFormSubmit(state, calculation) {
   ]);
   
   gtag('event', 'form_submit', {
-    form_id: 'personal_info_form',
-    form_name: 'reservation_inquiry',
+    form_id: 'reservation_form',
+    form_name: 'send_reservation_email',
     trip_type: state.tripType,
     plan_name: state.plan || '未選択',
     reservation_date: state.date || '未選択',

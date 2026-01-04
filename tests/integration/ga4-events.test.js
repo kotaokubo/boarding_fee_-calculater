@@ -30,8 +30,8 @@ describe('GA4 Event Tracking', () => {
       trackFormStart(state, calculation);
       
       expect(global.gtag).toHaveBeenCalledWith('event', 'form_start', {
-        form_id: 'personal_info_form',
-        form_name: 'reservation_inquiry',
+        form_id: 'plan_selection',
+        form_name: 'decide_plan',
         trip_type: '乗合船',
         plan_name: '午前アジ',
         reservation_date: '2026-03-15',
@@ -93,7 +93,7 @@ describe('GA4 Event Tracking', () => {
       await trackFormSubmit(state, calculation);
       
       expect(global.gtag).toHaveBeenCalledWith('event', 'form_submit', expect.objectContaining({
-        form_id: 'personal_info_form',
+        form_id: 'reservation_form',
         trip_type: '乗合船',
         plan_name: '午前アジ',
         men_count: 2,

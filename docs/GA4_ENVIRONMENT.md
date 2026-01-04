@@ -98,7 +98,7 @@ npm run preview
 | npm run dev | localhost:5173 | ❌ 無効 |
 | npm run preview | localhost:4173 | ❌ 無効 |
 | GitHub Pages | [username].github.io | ✅ 有効 |
-| カスタムドメイン | ichinosemaru.com | ✅ 有効 |
+| カスタムドメイン | ichinosemaru.jp | ✅ 有効 |
 
 ### 二重保護
 
@@ -112,7 +112,7 @@ npm run preview
 ```javascript
 // tests/setup.js
 global.window.location = {
-  hostname: 'ichinosemaru.com', // 本番ホスト名をシミュレート
+  hostname: 'ichinosemaru.jp', // 本番ホスト名をシミュレート
 };
 ```
 
@@ -122,7 +122,7 @@ global.window.location = {
 
 ### カスタムドメインを使用する場合
 
-カスタムドメイン（例: `www.ichinosemaru.com`）を使用する場合は、そのままで動作します（localhostではないため）。
+カスタムドメイン（例: `www.ichinosemaru.jp`）を使用する場合は、そのままで動作します（localhostではないため）。
 
 ### 新しい開発環境を追加する場合
 

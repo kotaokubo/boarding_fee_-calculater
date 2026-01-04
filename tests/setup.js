@@ -8,8 +8,8 @@ if (!global.window) {
 }
 // Simulate production hostname for tests (not localhost)
 global.window.location = {
-  hostname: 'ichinosemaru.com', // Production-like hostname
-  href: 'https://ichinosemaru.com/'
+  hostname: 'ichinosemaru.jp', // Production-like hostname
+  href: 'https://ichinosemaru.jp/'
 };
 
 // Import real data from plans-data.js
