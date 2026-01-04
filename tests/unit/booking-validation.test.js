@@ -1,10 +1,25 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
 import { state, validateBooking, setDOMElements } from '../../main.js';
 
+function toISO(dateObj) {
+  const yyyy = dateObj.getFullYear();
+  const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const dd = String(dateObj.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function isoFromToday(offsetDays) {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + offsetDays);
+  return toISO(d);
+}
+
 /**
  * validateBooking() のユニットテスト
  * 
  * テスト対象:
+ * - 日付検証（2日後以降のみ）
  * - 人数検証（1名以上）
  * - エラーメッセージ表示
  * 
@@ -16,8 +31,6 @@ import { state, validateBooking, setDOMElements } from '../../main.js';
  * - 完全な値検証（曖昧なmatcherは使用しない）
  * - 複数データパターンでテスト
  * 
- * 注: 日付バリデーションはHTML5のmin属性で処理されるため、
- * JavaScriptでのバリデーションは不要
  */
 
 describe('validateBooking', () => {
@@ -62,7 +75,7 @@ describe('validateBooking', () => {
     // Reset state
     state.tripType = '乗合船';
     state.plan = '午前アジ';
-    state.date = '2026-03-15'; // Valid future date
+    state.date = isoFromToday(2); // Valid future date (>=2 days later)
     state.men = 0;
     state.women = 0;
     state.student = 0;
@@ -71,6 +84,40 @@ describe('validateBooking', () => {
 
   afterEach(() => {
     document.body.innerHTML = '';
+  });
+
+  describe('日付検証: 2日後以降のみ受付', () => {
+    test('今日を選択するとエラーを表示してfalseを返す', () => {
+      state.date = isoFromToday(0);
+      state.men = 1; // 人数は有効
+
+      const result = validateBooking();
+
+      expect(result).toBe(false);
+      expect(alertModal.style.display).toBe('flex');
+      expect(alertMessage.textContent).toBe('ご予約は2日後以降の日付を選択してください');
+    });
+
+    test('明日を選択するとエラーを表示してfalseを返す', () => {
+      state.date = isoFromToday(1);
+      state.men = 1;
+
+      const result = validateBooking();
+
+      expect(result).toBe(false);
+      expect(alertModal.style.display).toBe('flex');
+      expect(alertMessage.textContent).toBe('ご予約は2日後以降の日付を選択してください');
+    });
+
+    test('2日後なら通過してtrueを返す', () => {
+      state.date = isoFromToday(2);
+      state.men = 1;
+
+      const result = validateBooking();
+
+      expect(result).toBe(true);
+      expect(alertModal.style.display).toBe('none');
+    });
   });
 
   describe('人数検証: 1名以上必須', () => {

@@ -876,6 +876,20 @@ function closeAlertModal() {
  * @returns {boolean} true if validation passes, false otherwise
  */
 function validateBooking() {
+  // Validate date (must be at least 2 days from today)
+  if (state.date) {
+    const selectedDate = new Date(state.date + 'T00:00:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 2);
+
+    if (selectedDate < minDate) {
+      showAlertModal('ご予約は2日後以降の日付を選択してください');
+      return false;
+    }
+  }
+
   // Validate people count
   const totalPeople = state.men + state.women + state.student;
   if (totalPeople === 0) {
