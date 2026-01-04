@@ -82,9 +82,7 @@ export function trackFormStart(state, calculation) {
     trip_type: state.tripType,
     plan_name: state.plan || '未選択',
     reservation_date: state.date || '未選択',
-    total_people: totalPeople,
-    value: calculation.total,
-    currency: 'JPY'
+    total_people: totalPeople
   });
 }
 

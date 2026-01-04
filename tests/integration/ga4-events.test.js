@@ -35,9 +35,7 @@ describe('GA4 Event Tracking', () => {
         trip_type: '乗合船',
         plan_name: '午前アジ',
         reservation_date: '2026-03-15',
-        total_people: 4,
-        value: 20900,
-        currency: 'JPY'
+        total_people: 4
       });
       expect(global.gtag).toHaveBeenCalledTimes(1);
     });
