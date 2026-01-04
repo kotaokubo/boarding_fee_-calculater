@@ -369,6 +369,43 @@ export function resetState(stateObj) {
 
 除外する場合は`/* istanbul ignore next */`コメントを使用するが、**安易に除外せず、まずテスト方法を検討すること**。
 
+#### 2.3.1 エラーハンドリングのテスト方法
+
+catchブロックやエラーハンドリングも、モックを使用してエラーを意図的に発生させることでテスト可能です。
+
+**例：crypto.subtle.digestのエラーケーステスト**
+
+```javascript
+import { describe, it, expect, vi } from 'vitest';
+import { hashString } from '../../main.js';
+
+describe('hashString - error handling', () => {
+  it('should return empty string when crypto.subtle.digest throws error', async () => {
+    // Save original crypto.subtle.digest
+    const originalDigest = global.crypto.subtle.digest;
+    
+    // Mock crypto.subtle.digest to throw an error
+    global.crypto.subtle.digest = vi.fn().mockRejectedValue(new Error('Hashing failed'));
+    
+    const result = await hashString('test');
+    
+    // Should return empty string on error
+    expect(result).toBe('');
+    
+    // Restore original digest
+    global.crypto.subtle.digest = originalDigest;
+  });
+});
+```
+
+**重要なポイント：**
+1. **元の関数を保存** - テスト後に復元するため、`originalDigest`に保存
+2. **モックでエラーを投げる** - `vi.fn().mockRejectedValue()`でPromise rejectをシミュレート
+3. **期待される動作を検証** - エラー時は空文字列を返すことを確認
+4. **必ず復元** - 他のテストに影響しないよう、元の関数に戻す
+
+この方法により、catchブロックのコードもカバレッジ100%を達成できます。
+
 #### 2.4 テストコードの構成とスタイル
 
 ##### describe / test / beforeEach の使い分け
