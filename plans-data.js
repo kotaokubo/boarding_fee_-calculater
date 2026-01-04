@@ -1,6 +1,6 @@
 // Plans data separated for easier maintenance and potential future replacement with external JSON.
 // New structure: Each plan contains basePrice (per-person pricing), charter (minimum pricing), rental, and note.
-window.plans = {
+const plans = {
   "午前アジ": {
     "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
     "charter": {
@@ -467,7 +467,7 @@ window.plans = {
   },
 };
 
-window.commonRental = {
+const commonRental = {
   "竿（竿,リール）": 600,
   "カッパ長靴セット": 600,
   "長靴のみ": 200
@@ -506,7 +506,7 @@ window.commonRental = {
 // 連続休日最終日（sunday扱い）:
 //   - 2026-05-06（振替休日、水曜）: 前日が休日、翌日が平日 → 連休最終日
 //   - 2026-09-23（秋分の日、水曜）: 前日が休日、翌日が平日 → 連休最終日
-window.holidays = [
+const holidays = [
   '2026-01-01', // 元日（木曜、単独休日）
   '2026-01-12', // 成人の日（月曜、連休最終日：前日1/11が日曜）
   '2026-02-11', // 建国記念の日（水曜、単独休日）
@@ -526,7 +526,17 @@ window.holidays = [
   '2026-11-23'  // 勤労感謝の日（月曜、単独休日）
 ];
 
-// Export for testing (ES modules)
+// Export as ES modules
+export { plans, commonRental, holidays };
+
+// Also set on window for backward compatibility (browser)
+if (typeof window !== 'undefined') {
+  window.plans = plans;
+  window.commonRental = commonRental;
+  window.holidays = holidays;
+}
+
+// CommonJS export for Node.js testing
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { plans: window.plans, commonRental: window.commonRental, holidays: window.holidays };
+  module.exports = { plans, commonRental, holidays };
 }

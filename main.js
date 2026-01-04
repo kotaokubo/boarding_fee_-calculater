@@ -3,11 +3,19 @@
 // - Output: realtime total amount (number), formatted summary string, mailto link
 // - Error modes: missing date => still calculate; negative numbers prevented by input min=0
 
-// Plans and rental data are provided by `plans-data.js` and exposed on window.
-// This keeps data separate and makes it easy to replace with an external JSON later.
-/* v8 ignore next 2 */
-const plans = window.plans || {};
-const commonRental = window.commonRental || {};
+// Plans and rental data
+import { plans as plansData, commonRental as commonRentalData, holidays as holidaysData } from './plans-data.js';
+
+// Set on window for backward compatibility and browser access
+/* v8 ignore next 3 */
+if (typeof window !== 'undefined') {
+  window.plans = plansData;
+  window.commonRental = commonRentalData;
+  window.holidays = holidaysData;
+}
+
+const plans = plansData;
+const commonRental = commonRentalData;
 
 // GA4 tracking utilities
 import { trackFormStart, trackFormSubmit } from './ga4-tracking.js';
@@ -445,8 +453,8 @@ function offsetISO(isoStr, days) {
   return toISODate(d);
 }
 
-// Build holiday set from window.holidays (if present)
-const holidaySet = new Set((window.holidays || []).map(s => s));
+// Build holiday set from holidays array
+const holidaySet = new Set(holidaysData.map(s => s));
 function isHolidayISO(iso) {
   return holidaySet.has(iso);
 }
