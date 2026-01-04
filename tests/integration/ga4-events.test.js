@@ -29,14 +29,15 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 20900 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'form_start', {
+      expect(global.gtag).toHaveBeenCalledWith('event', 'form_start', expect.objectContaining({
         form_id: 'plan_selection',
         form_name: 'decide_plan',
         trip_type: '乗合船',
         plan_name: '午前アジ',
         reservation_date: '2026-03-15',
-        total_people: 4
-      });
+        total_people: 4,
+        send_to: 'G-SNXNEFLLZ9'
+      }));
       expect(global.gtag).toHaveBeenCalledTimes(1);
     });
 

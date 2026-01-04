@@ -52,6 +52,15 @@ function byteToHex(b) {
   return hex.length === 1 ? '0' + hex : hex;
 }
 
+function toNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function toText(value, fallback = '未選択') {
+  return value === null || value === undefined ? fallback : String(value);
+}
+
 /**
  * Track form start event when user clicks "予約へ進む" button
  * @param {Object} state - Current application state
@@ -62,28 +71,30 @@ export function trackFormStart(state, calculation) {
     return;
   }
   
-  /* istanbul ignore next */
-  // Log in development mode instead of sending to GA4
-  if (!isProduction()) {
-    console.log('📊 [GA4 Dev] form_start:', {
-      trip_type: state.tripType,
-      plan_name: state.plan || '未選択',
-      total_people: state.men + state.women + state.student,
-      value: calculation.total
-    });
+  const totalPeople = toNumber(state.men) + toNumber(state.women) + toNumber(state.student);
+  if (!Number.isFinite(totalPeople)) {
+    console.warn('GA4 total_people is invalid, skip send', { state });
     return;
   }
   
-  const totalPeople = state.men + state.women + state.student;
-  
-  gtag('event', 'form_start', {
+  const params = {
+    send_to: 'G-SNXNEFLLZ9',
     form_id: 'plan_selection',
     form_name: 'decide_plan',
-    trip_type: state.tripType,
-    plan_name: state.plan || '未選択',
-    reservation_date: state.date || '未選択',
+    trip_type: toText(state.tripType),
+    plan_name: toText(state.plan),
+    reservation_date: toText(state.date),
     total_people: totalPeople
-  });
+  };
+  
+  /* istanbul ignore next */
+  // Log in development mode instead of sending to GA4
+  if (!isProduction()) {
+    console.log('📊 [GA4 Dev] form_start:', params);
+    return;
+  }
+  
+  gtag('event', 'form_start', params);
 }
 
 /**
@@ -96,25 +107,14 @@ export async function trackFormSubmit(state, calculation) {
     return;
   }
   
-  const totalPeople = state.men + state.women + state.student;
-  const rentalCount = Object.values(state.rentals).filter(qty => qty > 0).length;
-  
-  /* istanbul ignore next */
-  // Log in development mode instead of sending to GA4
-  if (!isProduction()) {
-    console.log('📊 [GA4 Dev] generate_lead:', {
-      trip_type: state.tripType,
-      plan_name: state.plan || '未選択',
-      men_count: state.men,
-      women_count: state.women,
-      student_count: state.student,
-      total_people: totalPeople,
-      rental_count: rentalCount,
-      value: calculation.total,
-      visitor_info: '[HASHED IN PRODUCTION]'
-    });
+  const totalPeople = toNumber(state.men) + toNumber(state.women) + toNumber(state.student);
+  if (!Number.isFinite(totalPeople)) {
+    console.warn('GA4 total_people is invalid, skip send', { state });
     return;
   }
+  
+  const rentalCount = toNumber(Object.values(state.rentals || {}).filter(qty => qty > 0).length);
+  const value = toNumber(calculation && calculation.total);
   
   // Hash personal information for privacy
   const [nameHash, kanaHash, phoneHash] = await Promise.all([
@@ -123,21 +123,31 @@ export async function trackFormSubmit(state, calculation) {
     hashString(state.visitorPhone)
   ]);
   
-  gtag('event', 'generate_lead', {
+  const params = {
+    send_to: 'G-SNXNEFLLZ9',
     form_id: 'reservation_form',
     form_name: 'send_reservation_email',
-    trip_type: state.tripType,
-    plan_name: state.plan || '未選択',
-    reservation_date: state.date || '未選択',
-    men_count: state.men,
-    women_count: state.women,
-    student_count: state.student,
+    trip_type: toText(state.tripType),
+    plan_name: toText(state.plan),
+    reservation_date: toText(state.date),
+    men_count: toNumber(state.men),
+    women_count: toNumber(state.women),
+    student_count: toNumber(state.student),
     total_people: totalPeople,
     rental_count: rentalCount,
-    value: calculation.total,
+    value,
     currency: 'JPY',
     visitor_name_hash: nameHash,
     visitor_kana_hash: kanaHash,
     visitor_phone_hash: phoneHash
-  });
+  };
+  
+  /* istanbul ignore next */
+  // Log in development mode instead of sending to GA4
+  if (!isProduction()) {
+    console.log('📊 [GA4 Dev] generate_lead:', { ...params, visitor_info: '[HASHED IN PRODUCTION]' });
+    return;
+  }
+  
+  gtag('event', 'generate_lead', params);
 }
