@@ -42,20 +42,22 @@ let priceMenEl = document.getElementById('priceMen');
 let priceWomenEl = document.getElementById('priceWomen');
 let priceStudentEl = document.getElementById('priceStudent');
 let planTimesEl = document.getElementById('planTimes');
+let planSupplementEl = document.getElementById('planSupplement');
 
 // Modal refs
-const personalInfoModal = document.getElementById('personalInfoModal');
-const personalInfoForm = document.getElementById('personalInfoForm');
-const visitorNameEl = document.getElementById('visitorName');
-const visitorKanaEl = document.getElementById('visitorKana');
-const visitorPhoneEl = document.getElementById('visitorPhone');
-const modalCloseBtn = document.getElementById('modalCloseBtn');
-const modalCancelBtn = document.getElementById('modalCancelBtn');
-const modalSubmitBtn = document.getElementById('modalSubmitBtn');
+let personalInfoModal = document.getElementById('personalInfoModal');
+let personalInfoForm = document.getElementById('personalInfoForm');
+let visitorNameEl = document.getElementById('visitorName');
+let visitorKanaEl = document.getElementById('visitorKana');
+let visitorPhoneEl = document.getElementById('visitorPhone');
+let modalCloseBtn = document.getElementById('modalCloseBtn');
+let modalCancelBtn = document.getElementById('modalCancelBtn');
+let modalSubmitBtn = document.getElementById('modalSubmitBtn');
 
 // Alert modal refs
-const alertModal = document.getElementById('alertModal');
-const alertOkBtn = document.getElementById('alertOkBtn');
+let alertModal = document.getElementById('alertModal');
+let alertMessage = document.getElementById('alertMessage');
+let alertOkBtn = document.getElementById('alertOkBtn');
 
 /* v8 ignore start */
 // Browser-only DOM manipulation code - not tested in Node.js environment
@@ -67,10 +69,15 @@ if (typeof document !== 'undefined' && dateEl) {
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth()+1).padStart(2,'0');
     const dd = String(today.getDate()).padStart(2,'0');
-    dateEl.value = yyyy + '-' + mm + '-' + dd;
-    state.date = dateEl.value;
+    const todayISO = yyyy + '-' + mm + '-' + dd;
+    const twoDaysLater = offsetISO(todayISO, 2);
+    dateEl.value = twoDaysLater;
+    state.date = twoDaysLater;
     // update weekday display next to date input if present
     updateDateWeekdayDisplay();
+    
+    // Set min attribute to 2 days from today
+    dateEl.min = twoDaysLater;
   })();
 }
 
@@ -853,30 +860,28 @@ function closeAlertModal() {
   alertModal.style.display = 'none';
 }
 
+/**
+ * Validate booking before showing personal info modal
+ * @returns {boolean} true if validation passes, false otherwise
+ */
+function validateBooking() {
+  // Validate people count
+  const totalPeople = state.men + state.women + state.student;
+  if (totalPeople === 0) {
+    showAlertModal('人数を1名以上選択してください');
+    return false;
+  }
+  
+  return true;
+}
+
 if (typeof document !== 'undefined' && mailtoBtn) {
   mailtoBtn.addEventListener('click', (e) => {
     e.preventDefault();
     
-    // Validate date (check if it's in the past)
-    if (state.date) {
-      const selectedDate = new Date(state.date + 'T00:00:00');
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      if (selectedDate < today) {
-        showAlertModal('未来の日付を選択してください');
-        return;
-      }
+    if (validateBooking()) {
+      showPersonalInfoModal();
     }
-    
-    // Validate people count
-    const totalPeople = state.men + state.women + state.student;
-    if (totalPeople === 0) {
-      showAlertModal('人数を1名以上選択してください');
-      return;
-    }
-    
-    showPersonalInfoModal();
   });
 
   modalCloseBtn.addEventListener('click', closePersonalInfoModal);
@@ -1004,6 +1009,7 @@ if (typeof module !== 'undefined' && module.exports) {
     renderShikakeOptions,
     renderRentalOptions,
     calculateAndRender,
+    validateBooking,
     // DOM要素の設定関数（テスト用）
     setDOMElements: (elements) => {
       if (elements.tripTypeEl) tripTypeEl = elements.tripTypeEl;
@@ -1020,6 +1026,12 @@ if (typeof module !== 'undefined' && module.exports) {
       if (elements.priceWomenEl) priceWomenEl = elements.priceWomenEl;
       if (elements.priceStudentEl) priceStudentEl = elements.priceStudentEl;
       if (elements.planTimesEl) planTimesEl = elements.planTimesEl;
+      if (elements.planSupplementEl) planSupplementEl = elements.planSupplementEl;
+      if (elements.alertModalEl) alertModal = elements.alertModalEl;
+      if (elements.alertMessageEl) alertMessage = elements.alertMessageEl;
+      if (elements.personalInfoModalEl) personalInfoModal = elements.personalInfoModalEl;
+      if (elements.visitorNameEl) visitorNameEl = elements.visitorNameEl;
+      if (elements.visitorKanaEl) visitorKanaEl = elements.visitorKanaEl;
     }
   };
 }

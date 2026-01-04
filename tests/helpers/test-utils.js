@@ -3,22 +3,49 @@ import { beforeEach } from 'vitest';
 
 /**
  * Set up a minimal DOM structure for testing
+ * DOM構造はmain.jsの実際のDOM要素IDに合わせる
  */
 export function setupDOM() {
   document.body.innerHTML = `
-    <div id="tripTypeGroup">
-      <input type="radio" id="shared" name="tripType" value="乗合船" checked>
-      <input type="radio" id="chartered" name="tripType" value="仕立て船">
-    </div>
+    <select id="tripType">
+      <option value="乗合船">乗合船</option>
+      <option value="仕立て船">仕立て船</option>
+    </select>
     <select id="planSelect"></select>
-    <input type="date" id="tripDate">
-    <input type="number" id="menCount" value="0">
-    <input type="number" id="womenCount" value="0">
-    <input type="number" id="childCount" value="0">
-    <div id="rentalItemsContainer"></div>
-    <div id="totalAmount"></div>
-    <button id="submitBtn">申し込む</button>
-    <div id="personalInfoModal" style="display: none;"></div>
+    <input type="date" id="date" value="2026-03-15" />
+    <select id="menCount"></select>
+    <select id="womenCount"></select>
+    <select id="studentCount"></select>
+    <div id="rentalList"></div>
+    <div id="shikakeList"></div>
+    <div id="breakdown"></div>
+    <div id="fixedTotalAmount"></div>
+    <div id="priceMen"></div>
+    <div id="priceWomen"></div>
+    <div id="priceStudent"></div>
+    <div id="planTimes"></div>
+    <div id="planSupplement"></div>
+    <div id="dateWeekday"></div>
+    <div id="planMemo"></div>
+    <button id="mailtoBtn">予約へ進む</button>
+    <button id="resetBtn">リセット</button>
+    
+    <!-- Modal elements -->
+    <div id="personalInfoModal" style="display:none;">
+      <form id="personalInfoForm">
+        <input type="text" id="visitorName" required />
+        <input type="text" id="visitorKana" required />
+        <input type="tel" id="visitorPhone" required />
+        <button type="button" id="modalCloseBtn">閉じる</button>
+        <button type="button" id="modalCancelBtn">キャンセル</button>
+        <button type="submit" id="modalSubmitBtn">送信</button>
+      </form>
+    </div>
+    
+    <div id="alertModal" style="display:none;">
+      <div id="alertMessage"></div>
+      <button id="alertOkBtn">OK</button>
+    </div>
   `;
 }
 
@@ -31,43 +58,63 @@ export function cleanupDOM() {
 
 /**
  * Set form values for testing
+ * main.jsのイベントをトリガーするためにchangeイベントを発火
  */
-export function setFormValues({ tripType, plan, date, men, women, children }) {
-  if (tripType) {
-    const radio = document.querySelector(`input[name="tripType"][value="${tripType}"]`);
-    if (radio) radio.checked = true;
+export function setFormValues({ tripType, plan, date, men, women, student }) {
+  if (tripType !== undefined) {
+    const el = document.getElementById('tripType');
+    if (el) {
+      el.value = tripType;
+      el.dispatchEvent(new Event('change'));
+    }
   }
-  if (plan) {
-    const select = document.getElementById('planSelect');
-    if (select) select.value = plan;
+  if (plan !== undefined) {
+    const el = document.getElementById('planSelect');
+    if (el) {
+      el.value = plan;
+      el.dispatchEvent(new Event('change'));
+    }
   }
   if (date !== undefined) {
-    const dateInput = document.getElementById('tripDate');
-    if (dateInput) dateInput.value = date;
+    const el = document.getElementById('date');
+    if (el) {
+      el.value = date;
+      el.dispatchEvent(new Event('change'));
+    }
   }
   if (men !== undefined) {
-    const menInput = document.getElementById('menCount');
-    if (menInput) menInput.value = men;
+    const el = document.getElementById('menCount');
+    if (el) {
+      el.value = men;
+      el.dispatchEvent(new Event('change'));
+    }
   }
   if (women !== undefined) {
-    const womenInput = document.getElementById('womenCount');
-    if (womenInput) womenInput.value = women;
+    const el = document.getElementById('womenCount');
+    if (el) {
+      el.value = women;
+      el.dispatchEvent(new Event('change'));
+    }
   }
-  if (children !== undefined) {
-    const childInput = document.getElementById('childCount');
-    if (childInput) childInput.value = children;
+  if (student !== undefined) {
+    const el = document.getElementById('studentCount');
+    if (el) {
+      el.value = student;
+      el.dispatchEvent(new Event('change'));
+    }
   }
 }
 
 /**
  * Reset state object to initial values
+ * main.jsのstateオブジェクトに合わせる
  */
 export function resetState(state) {
   state.tripType = '乗合船';
-  state.selectedPlan = null;
+  state.plan = '';
   state.date = '';
-  state.menCount = 0;
-  state.womenCount = 0;
-  state.childCount = 0;
-  state.rentals = [];
+  state.men = 0;
+  state.women = 0;
+  state.student = 0;
+  state.rentals = {};
 }
