@@ -307,13 +307,19 @@ select.form-input{appearance:none}
   margin-bottom: 16px;
 }
 
-.modal-body .field:last-child {
-  margin-bottom: 0;
-}
-
 .modal-body .form-input {
   width: 100%;
   box-sizing: border-box;
+}
+
+.modal-note {
+  font-size: 13px;
+  margin: 24px 0 0 0;
+  line-height: 1.6;
+  background-color: #fff7d6;
+  color: #8a6d00;
+  padding: 10px 12px;
+  border-radius: 8px;
 }
 
 .required {
@@ -354,7 +360,11 @@ select.form-input{appearance:none}
   }
 
   .modal-body {
-    padding: 16px 16px 30px 16px;
+    padding: 16px;
+  }
+
+  .modal-note {
+    margin: 0;
   }
 
   .modal-footer {
