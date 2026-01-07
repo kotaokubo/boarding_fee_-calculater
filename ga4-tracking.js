@@ -78,13 +78,12 @@ export function trackFormStart(state, calculation) {
   }
   
   const params = {
-    send_to: 'G-SNXNEFLLZ9',
-    form_id: 'plan_selection',
-    form_name: 'decide_plan',
-    trip_type: toText(state.tripType),
-    plan_name: toText(state.plan),
-    reservation_date: toText(state.date),
-    total_people: totalPeople
+    // form_id: 'plan_selection',
+    // form_name: 'decide_plan',
+    // trip_type: toText(state.tripType),
+    // plan_name: toText(state.plan),
+    // reservation_date: toText(state.date),
+    // total_people: totalPeople
   };
   
   /* istanbul ignore next */
@@ -94,7 +93,8 @@ export function trackFormStart(state, calculation) {
     return;
   }
   
-  gtag('event', 'booking_form_started', params);
+  // gtag('event', 'booking_form_started', params);
+  gtag('event', 'booking_form_started');
 }
 
 /**

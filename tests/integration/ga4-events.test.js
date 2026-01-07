@@ -21,7 +21,7 @@ describe('GA4 Event Tracking', () => {
   });
 
   describe('booking_form_started event', () => {
-    it('should track booking_form_started event with valid data', () => {
+    it('should track booking_form_started event with valid data (no params sent)', () => {
       state.men = 2;
       state.women = 1;
       state.student = 1;
@@ -29,31 +29,24 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 20900 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started', expect.objectContaining({
-        form_id: 'plan_selection',
-        form_name: 'decide_plan',
-        trip_type: '乗合船',
-        plan_name: '午前アジ',
-        reservation_date: '2026-03-15',
-        total_people: 4,
-        send_to: 'G-SNXNEFLLZ9'
-      }));
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started');
+      const [firstCall] = global.gtag.mock.calls;
+      expect(firstCall.length).toBe(2);
       expect(global.gtag).toHaveBeenCalledTimes(1);
     });
 
-    it('should track form_start with plan as "未選択" when no plan selected', () => {
+    it('should track form_start even when plan is null (no params)', () => {
       state.men = 1;
       state.plan = null;
       
       const calculation = { total: 0 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started', expect.objectContaining({
-        plan_name: '未選択'
-      }));
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started');
+      expect(global.gtag.mock.calls[0].length).toBe(2);
     });
 
-    it('should track booking_form_started for charter boat (仕立て船)', () => {
+    it('should track booking_form_started for charter boat (仕立て船) without params', () => {
       state.tripType = '仕立て船';
       state.plan = 'マダイ五目';
       state.men = 5;
@@ -61,10 +54,8 @@ describe('GA4 Event Tracking', () => {
       const calculation = { total: 54400 };
       trackFormStart(state, calculation);
       
-      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started', expect.objectContaining({
-        trip_type: '仕立て船',
-        total_people: 5
-      }));
+      expect(global.gtag).toHaveBeenCalledWith('event', 'booking_form_started');
+      expect(global.gtag.mock.calls[0].length).toBe(2);
     });
 
     it('should not call gtag when gtag is undefined', () => {
