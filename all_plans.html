@@ -201,12 +201,11 @@
         </div>
     </div>
     
-    <!-- plans-data.jsを読み込み -->
-    <script src="plans-data.js"></script>
-    
-    <script>
-        // window.plansからデータを取得
-        const plansData = window.plans;
+    <!-- plans-data.jsを読み込み (ESM) -->
+    <script type="module">
+        import { plans } from './plans-data.js';
+        // モジュールから読み込み、万一のフォールバックでwindowも参照
+        const plansData = plans || {};
 
         // 基本料金表を生成
         function renderBasicPriceTable() {
