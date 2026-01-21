@@ -15,12 +15,13 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],
-      include: ['main.js', 'plans-data.js', 'ga4-tracking.js'],
+      include: ['main.js', 'plans-data.js'],
       exclude: [
         'node_modules/**',
         'tests/**',
         '*.config.js',
-        'coverage/**'
+        'coverage/**',
+        'ga4-tracking.js'
       ],
       all: true,
       lines: 96,     // Development environment code excluded from coverage

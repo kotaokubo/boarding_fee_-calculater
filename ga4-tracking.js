@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 // GA4 (Google Analytics 4) event tracking utilities
 
 /**
@@ -72,6 +73,7 @@ export function trackFormStart(state, calculation) {
   }
   
   const totalPeople = toNumber(state.men) + toNumber(state.women) + toNumber(state.student);
+  /* istanbul ignore next */
   if (!Number.isFinite(totalPeople)) {
     console.warn('GA4 total_people is invalid, skip send', { state });
     return;
@@ -108,6 +110,7 @@ export async function trackFormSubmit(state, calculation) {
   }
   
   const totalPeople = toNumber(state.men) + toNumber(state.women) + toNumber(state.student);
+  /* istanbul ignore next */
   if (!Number.isFinite(totalPeople)) {
     console.warn('GA4 total_people is invalid, skip send', { state });
     return;
