@@ -138,7 +138,7 @@ const plans = {
     "visibleCharter": true
   },
   "マダイ五目": {
-    "basePrice": { "men": 11700, "women": 9700, "student": 8000 },
+    "basePrice": { "men": 11700, "women": 9700, "student": 7500 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 93600 },
       "holiday": { "minPeople": 10, "minPrice": 117000 },
@@ -292,11 +292,11 @@ const plans = {
     "visibleCharter": true
   },
   "テンヤタチウオ": {
-    "basePrice": { "men": 9500, "women": 7500, "student": 6500 },
+    "basePrice": { "men": 9700, "women": 7700, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 76000 },
-      "holiday": { "minPeople": 10, "minPrice": 95000 },
-      "sunday": { "minPeople": 10, "minPrice": 95000 }
+      "weekday": { "minPeople": 8, "minPrice": 77600 },
+      "holiday": { "minPeople": 10, "minPrice": 97000 },
+      "sunday": { "minPeople": 10, "minPrice": 97000 }
     },
     "rental": { 
       "竿（専用竿）": 1500
