@@ -96,9 +96,11 @@ describe('getShikakePrices', () => {
     });
   });
 
-  it('不明なプランの場合空オブジェクトを返す', () => {
+  it('不明なプランの場合デフォルトの仕掛け情報を返す', () => {
     const result = getShikakePrices('UnknownPlan');
-    expect(result).toStrictEqual({});
+    expect(result).toStrictEqual({
+      '仕掛け': { note: '500円程度 (時価)' }
+    });
   });
 
   it('nullの場合空オブジェクトを返す', () => {

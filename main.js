@@ -309,7 +309,7 @@ function getShikakePrices(planName) {
       '仕掛け': { note: '250〜500円' }
     };
   }
-  return {};
+  return { '仕掛け': { note: '500円程度 (時価)' } };
 }
 
 // Render shikake (tackle) options based on selected plan
@@ -318,13 +318,7 @@ function renderShikakeOptions() {
   state.shikake = {};
   
   const shikakePrices = getShikakePrices(state.plan);
-  
-  if (Object.keys(shikakePrices).length === 0) {
-    // プランに対応する仕掛けがない場合
-    shikakeListEl.innerHTML = '<div class="no-shikake">このプランには対応する仕掛けはありません</div>';
-    return;
-  }
-  
+
   // テキスト表示のみ（個数選択なし、計算なし）
   for (const [name, priceInfo] of Object.entries(shikakePrices)) {
     const noteText = priceInfo.note || '';
