@@ -267,36 +267,36 @@ function getShikakePrices(planName) {
   // マダイ船の判定
   if (planName.indexOf('マダイ') !== -1) {
     return {
-      '仕掛け': { price: 550, note: '500〜600円' }
+      '仕掛け': { note: '500〜600円' }
     };
   }
   
   // ヤリスルメイカ船の判定
   if (planName.indexOf('ヤリ・スルメイカ') !== -1 || planName.indexOf('ヤリイカ') !== -1) {
     return {
-      'オモリ（150号）': { price: 600, note: '600円' },
-      '仕掛け': { price: 1250, note: '1000〜1500円' }
+      'オモリ（150号）': { note: '600円' },
+      '仕掛け': { note: '1000〜1500円' }
     };
   }
   
   // タチアジ船の判定
   if (planName.indexOf('タチアジ') !== -1) {
     return {
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     };
   }
   
   // カワハギ船の判定
   if (planName.indexOf('カワハギ') !== -1) {
     return {
-      '仕掛け': { price: 500, note: '400〜600円' }
+      '仕掛け': { note: '400〜600円' }
     };
   }
   
   // マゴチ船の判定
   if (planName.indexOf('マゴチ') !== -1) {
     return {
-      '仕掛け': { price: 450, note: '450円程度' }
+      '仕掛け': { note: '450円程度' }
     };
   }
   
@@ -306,7 +306,7 @@ function getShikakePrices(planName) {
       planName.indexOf('キス') !== -1 || planName.indexOf('メバル') !== -1 || 
       planName.indexOf('カサゴ') !== -1 || planName.indexOf('タチウオ') !== -1) {
     return {
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     };
   }
   return {};

@@ -6,93 +6,93 @@ describe('getShikakePrices', () => {
   it('マダイ五目の仕掛け価格を返す', () => {
     const result = getShikakePrices('マダイ五目');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 550, note: '500〜600円' }
+      '仕掛け': { note: '500〜600円' }
     });
   });
 
   it('ヤリスルメイカの仕掛け価格を返す', () => {
     const result = getShikakePrices('ヤリ・スルメイカ');
     expect(result).toStrictEqual({
-      'オモリ（150号）': { price: 600, note: '600円' },
-      '仕掛け': { price: 1250, note: '1000〜1500円' }
+      'オモリ（150号）': { note: '600円' },
+      '仕掛け': { note: '1000〜1500円' }
     });
   });
 
   it('ヤリイカ（別名）の仕掛け価格を返す', () => {
     const result = getShikakePrices('ヤリイカ');
     expect(result).toStrictEqual({
-      'オモリ（150号）': { price: 600, note: '600円' },
-      '仕掛け': { price: 1250, note: '1000〜1500円' }
+      'オモリ（150号）': { note: '600円' },
+      '仕掛け': { note: '1000〜1500円' }
     });
   });
 
   it('タチアジリレーの仕掛け価格を返す', () => {
     const result = getShikakePrices('タチアジリレー');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('カワハギの仕掛け価格を返す', () => {
     const result = getShikakePrices('カワハギ');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 500, note: '400〜600円' }
+      '仕掛け': { note: '400〜600円' }
     });
   });
 
   it('マゴチの仕掛け価格を返す', () => {
     const result = getShikakePrices('マゴチ');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 450, note: '450円程度' }
+      '仕掛け': { note: '450円程度' }
     });
   });
 
   it('午前アジの標準価格を返す', () => {
     const result = getShikakePrices('午前アジ');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('午後アジの標準価格を返す', () => {
     const result = getShikakePrices('午後アジ');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('アミ五目の標準価格を返す', () => {
     const result = getShikakePrices('午前アミ五目');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('キスの標準価格を返す', () => {
     const result = getShikakePrices('キス');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('メバルの標準価格を返す', () => {
     const result = getShikakePrices('メバル');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('カサゴの標準価格を返す', () => {
     const result = getShikakePrices('カサゴ');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
   it('タチウオの標準価格を返す', () => {
     const result = getShikakePrices('タチウオ');
     expect(result).toStrictEqual({
-      '仕掛け': { price: 375, note: '250〜500円' }
+      '仕掛け': { note: '250〜500円' }
     });
   });
 
