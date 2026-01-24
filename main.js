@@ -262,7 +262,7 @@ function getTimesForPlan(planName) {
 
 // Define shikake prices based on plan type (tackle is now rental only)
 function getShikakePrices(planName) {
-  if (!planName) return {};
+  if (!planName) return { '仕掛け': { note: '500円程度 (時価)' } };
   
   // マダイ船の判定
   if (planName.indexOf('マダイ') !== -1) {

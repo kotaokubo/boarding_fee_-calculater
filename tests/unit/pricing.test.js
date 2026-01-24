@@ -103,14 +103,18 @@ describe('getShikakePrices', () => {
     });
   });
 
-  it('nullの場合空オブジェクトを返す', () => {
+  it('nullの場合デフォルトの仕掛け情報を返す', () => {
     const result = getShikakePrices(null);
-    expect(result).toStrictEqual({});
+    expect(result).toStrictEqual({
+      '仕掛け': { note: '500円程度 (時価)' }
+    });
   });
 
-  it('空文字列の場合空オブジェクトを返す', () => {
+  it('空文字列の場合デフォルトの仕掛け情報を返す', () => {
     const result = getShikakePrices('');
-    expect(result).toStrictEqual({});
+    expect(result).toStrictEqual({
+      '仕掛け': { note: '500円程度 (時価)' }
+    });
   });
 });
 
