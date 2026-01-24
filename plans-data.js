@@ -333,7 +333,7 @@ const plans = {
     "visibleShared": false,
     "visibleCharter": false
   },
-  "深場五目": {
+  "深場五目(アコウ or キンメダイ)": {
     "basePrice": { "men": 12500, "women": 10500, "student": 8500 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 96000 },
@@ -341,7 +341,7 @@ const plans = {
       "sunday": { "minPeople": 10, "minPrice": 125000 }
     },
     "note": "サバ餌・氷付き",
-    "visibleShared": false,
+    "visibleShared": true,
     "visibleCharter": true
   },
   "キス＆アナゴリレー": {
