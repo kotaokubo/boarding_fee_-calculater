@@ -455,11 +455,11 @@ const plans = {
     "visibleCharter": true
   },
   "トラフグ": {
-    "basePrice": { "men": 11500, "women": 9500, "student": 8000 },
+    "basePrice": { "men": 11700, "women": 9700, "student": 7500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 92000 },
-      "holiday": { "minPeople": 12, "minPrice": 138000 },
-      "sunday": { "minPeople": 12, "minPrice": 138000 }
+      "weekday": { "minPeople": 8, "minPrice": 93600 },
+      "holiday": { "minPeople": 12, "minPrice": 140400 },
+      "sunday": { "minPeople": 12, "minPrice": 140400 }
     },
     "note": "餌・氷付き",
     "visibleShared": false,
