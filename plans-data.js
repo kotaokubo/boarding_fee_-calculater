@@ -462,7 +462,7 @@ const plans = {
       "sunday": { "minPeople": 12, "minPrice": 140400 }
     },
     "note": "餌・氷付き",
-    "visibleShared": false,
+    "visibleShared": true,
     "visibleCharter": true
   },
 };
