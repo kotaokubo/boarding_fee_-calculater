@@ -34,7 +34,7 @@ const plans = {
     },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午後キス・カサゴ": {
     "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
@@ -45,7 +45,7 @@ const plans = {
     },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午前マダコ": {
     "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
@@ -68,7 +68,7 @@ const plans = {
     "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
     "visibleShared": true,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午後アミ五目": {
     "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
@@ -80,7 +80,7 @@ const plans = {
     "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
     "visibleShared": true,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午前マゴチ": {
     "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
@@ -91,7 +91,7 @@ const plans = {
     },
     "note": "サイマキ５匹・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午後マゴチ": {
     "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
@@ -102,7 +102,7 @@ const plans = {
     },
     "note": "サイマキ５匹・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午前タチウオ": {
     "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
@@ -113,7 +113,7 @@ const plans = {
     },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   }, 
   "午前メバル": {
     "basePrice": { "men": 7000, "women": 5800, "student": 4300 },
@@ -124,7 +124,7 @@ const plans = {
       "sunday": { "minPeople": 12, "minPrice": 84000 }
     },
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "午後エギイカ": {
     "basePrice": { "men": 6800, "women": 5500, "student": 3800 },
@@ -135,7 +135,7 @@ const plans = {
     },
     "note": "氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "マダイ五目": {
     "basePrice": { "men": 11700, "women": 9700, "student": 7500 },
@@ -183,7 +183,7 @@ const plans = {
     },
     "note": "氷付き、投入機あり",
     "visibleShared": true,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "スルメイカ": {
     "basePrice": { "men": 12000, "women": 10000, "student": 8000 },
@@ -194,7 +194,7 @@ const plans = {
     },
     "note": "氷付き、投入機あり",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "ワラサ": {
     "basePrice": { "men": 12000, "women": 10000, "student": 9500 },
@@ -209,7 +209,7 @@ const plans = {
     },
     "note": "オキアミ規定量・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "タチアジリレー": {
     "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
@@ -289,7 +289,7 @@ const plans = {
     },
     "note": "シャコ餌付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "テンヤタチウオ": {
     "basePrice": { "men": 9700, "women": 7700, "student": 6500 },
@@ -314,7 +314,7 @@ const plans = {
     },
     "note": "カニ餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "ショートメバル": {
     "basePrice": { "men": 7500, "women": 6000, "student": 4300 },
@@ -353,7 +353,7 @@ const plans = {
     },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "夜アナゴ": {
     "basePrice": { "men": 8000, "women": 6000, "student": 5000 },
@@ -364,7 +364,7 @@ const plans = {
     },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "夜アジ＆カサゴリレー": {
     "basePrice": { "men": 8000, "women": 6000, "student": 5000 },
@@ -375,7 +375,7 @@ const plans = {
     },
     "note": "コマセ・餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "夜カサゴ＆メバル": {
     "basePrice": { "men": 7000, "women": 5500, "student": 4500 },
@@ -386,7 +386,7 @@ const plans = {
     },
     "note": "餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "一日アミ五目": {
     "basePrice": { "men": 11500, "women": 9500, "student": 7000 },
@@ -397,7 +397,7 @@ const plans = {
     },
     "note": "アミコマセ２ブロック・オキアミ・氷付・追加１ブロック５００円",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "タチアミ五目": {
     "basePrice": { "men": 11500, "women": 9500, "student": 7500 },
@@ -408,7 +408,7 @@ const plans = {
     },
     "note": "餌・ミンチ・アミコマセ・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "一日ＬＴアジ": {
     "basePrice": { "men": 9500, "women": 7500, "student": 6500 },
@@ -452,7 +452,7 @@ const plans = {
     },
     "note": "アミコマセ・付け餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "トラフグ": {
     "basePrice": { "men": 11700, "women": 9700, "student": 7500 },
