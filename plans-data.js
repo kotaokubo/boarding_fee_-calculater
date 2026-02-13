@@ -171,7 +171,7 @@ const plans = {
       "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
     "note": "氷付き、投入機あり",
-    "visibleShared": false,
+    "visibleShared": true,
     "visibleCharter": true
   },
   "ヤリイカ": {
@@ -182,7 +182,7 @@ const plans = {
       "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
     "note": "氷付き、投入機あり",
-    "visibleShared": true,
+    "visibleShared": false,
     "visibleCharter": false
   },
   "スルメイカ": {
