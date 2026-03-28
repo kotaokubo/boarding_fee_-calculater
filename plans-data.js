@@ -67,7 +67,7 @@ const plans = {
     },
     "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
-    "visibleShared": true,
+    "visibleShared": false,
     "visibleCharter": false
   },
   "午後アミ五目": {
@@ -79,7 +79,7 @@ const plans = {
     },
     "rental": { "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
-    "visibleShared": true,
+    "visibleShared": false,
     "visibleCharter": false
   },
   "午前マゴチ": {
@@ -263,7 +263,7 @@ const plans = {
       "竿（専用竿）": 1500
     },
     "note": "アサリ餌・氷付き",
-    "visibleShared": true,
+    "visibleShared": false,
     "visibleCharter": true
   },
   "マゴチ": {
