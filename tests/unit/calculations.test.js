@@ -176,9 +176,9 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
   it('女性のみの料金を正しく計算する', () => {
     state.women = 2;
     const result = calculateTotal();
-    // マダイ五目: women=9700
-    expect(result.subtotal).toBe(19400);
-    expect(result.total).toBe(19400);
+    // マダイ五目: women=10000
+    expect(result.subtotal).toBe(20000);
+    expect(result.total).toBe(20000);
     expect(result.breakdown.women).toBe(2);
     expect(result.breakdown.totalPeople).toBe(2);
   });
@@ -198,10 +198,10 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
     state.women = 1;
     state.student = 1;
     const result = calculateTotal();
-    // マダイ五目: men=11700, women=9700, student=7500
-    // 2*11700 + 1*9700 + 1*7500 = 23400 + 9700 + 7500 = 40600
-    expect(result.subtotal).toBe(40600);
-    expect(result.total).toBe(40600);
+    // マダイ五目: men=11700, women=10000, student=7500
+    // 2*11700 + 1*10000 + 1*7500 = 23400 + 10000 + 7500 = 40900
+    expect(result.subtotal).toBe(40900);
+    expect(result.total).toBe(40900);
     expect(result.breakdown.men).toBe(2);
     expect(result.breakdown.women).toBe(1);
     expect(result.breakdown.student).toBe(1);
@@ -224,12 +224,12 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
     state.men = 1;
     state.rentals = { '竿（手巻き）': 1, '竿（電動リール）': 1 };
     const result = calculateTotal();
-    // マダイ五目: men=11700, 竿（手巻き）=1200, 竿（電動リール）=2200
+    // マダイ五目: men=11700, 竿（手巻き）=1200, 竿（電動リール）=2500
     // subtotal: 11700
-    // rentalTotal: 1200 + 2200 = 3400
+    // rentalTotal: 1200 + 2500 = 3700
     expect(result.subtotal).toBe(11700);
-    expect(result.rentalTotal).toBe(3400);
-    expect(result.total).toBe(15100);
+    expect(result.rentalTotal).toBe(3700);
+    expect(result.total).toBe(15400);
   });
 
   it('仕掛けの費用は乗合船では合計に含まれない', () => {
@@ -249,14 +249,14 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
     state.rentals = { '竿（電動リール）': 2 };
     state.shikake = { '仕掛け': 3 };
     const result = calculateTotal();
-    // マダイ五目: men=11700, women=9700, 竿（電動リール）=2200, 仕掛け=550
-    // subtotal: 2*11700 + 1*9700 = 23400 + 9700 = 33100
-    // rentalTotal: 2*2200 = 4400
+    // マダイ五目: men=11700, women=10000, 竿（電動リール）=2500, 仕掛け=550
+    // subtotal: 2*11700 + 1*10000 = 23400 + 10000 = 33400
+    // rentalTotal: 2*2500 = 5000
     // shikake: 3*550 = 1650 (included in total)
-    expect(result.subtotal).toBe(33100);
-    expect(result.rentalTotal).toBe(4400);
+    expect(result.subtotal).toBe(33400);
+    expect(result.rentalTotal).toBe(5000);
     // shikakeは乗合船ではtotalに含まれない
-    expect(result.total).toBe(37500);
+    expect(result.total).toBe(38400);
     expect(result.breakdown.totalPeople).toBe(3);
   });
 
@@ -265,10 +265,10 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
     state.women = 3;
     state.student = 2;
     const result = calculateTotal();
-    // マダイ五目: men=11700, women=9700, student=7500
-    // 4*11700 + 3*9700 + 2*7500 = 46800 + 29100 + 15000 = 90900
-    expect(result.subtotal).toBe(90900);
-    expect(result.total).toBe(90900);
+    // マダイ五目: men=11700, women=10000, student=7500
+    // 4*11700 + 3*10000 + 2*7500 = 46800 + 30000 + 15000 = 91800
+    expect(result.subtotal).toBe(91800);
+    expect(result.total).toBe(91800);
     expect(result.breakdown.totalPeople).toBe(9);
   });
 });
