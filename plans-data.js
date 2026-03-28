@@ -138,15 +138,16 @@ const plans = {
     "visibleCharter": false
   },
   "マダイ五目": {
-    "basePrice": { "men": 11700, "women": 9700, "student": 7500 },
+    "basePrice": { "men": 11700, "women": 10000, "student": 7500 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 93600 },
       "holiday": { "minPeople": 10, "minPrice": 117000 },
       "sunday": { "minPeople": 10, "minPrice": 117000 }
     },
-    "rental": { 
+    "rental": {
       "竿（手巻き）": 1200,
-      "竿（電動リール）": 2200
+      "竿（電動リール）": 2200,
+      "ビシセット": { "price": 3700, "refund": 3500 }
     },
     "note": "オキアミ規定量・氷付き",
     "visibleShared": true,
