@@ -268,11 +268,11 @@ const plans = {
     "visibleCharter": true
   },
   "マゴチ": {
-    "basePrice": { "men": 10700, "women": 8700, "student": 6500 },
+    "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 85600 },
-      "holiday": { "minPeople": 10, "minPrice": 107000 },
-      "sunday": { "minPeople": 10, "minPrice": 107000 }
+      "weekday": { "minPeople": 8, "minPrice": 88000 },
+      "holiday": { "minPeople": 10, "minPrice": 110000 },
+      "sunday": { "minPeople": 10, "minPrice": 110000 }
     },
     "rental": { 
       "竿（専用竿）": 1500
