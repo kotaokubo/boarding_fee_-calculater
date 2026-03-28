@@ -334,11 +334,11 @@ const plans = {
     "visibleCharter": false
   },
   "深場五目(アコウ or キンメダイ)": {
-    "basePrice": { "men": 12500, "women": 10500, "student": 8500 },
+    "basePrice": { "men": 13000, "women": 11000, "student": 8500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 96000 },
-      "holiday": { "minPeople": 10, "minPrice": 125000 },
-      "sunday": { "minPeople": 10, "minPrice": 125000 }
+      "weekday": { "minPeople": 8, "minPrice": 104000 },
+      "holiday": { "minPeople": 10, "minPrice": 130000 },
+      "sunday": { "minPeople": 10, "minPrice": 130000 }
     },
     "note": "サバ餌・氷付き",
     "visibleShared": true,
