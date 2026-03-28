@@ -8,7 +8,7 @@ const plans = {
       "holiday": { "minPeople": 15, "minPrice": 102000 },
       "sunday": { "minPeople": 12, "minPrice": 81600 }
     },
-    "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
+    "rental": { "ビシセット": { "price": 2200, "refund": 2000 } },
     "note": "コマセ・イカ短・アオイソ・氷付き",
     "visibleShared": true,
     "visibleCharter": true
@@ -20,7 +20,7 @@ const plans = {
       "holiday": { "minPeople": 12, "minPrice": 81600 },
       "sunday": { "minPeople":  10, "minPrice": 68000 }
     },
-    "rental": { "ビシセット": { "price": 2200, "refund": 2100 } },
+    "rental": { "ビシセット": { "price": 2200, "refund": 2000 } },
     "note": "コマセ・イカ短・アオイソ・氷付き",
     "visibleShared": true,
     "visibleCharter": true

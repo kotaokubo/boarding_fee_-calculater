@@ -157,13 +157,13 @@ describe('calculateAndRender', () => {
       state.plan = '午前アジ';
       state.men = 2;
       state.rentals = {
-        'ビシセット': 2  // refund: 2100
+        'ビシセット': 2  // refund: 2000
       };
-      
+
       calculateAndRender();
-      
+
       expect(breakdownEl.innerHTML).toContain('※返却時に返金のあるレンタル：');
-      expect(breakdownEl.innerHTML).toContain('ビシセット：2,100円 × 2 = 4,200円');
+      expect(breakdownEl.innerHTML).toContain('ビシセット：2,000円 × 2 = 4,000円');
     });
   });
 
