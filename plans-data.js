@@ -146,7 +146,7 @@ const plans = {
     },
     "rental": {
       "竿（手巻き）": 1200,
-      "竿（電動リール）": 2200,
+      "竿（電動リール）": 2500,
       "ビシセット": { "price": 3700, "refund": 3500 }
     },
     "note": "オキアミ規定量・氷付き",
@@ -170,6 +170,9 @@ const plans = {
       "weekday": { "minPeople": 8, "minPrice": 96000 },
       "holiday": { "minPeople": 12, "minPrice": 144000 },
       "sunday": { "minPeople": 12, "minPrice": 144000 }
+    },
+    "rental": {
+      "竿（電動リール）": 2500
     },
     "note": "氷付き、投入機あり",
     "visibleShared": true,
@@ -206,7 +209,7 @@ const plans = {
     },
     "rental": { 
       "竿（手巻き）": 1200,
-      "竿（電動リール）": 2200
+      "竿（電動リール）": 2500
     },
     "note": "オキアミ規定量・氷付き",
     "visibleShared": false,
@@ -221,7 +224,7 @@ const plans = {
     },
     "rental": { 
       "竿（手巻き）": 1200,
-      "竿（電動リール）": 2200
+      "竿（電動リール）": 2500
     },
     "note": "餌・ミンチ・氷付き",
     "visibleShared": true,
@@ -236,7 +239,7 @@ const plans = {
     },
     "rental": { 
       "竿（手巻き）": 1200,
-      "竿（電動リール）": 2200
+      "竿（電動リール）": 2500
     },
     "note": "餌・ミンチ・氷付き",
     "visibleShared": false,
@@ -340,6 +343,9 @@ const plans = {
       "weekday": { "minPeople": 8, "minPrice": 104000 },
       "holiday": { "minPeople": 10, "minPrice": 130000 },
       "sunday": { "minPeople": 10, "minPrice": 130000 }
+    },
+    "rental": {
+      "竿（電動リール）": 2500
     },
     "note": "サバ餌・氷付き",
     "visibleShared": true,
