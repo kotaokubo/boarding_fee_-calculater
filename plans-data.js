@@ -268,7 +268,7 @@ const plans = {
     },
     "note": "アサリ餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
   },
   "マゴチ": {
     "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
