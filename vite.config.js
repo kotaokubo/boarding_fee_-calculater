@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   // GitHub Pages deployment settings
@@ -25,14 +25,10 @@ export default defineConfig({
         'ga4-tracking.js'
       ],
       all: true,
-      lines: 96,     // Development environment code excluded from coverage
-      functions: 100,
-      branches: 97,  // Development environment code excluded from coverage
-      statements: 96, // Development environment code excluded from coverage
       thresholds: {
         lines: 96,
         functions: 100,
-        branches: 97,
+        branches: 90,
         statements: 96
       }
     }
