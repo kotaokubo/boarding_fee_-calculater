@@ -570,8 +570,3 @@ if (typeof window !== 'undefined') {
   window.commonRental = commonRental;
   window.holidays = holidays;
 }
-
-// CommonJS export for Node.js testing
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { plans, commonRental, holidays };
-}

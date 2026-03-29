@@ -1006,48 +1006,47 @@ if (typeof document !== 'undefined' && document.getElementById('planSelect')) {
 }
 /* v8 ignore stop */
 
-// Export functions for testing
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    state,
-    calculateTotal,
-    getRateType,
-    getShikakePrices,
-    getTimesForPlan,
-    parseISODate,
-    toISODate,
-    offsetISO,
-    isHolidayISO,
-    getWeekdayName,
-    formatDateWithWeekday,
-    updatePlanOptions,
-    updateUnitPrices,
-    renderShikakeOptions,
-    renderRentalOptions,
-    calculateAndRender,
-    validateBooking,
-    // DOM要素の設定関数（テスト用）
-    setDOMElements: (elements) => {
-      if (elements.tripTypeEl) tripTypeEl = elements.tripTypeEl;
-      if (elements.planSelectEl) planSelectEl = elements.planSelectEl;
-      if (elements.dateEl) dateEl = elements.dateEl;
-      if (elements.menEl) menEl = elements.menEl;
-      if (elements.womenEl) womenEl = elements.womenEl;
-      if (elements.studentEl) studentEl = elements.studentEl;
-      if (elements.rentalListEl) rentalListEl = elements.rentalListEl;
-      if (elements.shikakeListEl) shikakeListEl = elements.shikakeListEl;
-      if (elements.breakdownEl) breakdownEl = elements.breakdownEl;
-      if (elements.fixedTotalAmountEl) fixedTotalAmountEl = elements.fixedTotalAmountEl;
-      if (elements.priceMenEl) priceMenEl = elements.priceMenEl;
-      if (elements.priceWomenEl) priceWomenEl = elements.priceWomenEl;
-      if (elements.priceStudentEl) priceStudentEl = elements.priceStudentEl;
-      if (elements.planTimesEl) planTimesEl = elements.planTimesEl;
-      if (elements.planSupplementEl) planSupplementEl = elements.planSupplementEl;
-      if (elements.alertModalEl) alertModal = elements.alertModalEl;
-      if (elements.alertMessageEl) alertMessage = elements.alertMessageEl;
-      if (elements.personalInfoModalEl) personalInfoModal = elements.personalInfoModalEl;
-      if (elements.visitorNameEl) visitorNameEl = elements.visitorNameEl;
-      if (elements.visitorKanaEl) visitorKanaEl = elements.visitorKanaEl;
-    }
-  };
+// ESM exports for testing
+export {
+  state,
+  calculateTotal,
+  getRateType,
+  getShikakePrices,
+  getTimesForPlan,
+  parseISODate,
+  toISODate,
+  offsetISO,
+  isHolidayISO,
+  getWeekdayName,
+  formatDateWithWeekday,
+  updatePlanOptions,
+  updateUnitPrices,
+  renderShikakeOptions,
+  renderRentalOptions,
+  calculateAndRender,
+  validateBooking,
+};
+
+// DOM要素の設定関数（テスト用）
+export function setDOMElements(elements) {
+  if (elements.tripTypeEl) tripTypeEl = elements.tripTypeEl;
+  if (elements.planSelectEl) planSelectEl = elements.planSelectEl;
+  if (elements.dateEl) dateEl = elements.dateEl;
+  if (elements.menEl) menEl = elements.menEl;
+  if (elements.womenEl) womenEl = elements.womenEl;
+  if (elements.studentEl) studentEl = elements.studentEl;
+  if (elements.rentalListEl) rentalListEl = elements.rentalListEl;
+  if (elements.shikakeListEl) shikakeListEl = elements.shikakeListEl;
+  if (elements.breakdownEl) breakdownEl = elements.breakdownEl;
+  if (elements.fixedTotalAmountEl) fixedTotalAmountEl = elements.fixedTotalAmountEl;
+  if (elements.priceMenEl) priceMenEl = elements.priceMenEl;
+  if (elements.priceWomenEl) priceWomenEl = elements.priceWomenEl;
+  if (elements.priceStudentEl) priceStudentEl = elements.priceStudentEl;
+  if (elements.planTimesEl) planTimesEl = elements.planTimesEl;
+  if (elements.planSupplementEl) planSupplementEl = elements.planSupplementEl;
+  if (elements.alertModalEl) alertModal = elements.alertModalEl;
+  if (elements.alertMessageEl) alertMessage = elements.alertMessageEl;
+  if (elements.personalInfoModalEl) personalInfoModal = elements.personalInfoModalEl;
+  if (elements.visitorNameEl) visitorNameEl = elements.visitorNameEl;
+  if (elements.visitorKanaEl) visitorKanaEl = elements.visitorKanaEl;
 }
