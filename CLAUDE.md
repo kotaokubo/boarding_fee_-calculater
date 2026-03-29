@@ -35,7 +35,7 @@ GitHub Pages でホスティング（https://www.ichinosemaru.com/）。
 各プランは以下のフィールドを持つ:
 - `basePrice` — `{ men, women, student }` 乗船料（1人あたり）
 - `charter` — `{ weekday, holiday, sunday }` 各に `{ minPeople, minPrice }`。minPrice は通常 men × minPeople
-- `rental` — レンタル品。単純な数値（`"竿（手巻き）": 1200`）または返金付き（`"ビシセット": { "price": 2200, "refund": 2000 }`）
+- `rental` — レンタル品。単純な数値（`"竿（通常竿, リール）": 1200`）または返金付き（`"ビシセット": { "price": 2200, "refund": 2000 }`）
 - `note` — 付帯情報（餌・氷など）
 - `visibleShared` — 乗合船メニューに表示するか
 - `visibleCharter` — 仕立て船メニューに表示するか

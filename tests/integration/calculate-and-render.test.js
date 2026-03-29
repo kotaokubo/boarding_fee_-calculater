@@ -134,7 +134,7 @@ describe('calculateAndRender', () => {
       state.plan = '午前アジ';
       state.men = 2;
       state.rentals = {
-        '竿（竿,リール）': 2,
+        '竿（通常竿, リール）': 2,
         'カッパ長靴セット': 1
       };
       
@@ -146,7 +146,7 @@ describe('calculateAndRender', () => {
       // total: 13600 + 1200 + 600 = 15400
       expect(result.total).toBe(15400);
       expect(breakdownEl.innerHTML).toContain('レンタル：');
-      expect(breakdownEl.innerHTML).toContain('竿（竿,リール） × 2 = 1,200円');
+      expect(breakdownEl.innerHTML).toContain('竿（通常竿, リール） × 2 = 1,200円');
       expect(breakdownEl.innerHTML).toContain('カッパ長靴セット × 1 = 600円');
       expect(breakdownEl.innerHTML).toContain('合計金額：15,400円');
       expect(fixedTotalAmountEl.textContent).toBe('合計：15,400円');
@@ -312,7 +312,7 @@ describe('calculateAndRender', () => {
       state.men = 2;
       state.rentals = {
         '仕掛け': 3,  // これは表示されないはず
-        '竿（竿,リール）': 1
+        '竿（通常竿, リール）': 1
       };
       
       const result = calculateAndRender();
@@ -322,7 +322,7 @@ describe('calculateAndRender', () => {
       // total: 13600 + 600 = 14200
       expect(result.total).toBe(14200);
       expect(breakdownEl.innerHTML).not.toContain('仕掛け');
-      expect(breakdownEl.innerHTML).toContain('竿（竿,リール） × 1 = 600円');
+      expect(breakdownEl.innerHTML).toContain('竿（通常竿, リール） × 1 = 600円');
     });
   });
 
@@ -332,14 +332,14 @@ describe('calculateAndRender', () => {
       state.plan = '午前アジ';
       state.men = 2;
       state.rentals = {
-        '竿（竿,リール）': 0,
+        '竿（通常竿, リール）': 0,
         '氷': 0
       };
       
       calculateAndRender();
       
       expect(breakdownEl.innerHTML).toContain('レンタル：なし');
-      expect(breakdownEl.innerHTML).not.toContain('竿（竿,リール）');
+      expect(breakdownEl.innerHTML).not.toContain('竿（通常竿, リール）');
       expect(breakdownEl.innerHTML).not.toContain('氷');
     });
 
@@ -348,14 +348,14 @@ describe('calculateAndRender', () => {
       state.plan = '午前アジ';
       state.men = 2;
       state.rentals = {
-        '竿（竿,リール）': 0,
+        '竿（通常竿, リール）': 0,
         '長靴のみ': 1
       };
       
       calculateAndRender();
       
       expect(breakdownEl.innerHTML).toContain('レンタル：');
-      expect(breakdownEl.innerHTML).not.toContain('竿（竿,リール）');
+      expect(breakdownEl.innerHTML).not.toContain('竿（通常竿, リール）');
       expect(breakdownEl.innerHTML).toContain('長靴のみ × 1 = 200円');
     });
   });
@@ -395,7 +395,7 @@ describe('calculateAndRender', () => {
       state.plan = '午前アジ';
       state.men = 2;
       state.rentals = {
-        '竿（竿,リール）': 1
+        '竿（通常竿, リール）': 1
       };
       
       const result = calculateAndRender();
