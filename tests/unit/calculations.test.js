@@ -51,9 +51,9 @@ describe('calculateTotal - 乗合船', () => {
 
   it('レンタル費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（竿,リール）': 2 };
+    state.rentals = { '竿（通常竿, リール）': 2 };
     const result = calculateTotal();
-    // 午前アジ: men=6800, 竿（竿,リール）=600
+    // 午前アジ: men=6800, 竿（通常竿, リール）=600
     // subtotal: 1*6800 = 6800
     // rentalTotal: 2*600 = 1200
     expect(result.subtotal).toBe(6800);
@@ -75,9 +75,9 @@ describe('calculateTotal - 乗合船', () => {
 
   it('複数のレンタル品の費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（竿,リール）': 1, 'カッパ長靴セット': 1 };
+    state.rentals = { '竿（通常竿, リール）': 1, 'カッパ長靴セット': 1 };
     const result = calculateTotal();
-    // 午前アジ: men=6800, 竿（竿,リール）=600, カッパ長靴セット=600
+    // 午前アジ: men=6800, 竿（通常竿, リール）=600, カッパ長靴セット=600
     // subtotal: 6800
     // rentalTotal: 600 + 600 = 1200
     expect(result.subtotal).toBe(6800);
@@ -87,7 +87,7 @@ describe('calculateTotal - 乗合船', () => {
 
   it('レンタル数量がゼロの場合を正しく処理する', () => {
     state.men = 1;
-    state.rentals = { '竿（竿,リール）': 0 };
+    state.rentals = { '竿（通常竿, リール）': 0 };
     const result = calculateTotal();
     expect(result.rentalTotal).toBe(0);
     expect(result.total).toBe(6800);
@@ -95,7 +95,7 @@ describe('calculateTotal - 乗合船', () => {
 
   it('負のレンタル数量をゼロとして処理する', () => {
     state.men = 1;
-    state.rentals = { '竿（竿,リール）': -1 };
+    state.rentals = { '竿（通常竿, リール）': -1 };
     const result = calculateTotal();
     expect(result.rentalTotal).toBe(0);
     expect(result.total).toBe(6800);
@@ -138,10 +138,10 @@ describe('calculateTotal - 乗合船', () => {
     state.men = 3;
     state.women = 2;
     state.student = 1;
-    state.rentals = { '竿（竿,リール）': 3, 'カッパ長靴セット': 2 };
+    state.rentals = { '竿（通常竿, リール）': 3, 'カッパ長靴セット': 2 };
     const result = calculateTotal();
     // 午前アジ: men=6800, women=5500, student=3800
-    // 竿（竿,リール）=600, カッパ長靴セット=600
+    // 竿（通常竿, リール）=600, カッパ長靴セット=600
     // subtotal: 3*6800 + 2*5500 + 1*3800 = 20400 + 11000 + 3800 = 35200
     // rentalTotal: 3*600 + 2*600 = 1800 + 1200 = 3000
     expect(result.subtotal).toBe(35200);
@@ -210,9 +210,9 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
 
   it('レンタル費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（手巻き）': 1 };
+    state.rentals = { '竿（通常竿, リール）': 1 };
     const result = calculateTotal();
-    // マダイ五目: men=11700, 竿（手巻き）=1200
+    // マダイ五目: men=11700, 竿（通常竿, リール）=1200
     // subtotal: 11700
     // rentalTotal: 1200
     expect(result.subtotal).toBe(11700);
@@ -222,9 +222,9 @@ describe('calculateTotal - 乗合船（マダイ五目）', () => {
 
   it('複数のレンタル品の費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（手巻き）': 1, '竿（電動リール）': 1 };
+    state.rentals = { '竿（通常竿, リール）': 1, '竿（電動リール）': 1 };
     const result = calculateTotal();
-    // マダイ五目: men=11700, 竿（手巻き）=1200, 竿（電動リール）=2500
+    // マダイ五目: men=11700, 竿（通常竿, リール）=1200, 竿（電動リール）=2500
     // subtotal: 11700
     // rentalTotal: 1200 + 2500 = 3700
     expect(result.subtotal).toBe(11700);
@@ -391,7 +391,7 @@ describe('calculateTotal - 仕立て船', () => {
 
   it('最低料金にレンタル費用を追加する（5名でレンタルあり）', () => {
     state.men = 5;
-    state.rentals = { '竿（竿,リール）': 3 };
+    state.rentals = { '竿（通常竿, リール）': 3 };
     const result = calculateTotal();
     // Minimum: 54400
     // Rentals: 3*600 = 1800
@@ -416,7 +416,7 @@ describe('calculateTotal - 仕立て船', () => {
     state.men = 6;
     state.women = 2;
     state.student = 2;
-    state.rentals = { '竿（竿,リール）': 2, 'カッパ長靴セット': 1 };
+    state.rentals = { '竿（通常竿, リール）': 2, 'カッパ長靴セット': 1 };
     const result = calculateTotal();
     // Minimum: 54400
     // Extra: 2 students -> 2*3800 = 7600

@@ -77,7 +77,7 @@ describe('GA4 Event Tracking', () => {
       state.visitorName = '田中太郎';
       state.visitorKana = 'タナカタロウ';
       state.visitorPhone = '090-1234-5678';
-      state.rentals = { '竿（手巻き）': 2 };
+      state.rentals = { '竿（通常竿, リール）': 2 };
       
       const calculation = { total: 14700 };
       await trackFormSubmit(state, calculation);
@@ -113,7 +113,7 @@ describe('GA4 Event Tracking', () => {
     it('should track form_submit with multiple rental items', async () => {
       state.men = 3;
       state.rentals = {
-        '竿（手巻き）': 2,
+        '竿（通常竿, リール）': 2,
         'カッパ長靴セット': 1,
         'ビシセット': 3
       };

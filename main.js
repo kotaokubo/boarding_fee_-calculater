@@ -360,17 +360,6 @@ function renderRentalOptions() {
     // Treat '仕掛け' as a備考 (note) only — do not show as a rental option or include in calculations.
     if (name === '仕掛け') continue;
     
-    // 専用竿が定義されているプランでは、共通の竿（竿,リール）を非表示
-    if (name === '竿（竿,リール）' && state.plan && planSpecific && planSpecific.rental) {
-      // プラン固有の竿が定義されているかチェック
-      const hasSpecificTackle = planSpecific.rental['竿（手巻き）'] || 
-                               planSpecific.rental['竿（電動リール）'] || 
-                               planSpecific.rental['竿（専用竿）'];
-      if (hasSpecificTackle) {
-        continue; // 専用竿があるので共通竿は表示しない
-      }
-    }
-    
     const info = (typeof commonRental[name] === 'object') ? commonRental[name] : { price: commonRental[name] };
     addRentalRow(name, info);
   }

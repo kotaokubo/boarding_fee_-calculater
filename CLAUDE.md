@@ -35,7 +35,7 @@ GitHub Pages でホスティング（https://www.ichinosemaru.com/）。
 各プランは以下のフィールドを持つ:
 - `basePrice` — `{ men, women, student }` 乗船料（1人あたり）
 - `charter` — `{ weekday, holiday, sunday }` 各に `{ minPeople, minPrice }`。minPrice は通常 men × minPeople
-- `rental` — レンタル品。単純な数値（`"竿（手巻き）": 1200`）または返金付き（`"ビシセット": { "price": 2200, "refund": 2000 }`）
+- `rental` — レンタル品。単純な数値（`"竿（通常竿, リール）": 1200`）または返金付き（`"ビシセット": { "price": 2200, "refund": 2000 }`）
 - `note` — 付帯情報（餌・氷など）
 - `visibleShared` — 乗合船メニューに表示するか
 - `visibleCharter` — 仕立て船メニューに表示するか
@@ -60,11 +60,7 @@ GitHub Pages でホスティング（https://www.ichinosemaru.com/）。
 
 ## ブランチ運用
 
-- main ブランチから新しいブランチを切って作業し、PRを作成してマージする
-- ブランチ名は自由（内容がわかれば OK）
-- コミットメッセージは日本語で丁寧に書く
-- 変更は小さい単位でこまめにコミットする（作業量の把握・請求に使うため）
-- main に直接コミットしない
+- `~/.claude/skills/create-pr/SKILL.md` の共通SKILLを参考にする
 
 ## 祝日データ
 

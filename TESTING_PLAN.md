@@ -466,7 +466,7 @@ expect(result.breakdown).toStrictEqual({
 **Bad Example（禁止）**
 ```javascript
 // 冗長で全体像が不明瞭
-expect(rentalList[0].name).toBe('竿（手巻き）');
+expect(rentalList[0].name).toBe('竿（通常竿, リール）');
 expect(rentalList[0].price).toBe(1200);
 expect(rentalList[1].name).toBe('竿（電動リール）');
 expect(rentalList[1].price).toBe(2200);
@@ -476,7 +476,7 @@ expect(rentalList[1].price).toBe(2200);
 ```javascript
 // 完全な期待値で一括検証
 const expectedRentals = [
-  { name: '竿（手巻き）', price: 1200 },
+  { name: '竿（通常竿, リール）', price: 1200 },
   { name: '竿（電動リール）', price: 2200 }
 ];
 expect(rentalList).toStrictEqual(expectedRentals);
@@ -570,7 +570,7 @@ describe('calculateTotal - 乗合船（Regular Boat）', () => {
     state.women = 0;
     state.student = 0;
     state.rentals = {
-      '竿（手巻き）': 2,
+      '竿（通常竿, リール）': 2,
       'カッパ長靴セット': 1
     };
     
@@ -650,7 +650,7 @@ describe('calculateTotal - 仕立て船（Charter Boat）', () => {
     state.men = 9;
     state.women = 0;
     state.student = 0;
-    state.rentals = { '竿（竿,リール）': 2 };
+    state.rentals = { '竿（通常竿, リール）': 2 };
     
     const result = calculateTotal();
     
@@ -882,7 +882,7 @@ describe('DOM Interactions', () => {
     // レンタル一覧の子要素を取得して完全に検証（toContainは使わない）
     const rentalItems = Array.from(rentalList.querySelectorAll('.rental-item'));
     const rentalNames = rentalItems.map(item => item.querySelector('div').textContent.split('：')[0]);
-    expect(rentalNames).toEqual(expect.arrayContaining(['竿（手巻き）', '竿（電動リール）']));
+    expect(rentalNames).toEqual(expect.arrayContaining(['竿（通常竿, リール）', '竿（電動リール）']));
   });
 
   test('船種変更でプラン一覧が更新される', () => {
