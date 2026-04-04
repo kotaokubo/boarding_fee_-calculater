@@ -30,8 +30,8 @@ test.describe('乗合船 ハッピーパス', () => {
     await page.selectOption('#womenCount', '1');
     await page.selectOption('#studentCount', '1');
 
-    // 合計金額を確認（6800×2 + 5500×1 + 3800×1 = 22,900）
-    await expect(page.locator('#fixedTotalAmount')).toContainText('22,900');
+    // 合計金額を確認（6800×2 + 6000×1 + 3800×1 = 23,400）
+    await expect(page.locator('#fixedTotalAmount')).toContainText('23,400');
   });
 
   test('レンタル品を選択すると料金に加算される', async ({ page }) => {
@@ -129,7 +129,7 @@ test.describe('予約フロー（メール作成まで）', () => {
     await page.selectOption('#planSelect', '午前アジ');
     await page.selectOption('#menCount', '2');
     await page.selectOption('#womenCount', '1');
-    await expect(page.locator('#fixedTotalAmount')).toContainText('19,100');
+    await expect(page.locator('#fixedTotalAmount')).toContainText('19,600');
 
     // 2. 予約へ進むボタン
     await page.click('#mailtoBtn');
