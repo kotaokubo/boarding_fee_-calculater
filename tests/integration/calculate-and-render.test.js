@@ -119,14 +119,14 @@ describe('calculateAndRender', () => {
       
       const result = calculateAndRender();
       
-      // 午前アジ: men=6800, women=5500, student=3800
-      // 2*6800 + 1*5500 + 1*3800 = 22900
-      expect(result.total).toBe(22900);
+      // 午前アジ: men=6800, women=6000, student=3800
+      // 2*6800 + 1*6000 + 1*3800 = 23400
+      expect(result.total).toBe(23400);
       expect(breakdownEl.innerHTML).toContain('男性 2名 × 6,800円 = 13,600円');
-      expect(breakdownEl.innerHTML).toContain('女性 1名 × 5,500円 = 5,500円');
+      expect(breakdownEl.innerHTML).toContain('女性 1名 × 6,000円 = 6,000円');
       expect(breakdownEl.innerHTML).toContain('子供 1名 × 3,800円 = 3,800円');
-      expect(breakdownEl.innerHTML).toContain('合計金額：22,900円');
-      expect(fixedTotalAmountEl.textContent).toBe('合計：22,900円');
+      expect(breakdownEl.innerHTML).toContain('合計金額：23,400円');
+      expect(fixedTotalAmountEl.textContent).toBe('合計：23,400円');
     });
 
     test('レンタル品がある場合、レンタル内訳が表示される', () => {
@@ -230,14 +230,14 @@ describe('calculateAndRender', () => {
       const result = calculateAndRender();
       
       // 平日: minPeople=8, minPrice=54400
-      // 追加: 子供2名 × 3800 + 女性1名 × 5500 = 7600 + 5500 = 13100
-      // total: 54400 + 13100 = 67500
-      expect(result.total).toBe(67500);
+      // 追加: 子供2名 × 3800 + 女性1名 × 6000 = 7600 + 6000 = 13600
+      // total: 54400 + 13600 = 68000
+      expect(result.total).toBe(68000);
       expect(breakdownEl.innerHTML).toContain('最低料金（男性8名分）：54,400円');
       expect(breakdownEl.innerHTML).toContain('追加人数：3名');
-      expect(breakdownEl.innerHTML).toContain('女性1名分 = 5,500円');
+      expect(breakdownEl.innerHTML).toContain('女性1名分 = 6,000円');
       expect(breakdownEl.innerHTML).toContain('子供2名分 = 7,600円');
-      expect(breakdownEl.innerHTML).toContain('（追加分合計 = 13,100円）');
+      expect(breakdownEl.innerHTML).toContain('（追加分合計 = 13,600円）');
     });
 
     test('土曜日の場合、土曜料金が適用される', () => {
