@@ -495,7 +495,7 @@ const plans = {
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "アオイソ・餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "カサゴ（1日船）": {
     "basePrice": { "men": 9500, "women": 7500, "student": 6000 },
@@ -507,7 +507,7 @@ const plans = {
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "アオイソ・餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": false
+    "visibleCharter": true
   },
   "LTアジ（からリレー）キス・イシモチ・カサゴ・タコ": {
     "basePrice": { "men": 10500, "women": 9000, "student": 6500 },
@@ -554,10 +554,15 @@ const plans = {
   },
   "マルイカ": {
     "basePrice": { "men": 12000, "women": 10500, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 120000 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
+    },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
 };
 
