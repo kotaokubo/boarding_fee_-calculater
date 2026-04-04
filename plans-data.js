@@ -176,7 +176,7 @@ const plans = {
   "ヤリ・スルメイカ": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 100000 },
+      "weekday": { "minPeople": 10, "minPrice": 125000 },
       "holiday": { "minPeople": 12, "minPrice": 150000 },
       "sunday": { "minPeople": 12, "minPrice": 150000 }
     },
@@ -191,7 +191,7 @@ const plans = {
   "ヤリイカ": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 100000 },
+      "weekday": { "minPeople": 10, "minPrice": 125000 },
       "holiday": { "minPeople": 12, "minPrice": 150000 },
       "sunday": { "minPeople": 12, "minPrice": 150000 }
     },
@@ -203,7 +203,7 @@ const plans = {
   "スルメイカ": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 100000 },
+      "weekday": { "minPeople": 10, "minPrice": 125000 },
       "holiday": { "minPeople": 12, "minPrice": 150000 },
       "sunday": { "minPeople": 12, "minPrice": 150000 }
     },
@@ -215,9 +215,9 @@ const plans = {
   "ワラサ": {
     "basePrice": { "men": 12000, "women": 10000, "student": 9500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 96000 },
-      "holiday": { "minPeople": 10, "minPrice": 120000 },
-      "sunday": { "minPeople": 10, "minPrice": 120000 }
+      "weekday": { "minPeople": 10, "minPrice": 120000 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
     "rental": {
       "竿（通常竿, リール）": 1200,
@@ -260,7 +260,7 @@ const plans = {
   "遠征ウィリー五目": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 100000 },
+      "weekday": { "minPeople": 10, "minPrice": 125000 },
       "holiday": { "minPeople": 12, "minPrice": 150000 },
       "sunday": { "minPeople": 12, "minPrice": 150000 }
     },
@@ -349,6 +349,11 @@ const plans = {
   },
   "鬼カサゴ": {
     "basePrice": { "men": 12500, "women": 11500, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 125000 },
+      "holiday": { "minPeople": 12, "minPrice": 150000 },
+      "sunday": { "minPeople": 12, "minPrice": 150000 }
+    },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "サバ餌・氷付き",
     "visibleShared": false,
@@ -499,7 +504,7 @@ const plans = {
   "トラフグ": {
     "basePrice": { "men": 12000, "women": 10000, "student": 8000 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 96000 },
+      "weekday": { "minPeople": 10, "minPrice": 120000 },
       "holiday": { "minPeople": 12, "minPrice": 144000 },
       "sunday": { "minPeople": 12, "minPrice": 144000 }
     },
