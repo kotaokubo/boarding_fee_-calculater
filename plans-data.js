@@ -554,6 +554,11 @@ const plans = {
   },
   "マルイカ": {
     "basePrice": { "men": 12000, "women": 10500, "student": 8000 },
+    "charter": {
+      "weekday": { "minPeople": 10, "minPrice": 120000 },
+      "holiday": { "minPeople": 12, "minPrice": 144000 },
+      "sunday": { "minPeople": 12, "minPrice": 144000 }
+    },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "氷付き",
     "visibleShared": false,
