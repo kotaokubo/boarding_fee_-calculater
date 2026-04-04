@@ -25,7 +25,7 @@ const plans = {
     "visibleShared": true,
     "visibleCharter": true
   },
-   "午前キス・カサゴ": {
+  "午前キス": {
     "basePrice": { "men": 6800, "women": 6000, "student": 3800 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
@@ -37,7 +37,31 @@ const plans = {
     "visibleShared": false,
     "visibleCharter": false
   },
-  "午後キス・カサゴ": {
+  "午前カサゴ": {
+    "basePrice": { "men": 6800, "women": 6000, "student": 3800 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 54400 },
+      "holiday": { "minPeople": 15, "minPrice": 102000 },
+      "sunday": { "minPeople": 12, "minPrice": 81600 }
+    },
+    "rental": { "竿（通常竿, リール）": 600 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "午後キス": {
+    "basePrice": { "men": 6800, "women": 6000, "student": 3800 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 54400 },
+      "holiday": { "minPeople": 12, "minPrice": 81600 },
+      "sunday": { "minPeople": 10, "minPrice": 68000 }
+    },
+    "rental": { "竿（通常竿, リール）": 600 },
+    "note": "餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
+  },
+  "午後カサゴ": {
     "basePrice": { "men": 6800, "women": 6000, "student": 3800 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 54400 },
@@ -461,7 +485,7 @@ const plans = {
     "visibleShared": false,
     "visibleCharter": true
   },
-  "キス・カサゴなど": {
+  "キス（1日船）": {
     "basePrice": { "men": 9500, "women": 7500, "student": 6000 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 76000 },
@@ -471,7 +495,19 @@ const plans = {
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "アオイソ・餌・氷付き",
     "visibleShared": false,
-    "visibleCharter": true
+    "visibleCharter": false
+  },
+  "カサゴ（1日船）": {
+    "basePrice": { "men": 9500, "women": 7500, "student": 6000 },
+    "charter": {
+      "weekday": { "minPeople": 8, "minPrice": 76000 },
+      "holiday": { "minPeople": 10, "minPrice": 95000 },
+      "sunday": { "minPeople": 10, "minPrice": 95000 }
+    },
+    "rental": { "竿（通常竿, リール）": 1200 },
+    "note": "アオイソ・餌・氷付き",
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "LTアジ（からリレー）キス・イシモチ・カサゴ・タコ": {
     "basePrice": { "men": 10500, "women": 9000, "student": 6500 },
