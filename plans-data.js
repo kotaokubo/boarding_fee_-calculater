@@ -561,8 +561,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
 };
 
