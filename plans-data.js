@@ -209,8 +209,8 @@ const plans = {
       "竿（電動リール）": 2500
     },
     "note": "氷付き、投入機あり",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "ヤリイカ": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
@@ -549,8 +549,8 @@ const plans = {
     },
     "rental": { "竿（専用竿, リール）": 1500 },
     "note": "餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "マルイカ": {
     "basePrice": { "men": 12000, "women": 10500, "student": 8000 },
