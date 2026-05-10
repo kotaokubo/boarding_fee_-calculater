@@ -233,8 +233,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "氷付き、投入機あり",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "ワラサ": {
     "basePrice": { "men": 12000, "women": 10000, "student": 9500 },
@@ -561,8 +561,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
 };
 
