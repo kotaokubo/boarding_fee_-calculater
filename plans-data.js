@@ -82,8 +82,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 600 },
     "note": "氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "午前アミ五目": {
     "basePrice": { "men": 7200, "women": 6500, "student": 4300 },
@@ -182,8 +182,8 @@ const plans = {
       "ビシセット": { "price": 3700, "refund": 3500 }
     },
     "note": "オキアミ規定量・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "ＬＴイサキ五目": {
     "basePrice": { "men": 12200, "women": 10500, "student": 8000 },
@@ -194,8 +194,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "アミコマセ・イカ短・氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "ヤリ・スルメイカ": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
@@ -359,8 +359,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "カニ餌・氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "ショートメバル": {
     "basePrice": { "men": 7500, "women": 6500, "student": 4500 },
