@@ -82,8 +82,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 600 },
     "note": "氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "午前アミ五目": {
     "basePrice": { "men": 7200, "women": 6500, "student": 4300 },
