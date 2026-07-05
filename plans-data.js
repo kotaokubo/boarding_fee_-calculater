@@ -231,7 +231,7 @@ const plans = {
       "holiday": { "minPeople": 12, "minPrice": 150000 },
       "sunday": { "minPeople": 12, "minPrice": 150000 }
     },
-    "rental": { "竿（通常竿, リール）": 1200 },
+    "rental": { "竿（電動リール）": 2500 },
     "note": "氷付き、投入機あり",
     "visibleShared": true,
     "visibleCharter": true
