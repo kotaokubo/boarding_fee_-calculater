@@ -94,8 +94,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 600, "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "午後アミ五目": {
     "basePrice": { "men": 7200, "women": 6500, "student": 4300 },
@@ -106,8 +106,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 600, "ビシセット": { "price": 1800, "refund": 1700 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "午前マゴチ": {
     "basePrice": { "men": 7200, "women": 6500, "student": 4300 },
@@ -297,16 +297,16 @@ const plans = {
     "visibleCharter": false
   },
   "カワハギ": {
-    "basePrice": { "men": 11500, "women": 10000, "student": 7000 },
+    "basePrice": { "men": 10000, "women": 8500, "student": 6500 },
     "charter": {
-      "weekday": { "minPeople": 8, "minPrice": 92000 },
-      "holiday": { "minPeople": 10, "minPrice": 115000 },
-      "sunday": { "minPeople": 10, "minPrice": 115000 }
+      "weekday": { "minPeople": 8, "minPrice": 80000 },
+      "holiday": { "minPeople": 10, "minPrice": 100000 },
+      "sunday": { "minPeople": 10, "minPrice": 100000 }
     },
     "rental": {
       "竿（専用竿, リール）": 1500
     },
-    "note": "アサリ餌・氷付き",
+    "note": "氷付き（餌は別売り）",
     "visibleShared": true,
     "visibleCharter": true
   },

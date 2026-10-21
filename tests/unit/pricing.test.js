@@ -36,7 +36,16 @@ describe('getShikakePrices', () => {
   it('カワハギの仕掛け価格を返す', () => {
     const result = getShikakePrices('カワハギ');
     expect(result).toStrictEqual({
-      '仕掛け': { note: '400〜600円' }
+      '仕掛け': { note: '400〜600円' },
+      '餌': { note: '別売り 1パック1,800円' }
+    });
+  });
+
+  it('テンヤタチウオの仕掛け価格を返す', () => {
+    const result = getShikakePrices('テンヤタチウオ');
+    expect(result).toStrictEqual({
+      '仕掛け': { note: 'テンヤ1,000〜1,400円' },
+      '餌': { note: '別売り 10匹650円' }
     });
   });
 
