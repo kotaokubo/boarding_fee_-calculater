@@ -324,7 +324,7 @@ const plans = {
     "visibleShared": true,
     "visibleCharter": true
   },
-  "スミイカ": {
+  "スミモンゴウイカ": {
     "basePrice": { "men": 11000, "women": 9000, "student": 6500 },
     "charter": {
       "weekday": { "minPeople": 8, "minPrice": 88000 },
