@@ -289,7 +289,16 @@ function getShikakePrices(planName) {
   // カワハギ船の判定
   if (planName.indexOf('カワハギ') !== -1) {
     return {
-      '仕掛け': { note: '400〜600円' }
+      '仕掛け': { note: '400〜600円' },
+      '餌': { note: '別売り 1パック1,800円' }
+    };
+  }
+
+  // テンヤタチウオ船の判定
+  if (planName.indexOf('テンヤタチウオ') !== -1) {
+    return {
+      '仕掛け': { note: 'テンヤ1,000〜1,400円' },
+      '餌': { note: '別売り イワシ10匹650円' }
     };
   }
   
