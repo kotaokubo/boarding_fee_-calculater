@@ -346,7 +346,7 @@ const plans = {
     "rental": {
       "竿（専用竿, リール）": 1500
     },
-    "note": "氷付き、イワシ餌10匹650円で別途販売",
+    "note": "氷付き",
     "visibleShared": true,
     "visibleCharter": true
   },

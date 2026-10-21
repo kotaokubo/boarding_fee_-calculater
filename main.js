@@ -298,7 +298,7 @@ function getShikakePrices(planName) {
   if (planName.indexOf('テンヤタチウオ') !== -1) {
     return {
       '仕掛け': { note: 'テンヤ1,000〜1,400円' },
-      '餌': { note: '別売り 10匹650円' }
+      '餌': { note: '別売り イワシ10匹650円' }
     };
   }
   
