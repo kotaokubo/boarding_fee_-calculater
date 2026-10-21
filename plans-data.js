@@ -182,8 +182,8 @@ const plans = {
       "ビシセット": { "price": 3700, "refund": 3500 }
     },
     "note": "オキアミ規定量・氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "ＬＴイサキ五目": {
     "basePrice": { "men": 12200, "women": 10500, "student": 8000 },
@@ -194,8 +194,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "アミコマセ・イカ短・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "ヤリ・スルメイカ": {
     "basePrice": { "men": 12500, "women": 11000, "student": 8000 },
@@ -293,8 +293,8 @@ const plans = {
       "竿（電動リール）": 2500
     },
     "note": "アミコマセ・付け餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "カワハギ": {
     "basePrice": { "men": 11500, "women": 10000, "student": 7000 },
@@ -307,8 +307,8 @@ const plans = {
       "竿（専用竿, リール）": 1500
     },
     "note": "アサリ餌・氷付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "マゴチ": {
     "basePrice": { "men": 11000, "women": 9000, "student": 7000 },
@@ -333,8 +333,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "シャコ餌付き",
-    "visibleShared": false,
-    "visibleCharter": false
+    "visibleShared": true,
+    "visibleCharter": true
   },
   "テンヤタチウオ": {
     "basePrice": { "men": 10000, "women": 8000, "student": 6500 },
@@ -398,8 +398,8 @@ const plans = {
       "竿（電動リール）": 2500
     },
     "note": "サバ餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "キス＆アナゴリレー": {
     "basePrice": { "men": 11500, "women": 9500, "student": 7500 },
@@ -410,8 +410,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "夜アナゴ": {
     "basePrice": { "men": 8500, "women": 7000, "student": 5000 },
@@ -422,8 +422,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 1200 },
     "note": "餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "夜アジ＆カサゴリレー": {
     "basePrice": { "men": 8500, "women": 7000, "student": 5000 },
@@ -434,8 +434,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 600 },
     "note": "コマセ・餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "夜カサゴ＆メバル": {
     "basePrice": { "men": 7300, "women": 5800, "student": 4500 },
@@ -446,8 +446,8 @@ const plans = {
     },
     "rental": { "竿（通常竿, リール）": 600 },
     "note": "餌・氷付き",
-    "visibleShared": true,
-    "visibleCharter": true
+    "visibleShared": false,
+    "visibleCharter": false
   },
   "一日アミ五目": {
     "basePrice": { "men": 11700, "women": 10000, "student": 7000 },
