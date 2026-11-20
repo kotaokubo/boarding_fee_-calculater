@@ -135,21 +135,21 @@ describe('calculateAndRender', () => {
       state.men = 2;
       state.rentals = {
         '竿（通常竿, リール）': 2,
-        'カッパ長靴セット': 1
+        'カッパ': 1
       };
       
       const result = calculateAndRender();
       
       // 午前アジ: men=6800
       // 竿: 600 × 2 = 1200
-      // カッパ長靴: 600 × 1 = 600
-      // total: 13600 + 1200 + 600 = 15400
-      expect(result.total).toBe(15400);
+      // カッパ: 500 × 1 = 500
+      // total: 13600 + 1200 + 500 = 15300
+      expect(result.total).toBe(15300);
       expect(breakdownEl.innerHTML).toContain('レンタル：');
       expect(breakdownEl.innerHTML).toContain('竿（通常竿, リール） × 2 = 1,200円');
-      expect(breakdownEl.innerHTML).toContain('カッパ長靴セット × 1 = 600円');
-      expect(breakdownEl.innerHTML).toContain('合計金額：15,400円');
-      expect(fixedTotalAmountEl.textContent).toBe('合計：15,400円');
+      expect(breakdownEl.innerHTML).toContain('カッパ × 1 = 500円');
+      expect(breakdownEl.innerHTML).toContain('合計金額：15,300円');
+      expect(fixedTotalAmountEl.textContent).toBe('合計：15,300円');
     });
 
     test('返金のあるレンタル品がある場合、返金情報が表示される', () => {
@@ -349,14 +349,14 @@ describe('calculateAndRender', () => {
       state.men = 2;
       state.rentals = {
         '竿（通常竿, リール）': 0,
-        '長靴のみ': 1
+        '長靴': 1
       };
       
       calculateAndRender();
       
       expect(breakdownEl.innerHTML).toContain('レンタル：');
       expect(breakdownEl.innerHTML).not.toContain('竿（通常竿, リール）');
-      expect(breakdownEl.innerHTML).toContain('長靴のみ × 1 = 200円');
+      expect(breakdownEl.innerHTML).toContain('長靴 × 1 = 200円');
     });
   });
 

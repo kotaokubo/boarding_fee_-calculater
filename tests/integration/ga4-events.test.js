@@ -114,7 +114,7 @@ describe('GA4 Event Tracking', () => {
       state.men = 3;
       state.rentals = {
         '竿（通常竿, リール）': 2,
-        'カッパ長靴セット': 1,
+        'カッパ': 1,
         'ビシセット': 3
       };
       state.visitorName = '山田花子';
