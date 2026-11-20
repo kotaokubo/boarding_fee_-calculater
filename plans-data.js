@@ -92,7 +92,7 @@ const plans = {
       "holiday": { "minPeople": 15, "minPrice": 108000 },
       "sunday": { "minPeople": 12, "minPrice": 86400 }
     },
-    "rental": { "竿（通常竿, リール）": 600, "ビシセット": { "price": 1800, "refund": 1700 } },
+    "rental": { "竿（通常竿, リール）": 600, "ビシセット": { "price": 1800, "refund": 1600 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
     "visibleShared": true,
     "visibleCharter": true
@@ -104,7 +104,7 @@ const plans = {
       "holiday": { "minPeople": 12, "minPrice": 86400 },
       "sunday": { "minPeople": 10, "minPrice": 72000 }
     },
-    "rental": { "竿（通常竿, リール）": 600, "ビシセット": { "price": 1800, "refund": 1700 } },
+    "rental": { "竿（通常竿, リール）": 600, "ビシセット": { "price": 1800, "refund": 1600 } },
     "note": "アミコマセ・イカ短・付け餌・氷付き",
     "visibleShared": true,
     "visibleCharter": true
@@ -567,8 +567,8 @@ const plans = {
 };
 
 const commonRental = {
-  "カッパ長靴セット": 600,
-  "長靴のみ": 200
+  "カッパ": 500,
+  "長靴": 200
 };
 
 // 祝日リスト（YYYY-MM-DD）

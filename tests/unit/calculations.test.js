@@ -75,14 +75,14 @@ describe('calculateTotal - 乗合船', () => {
 
   it('複数のレンタル品の費用を正しく追加する', () => {
     state.men = 1;
-    state.rentals = { '竿（通常竿, リール）': 1, 'カッパ長靴セット': 1 };
+    state.rentals = { '竿（通常竿, リール）': 1, 'カッパ': 1 };
     const result = calculateTotal();
-    // 午前アジ: men=6800, 竿（通常竿, リール）=600, カッパ長靴セット=600
+    // 午前アジ: men=6800, 竿（通常竿, リール）=600, カッパ=500
     // subtotal: 6800
-    // rentalTotal: 600 + 600 = 1200
+    // rentalTotal: 600 + 500 = 1100
     expect(result.subtotal).toBe(6800);
-    expect(result.rentalTotal).toBe(1200);
-    expect(result.total).toBe(8000);
+    expect(result.rentalTotal).toBe(1100);
+    expect(result.total).toBe(7900);
   });
 
   it('レンタル数量がゼロの場合を正しく処理する', () => {
@@ -138,15 +138,15 @@ describe('calculateTotal - 乗合船', () => {
     state.men = 3;
     state.women = 2;
     state.student = 1;
-    state.rentals = { '竿（通常竿, リール）': 3, 'カッパ長靴セット': 2 };
+    state.rentals = { '竿（通常竿, リール）': 3, 'カッパ': 2 };
     const result = calculateTotal();
     // 午前アジ: men=6800, women=6000, student=3800
-    // 竿（通常竿, リール）=600, カッパ長靴セット=600
+    // 竿（通常竿, リール）=600, カッパ=500
     // subtotal: 3*6800 + 2*6000 + 1*3800 = 20400 + 12000 + 3800 = 36200
-    // rentalTotal: 3*600 + 2*600 = 1800 + 1200 = 3000
+    // rentalTotal: 3*600 + 2*500 = 1800 + 1000 = 2800
     expect(result.subtotal).toBe(36200);
-    expect(result.rentalTotal).toBe(3000);
-    expect(result.total).toBe(39200);
+    expect(result.rentalTotal).toBe(2800);
+    expect(result.total).toBe(39000);
     expect(result.breakdown.totalPeople).toBe(6);
   });
 });
@@ -416,15 +416,15 @@ describe('calculateTotal - 仕立て船', () => {
     state.men = 6;
     state.women = 2;
     state.student = 2;
-    state.rentals = { '竿（通常竿, リール）': 2, 'カッパ長靴セット': 1 };
+    state.rentals = { '竿（通常竿, リール）': 2, 'カッパ': 1 };
     const result = calculateTotal();
     // Minimum: 54400
     // Extra: 2 students -> 2*3800 = 7600
     // Subtotal: 62000
-    // Rentals: 2*600 + 1*600 = 1200 + 600 = 1800
+    // Rentals: 2*600 + 1*500 = 1200 + 500 = 1700
     expect(result.subtotal).toBe(62000);
-    expect(result.rentalTotal).toBe(1800);
-    expect(result.total).toBe(63800);
+    expect(result.rentalTotal).toBe(1700);
+    expect(result.total).toBe(63700);
   });
 
   it('土曜・連休：最低人数と最低料金が異なる（15名、15名ちょうど）', () => {
